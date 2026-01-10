@@ -1,5 +1,4 @@
 import React from 'react';  
-import '../Components/component.css';
 
 function Bottom() 
 {
@@ -10,3 +9,4 @@ function Bottom()
     )
 }
 export default Bottom;  
+
