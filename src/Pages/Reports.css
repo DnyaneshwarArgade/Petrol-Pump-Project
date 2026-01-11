@@ -1,0 +1,208 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+body {
+            background-color: #f4f6f9;
+        }
+.top-bar {
+           background: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+.search-box {
+  display: flex;
+  align-items: center;
+  gap:3px;
+  margin-right: 30px;
+}
+.search-box input {
+  width: 220px;
+}
+.icons{
+  margin-right: 60px;
+  display: flex;
+  align-items: center;
+}
+/* .icons span{
+  border-radius: 50%;
+} */
+.profile{
+  width:55px;
+  height:50px;
+  border-radius:50%;
+  background:#dbdfe8;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  margin-bottom: 5px;
+  justify-content:center;
+}
+.profile p h2{
+  align-items: center;
+  margin-top: 15px;
+}
+.banner img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+.stats-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-in-out;
+}
+.stats-card:hover{
+    transform: scale(1.05);
+}
+.icon-box {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.icon-green {
+  background-color: #28a745;
+}
+.icon-orange {
+  background-color: #fd7e14;
+}
+.icon-red {
+  background-color: #dc3545;
+}
+.card-title {
+  font-size: 14px;
+  color: #6c757d;
+}
+.card-value {
+  font-size: 18px;
+  font-weight: bold;
+}
+.week {
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+.card{
+      margin: 5px 50px 7px 50px;
+    }
+   .summary-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      background: #fff;
+      transition: transform 0.3s ease-in-out;
+    }
+    .summary-card:hover{
+      transform: scale(1.05);
+    }
+    .card-header-custom {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 15px;
+      font-weight: 600;
+      color: #fff;
+      font-size: 18px;
+    }
+    .petrol {
+      background: #198754;
+      border-bottom-right-radius: 50%;
+    }
+    .petrol:hover{
+      background-color: #00ff88;
+    }
+    .diesel {
+      background: #ce9930;
+      border-bottom-right-radius: 50%;
+    }
+    .diesel:hover{
+      background-color: #ffae00;
+    }
+    .cng {
+      background: #97e1a9;
+      border-bottom-right-radius: 50%;
+      color: #000;
+    }
+    .cng:hover{
+      background-color: #00ff40;
+    }
+    .card-body-custom {
+      padding: 16px;
+    }
+    .fuel-value {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .fuel-amount {
+      font-size: 23px;
+      font-weight: 600;
+      color: #1ca060;
+    }
+    .earned {
+      color: #6c757d;
+      font-size: 17px;
+    }
+    @media (max-width: 768px) {
+      .fuel-value {
+        font-size: 24px;
+      }
+    }
+      .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .table {
+              border-collapse: collapse;
+               text-align:center;
+        }
+        .table th {
+            background-color: #f8f9fa;
+            justify-content:space-between; 
+        }
+        .table td {
+            text-align: middle;
+            justify-content:space-between; 
+        }
+        .search-box input {
+            max-width: 220px;
+        }
+        .status-btn {
+            background-color: #e9f2ff;
+            border: none;
+            color: #0d6efd;
+            padding: 4px 11px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-left: 90px;
+        }
+        .pagination .page-link {
+            color: #0d6efd;
+            width: 40px;
+            height: 30px;
+            margin-top: 10px;
+        }
+        .pagination .active .page-link {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;   
+        }
+        .Search{
+            padding: 10px 70px 0px 100px;
+        }
+        @media (max-width: 768px) {
+            .search-box {
+                margin-top: 10px;
+                width: 100%;
+            }
+            .search-box input {
+                max-width: 100%;
+            }
+        }
