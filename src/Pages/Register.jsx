@@ -53,9 +53,9 @@ function Register() {
           overflow: hidden;
         }
 
-        /* IMAGE */
+        /* IMAGE ONLY (HEIGHT INCREASED) */
         .register-header {
-          height: 200px; 
+          height: 200px; /* increased height */
           background-image: url(${PumpImage});
           background-size: cover;
           background-position: center;
@@ -66,7 +66,7 @@ function Register() {
           content: "";
           position: absolute;
           inset: 0;
-          background: rgba(0, 0, 0, 0.20);
+          background: rgba(0, 0, 0, 0.15);
         }
 
         form {
@@ -117,6 +117,7 @@ function Register() {
       <div className="register-container">
         <div className="register-card">
 
+    
           <div className="register-header"></div>
 
           <form onSubmit={handleSubmit}>
