@@ -3,25 +3,42 @@
   font-family: "Segoe UI", sans-serif;
 }
 
+/* FULL PAGE PETROL PUMP BACKGROUND */
 .login-page {
+
   min-height: 100vh;
-  background: #eef1f5;
+  background-image: url("public/IndianOil.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
+/* Dark overlay */
+.login-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* LOGIN CARD */
 .login-card {
   width: 420px;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  z-index: 1;
 }
 
+/* HEADER IMAGE */
 .login-header {
   height: 150px;
-  background-image: url("public/IndianOil.png");
+  background-image: url("https://img.freepik.com/premium-photo/close-up-businessman-hand-using-smartphone-with-glowing-abstract-fingerprint-interface-blurry-background-digital-security-information-concept_670147-6742.jpg?semt=ais_hybrid&w=740&q=80");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -30,34 +47,7 @@
   position: relative;
 }
 
-/* Dark overlay for better text visibility */
-.login-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-
-  
-}
-
-/* .header-text {
-  position: relative;
-  text-align: center;
-  margin-bottom: auto;
-  margin-right: auto;
-  color: rgb(14, 9, 28);
-} */
-
-.header-text h1 {
-  margin: 0;
-  font-size: 32px;
-}
-
-.header-text p {
-  margin-top: 5px;
-  font-size: 14px;
-}
-
+/* BODY */
 .login-body {
   padding: 30px;
 }
@@ -69,6 +59,7 @@
   border-radius: 6px;
   padding: 10px;
   margin-bottom: 15px;
+  position: relative;
 }
 
 .input-icon {
@@ -79,8 +70,24 @@
 .input-group input {
   border: none;
   outline: none;
-  width: 100%;
   font-size: 16px;
+  flex: 1;
+}
+
+/* BLACK & WHITE EYE ICON */
+.eye-icon {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/159/159604.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.eye-icon:hover {
+  opacity: 1;
 }
 
 .forgot {
@@ -119,4 +126,15 @@
   color: #1f6fdc;
   font-weight: bold;
   text-decoration: none;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 480px) {
+  .login-card {
+    width: 90%;
+  }
+
+  .login-body {
+    padding: 20px;
+  }
 }

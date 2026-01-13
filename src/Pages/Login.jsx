@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Pages/Login.css'; 
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="login-page">
-      <div className="login-card">
-        
-         {/* Header  */}
-        <div className="login-header">
-        </div>
+      <div className="login-overlay"></div>
 
-        {/* Form */}
+      <div className="login-card">
+        <div className="login-header"></div>
+
         <div className="login-body">
           <div className="input-group">
             <span className="input-icon">👤</span>
             <input type="text" placeholder="Username" />
           </div>
 
-          <div className="input-group">
+          <div className="input-group password-group">
             <span className="input-icon">🔒</span>
-            <input type="password" placeholder="Password" />
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+            />
+            <span
+              className="eye-icon"
+              onClick={() => setShowPassword(!showPassword)}
+              title="Show / Hide Password"
+            ></span>
           </div>
 
           <div className="forgot">
