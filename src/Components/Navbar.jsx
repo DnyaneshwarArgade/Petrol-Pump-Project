@@ -1,27 +1,3 @@
-// import React from "react";
-// import "./Navbar.css";
-// import logo from "../assets/PumpIcon.jpeg";
-
-// function Navbar() {
-//   return (
-//     <nav className="navbar">
-//       <div className="navbar-container">
-
-//         {/* Logo */}
-//         <div className="logo">
-//           <img src={logo} alt="Website Logo" />
-//         </div>
-
-//         {/* Button */}
-//         <button className="nav-btn">Side Bar</button>
-
-//       </div>
-//     </nav>
-//   );
-// }
-
-// export default Navbar;
-
 
 import React, { useState } from "react";
 import "./Navbar.css";
