@@ -1,0 +1,99 @@
+
+.navbar {
+  height: 60px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 1100;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+}
+
+/* Button */
+.nav-btn {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.nav-btn:hover {
+  background-color: #777;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* hidden by default */
+  width: 250px;
+  height: 100%;
+  background-color: #222;
+  color: #fff;
+  padding-top: 60px; /* push content below navbar */
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  background-color: #444;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+/* ------------------------- */
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;       /* Full width sidebar on mobile */
+    left: -100%;       /* Hidden initially */
+  }
+
+  .sidebar.open {
+    left: 0;           /* Slide in fully */
+  }
+
+  .nav-btn {
+    padding: 10px 15px;
+    font-size: 16px;
+  }
+}
