@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 import PumpImage from "../assets/PumpImage.jpeg";
+import "./register.css";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -22,119 +24,125 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Registered Successfully");
+
+    Swal.fire({
+      icon: "success",
+      title: "Registered Successfully!",
+      text: "Your account has been created 🎉",
+      timer: 5000,
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
+
+    setFormData({
+      fullName: "",
+      email: "",
+      mobile: "",
+      pumpName: "",
+      pumpId: "",
+      address: "",
+      username: "",
+      password: ""
+    });
   };
 
   return (
-    <>
-      {/* CSS */}
-      <style>{`
-        * {
-          box-sizing: border-box;
-          font-family: Arial, sans-serif;
-        }
+    <div className="register-container">
+      <div className="register-card">
 
-        .register-container {
-          min-height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background: #eef2f7;
-          padding: 20px;
-        }
+        {/* IMAGE */}
+        <div
+          className="register-header"
+          style={{ backgroundImage: `url(${PumpImage})` }}
+        ></div>
 
-        .register-card {
-          background: #fff;
-          width: 100%;
-          max-width: 450px;
-          border-radius: 10px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-          overflow: hidden;
-        }
+        <div className="register-title">Sign Up</div>
 
-        /* IMAGE ONLY (HEIGHT INCREASED) */
-        .register-header {
-          height: 200px; /* increased height */
-          background-image: url(${PumpImage});
-          background-size: cover;
-          background-position: center;
-          position: relative;
-        }
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="fullName"
+            placeholder="Full Name"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
+          />
 
-        .register-header::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.15);
-        }
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-        form {
-          padding: 25px;
-          display: flex;
-          flex-direction: column;
-        }
+          <input
+            type="tel"
+            name="mobile"
+            placeholder="Mobile Number"
+            value={formData.mobile}
+            onChange={(e) => {
+              const value = e.target.value.replace(/[^0-9]/g, "");
+              setFormData({ ...formData, mobile: value });
+            }}
+            required
+          />
 
-        form input,
-        form textarea {
-          width: 100%;
-          padding: 12px;
-          margin-bottom: 15px;
-          border-radius: 6px;
-          border: 1px solid #ccc;
-          font-size: 14px;
-        }
+          <input
+            type="text"
+            name="pumpName"
+            placeholder="Petrol Pump Name"
+            value={formData.pumpName}
+            onChange={handleChange}
+            required
+          />
 
-        form textarea {
-          resize: none;
-          height: 70px;
-        }
+          <input
+            type="text"
+            name="pumpId"
+            placeholder="Pump ID"
+            value={formData.pumpId}
+            onChange={handleChange}
+            required
+          />
 
-        .register-btn {
-          width: 100%;
-          padding: 12px;
-          background: linear-gradient(135deg, #0a4dbf, #1e90ff);
-          color: white;
-          border: none;
-          border-radius: 6px;
-          font-size: 16px;
-          cursor: pointer;
-        }
+          <textarea
+            name="address"
+            placeholder="Address"
+            value={formData.address}
+            onChange={handleChange}
+            required
+          />
 
-        .register-btn:hover {
-          background: linear-gradient(135deg, #083a91, #187bcd);
-        }
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
 
-        @media (max-width: 480px) {
-          form input,
-          form textarea {
-            font-size: 13px;
-          }
-        }
-      `}</style>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
 
-      {/* JSX */}
-      <div className="register-container">
-        <div className="register-card">
+          <button type="submit" className="register-btn">
+            Sign Up
+          </button>
 
-    
-          <div className="register-header"></div>
-
-          <form onSubmit={handleSubmit}>
-            <input type="text" name="fullName" placeholder="Full Name" onChange={handleChange} required />
-            <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required />
-            <input type="text" name="mobile" placeholder="Mobile Number" onChange={handleChange} required />
-            <input type="text" name="pumpName" placeholder="Petrol Pump Name" onChange={handleChange} required />
-            <input type="text" name="pumpId" placeholder="Pump ID" onChange={handleChange} required />
-            <textarea name="address" placeholder="Address" onChange={handleChange} required />
-            <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-            <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-
-            <button type="submit" className="register-btn">Register</button>
-          </form>
-        </div>
+          <div className="login-text">
+            Do you have an account? <span>Sign in</span>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }
 
