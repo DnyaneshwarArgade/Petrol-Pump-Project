@@ -1,0 +1,76 @@
+/* Navbar main */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: #ffffff;
+  box-shadow: 0 6px 10px rgba(14, 13, 13, 0.2);
+}
+
+/* Left logo */
+.nav-left img {
+  height: 70px;
+}
+
+/* Right side */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Welcome text */
+.welcome-text {
+ display: flex;
+  background: #f1f6ff;
+  color:#3d6edc;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Logout icon */
+.logout-icon {
+  font-size: 22px;
+  color: #1e5eff;
+  cursor: pointer;
+}
+
+/* Right image */
+.station-img {
+  /* height: 45px;
+ width: 45px; */
+  max-width: 50%;
+  height: 80px;
+}
+
+
+/* Responsive – tablet */
+@media (max-width: 768px) {
+  .station-img {
+    height: 60px;   /* shrink image */
+  }
+
+  .welcome-text {
+    font-size: 20px;
+  }
+}
+
+/* Responsive – mobile */
+@media (max-width: 480px) {
+  .station-img {
+    height: 60px;
+  }
+
+  .welcome-text {
+    font-size: 15px;
+  }
+
+  .nav-right {
+    gap: 8px;
+  }
+}
