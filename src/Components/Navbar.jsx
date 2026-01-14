@@ -1,44 +1,59 @@
+// import "./Navbar.css";
+// import { FiLogOut } from "react-icons/fi";
 
-import React, { useState } from "react";
+// function Navbar () {
+//   return (
+//     <nav className="navbar">
+//       {/* Left Logo */}
+//       <div className="nav-left">
+//         <img
+//           src="/PumpIcon.jpeg" alt="Petrol pump"  />  
+//       </div>
+
+//       {/* Right Welcome */}
+//       <div className="nav-right">Welcome</div>
+      
+//       <div className="logout-icon"> 
+//         <FiLogOut className="logout-icon" />
+//          </div>
+        
+
+//   <img src="/petrol.avif" className="img"  alt="img"/>
+//        </nav>
+
+//   );
+// };
+
+// export default Navbar;
+
+
+
+
+
 import "./Navbar.css";
-import logo from "../assets/PumpIcon.jpeg";
+import { FiLogOut } from "react-icons/fi";
 
 function Navbar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
-    <>
-      <nav className="navbar">
-        <div className="navbar-container">
-          {/* Logo */}
-          <div className="logo">
-            <img src={logo} alt="Website Logo" />
-          </div>
-
-          {/* Button */}
-          <button className="nav-btn" onClick={toggleSidebar}>
-            Side Bar
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
-        <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Services</li>
-          <li>Contact</li>
-        </ul>
+    <nav className="navbar">
+      {/* Left Logo */}
+      <div className="nav-left">
+        <img src="/PumpIcon.jpeg" alt="Petrol Pump Logo" />
       </div>
 
-      {/* Overlay to close sidebar when clicking outside */}
-      {isSidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
-    </>
+      {/* Right Section */}
+      <div className="nav-right">
+        <span className="welcome-text">Welcome</span>
+
+        <FiLogOut className="logout-icon" />
+
+        <img
+          src="/petrol.avif"
+          alt="Petrol Station"
+          className="station-img"
+        />
+      </div>
+    </nav>
   );
 }
 
