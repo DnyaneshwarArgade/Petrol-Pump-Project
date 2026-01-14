@@ -7,10 +7,10 @@ const Reports = () => {
   return (
     <>
       <div className="container-fluid p-3">
-        <div className="top-bar">
+        <div className="top-bar flex-wrap gap-2">
           <h4 className="mb-0 fw-bold">Reports Page </h4>
 
-          <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center flex-wrap gap-3">
             <div className="search-box">
               <input
                 type="text"
@@ -19,7 +19,7 @@ const Reports = () => {
             </div>
 
             <div className="icons">
-              <span className="fs-5"><h2>🔔</h2></span>
+              <span className="m-1"><h2>🔔</h2></span>
               <div className="profile">
                 <p><h2>&#128104;</h2></p>
               </div>
@@ -36,9 +36,9 @@ const Reports = () => {
       </div>
 
       <div className="container-fluid p-3">
-        <div className="row">
+        <div className="row g-3">
           {/* Total Sales */}
-          <div className="col-lg-4 col-md-6 mb-3">
+          <div className="col-lg-4 col-md-6">
             <div className="card stats-card">
               <div className="card-body d-flex align-items-center">
                 <div className="icon-box icon-green me-3">
@@ -52,7 +52,7 @@ const Reports = () => {
             </div>
           </div>
 
-          <div className="col-lg-4 col-md-6 mb-3">
+          <div className="col-lg-4 col-md-6">
             <div className="card stats-card">
               <div className="card-body d-flex align-items-center">
                 <div className="icon-box icon-orange me-3">
@@ -60,12 +60,12 @@ const Reports = () => {
                 </div>
                 <div>
                   <div className="card-title">Total Fuels Dispensed</div>
-                  <div className="card-value">18,290 L</div>
+                  <div className="card-value"> ₹ 18,290 L</div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-lg-4 col-md-12 mb-3">
+          <div className="col-lg-4 col-md-12">
             <div className="card stats-card">
               <div className="card-body d-flex align-items-center justify-content-between">
                 <div className="d-flex align-items-center">
@@ -86,9 +86,9 @@ const Reports = () => {
         </div>
       </div>
 <div className="card">
-<div className="container py-4">
-  <h4 className="mb-4 fw-bold">Fuel Sales Summary</h4>
-  <div className="row g-4">
+<div className="container px-3 mt-4">
+  <h4 className="fw-bold mb-3">Fuel Sales Summary</h4>
+  <div className="row g-3">
 
     <div className="col-md-4">
       <div className="summary-card">
@@ -131,9 +131,9 @@ const Reports = () => {
    </div>
   </div>
 </div>
- <div className="card p-4">
-<div className="container-fluid mb-4">
-        <div className="d-flex flex-wrap justify-content-between align-items-center mb-3">
+ <div className="card p-3">
+<div className="container-fluid px-3 mt-4">
+        <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
             <h5 className="mb-0 fw-bold">Recent Transactions</h5>
             <div className="search-box">
             <input 
