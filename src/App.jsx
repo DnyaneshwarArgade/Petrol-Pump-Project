@@ -11,6 +11,7 @@ import Reports from './Pages/Reports';
 import StaffManagement from './Pages/StaffManagement';
 import Sidebar from './Components/SideBar/Sidebar';
 
+
 function App() {
   return (
     <BrowserRouter>
