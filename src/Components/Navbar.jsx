@@ -44,6 +44,18 @@ function Navbar() {
           <li onClick={() => setIsRightOpen(false)}>
             <Link to="/contact">Contact</Link>
           </li>
+           <li onClick={() => setIsRightOpen(false)}>
+            <Link to="/contact">Sales Management</Link>
+          </li>
+           <li onClick={() => setIsRightOpen(false)}>
+            <Link to="/contact">Fuel Stock</Link>
+          </li>
+           <li onClick={() => setIsRightOpen(false)}>
+            <Link to="/contact">Nozzle Management</Link>
+          </li>
+           <li onClick={() => setIsRightOpen(false)}>
+            <Link to="/contact">Logout</Link>
+          </li>
         </ul>
 
          
