@@ -50,7 +50,7 @@ function Register() {
     <div className="register-container">
       <div className="register-card">
 
-        {/* IMAGE */}
+        
         <div
           className="register-header"
           style={{ backgroundImage: `url(${PumpImage})` }}
