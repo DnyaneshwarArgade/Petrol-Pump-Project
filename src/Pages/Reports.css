@@ -8,37 +8,45 @@ body {
 .top-bar {
            background: #fff;
             padding: 12px 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-left: 10px;
         }
-.search-box {
+
+    .top-bar1 {
   display: flex;
   align-items: center;
-  gap:2px;
-  margin-right: 25px;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: nowrap;  
+  width: 340px; 
+   background-color: white;
 }
-.search-box input {
-  width: 220px;
-}
-.icons i{
-  font-size: 30px;
-  color: red;
-  text-align: center;
-  gap: 38px;
+.search-input {
+  flex: 1;                
+  min-width: 0;
 }
 
-.icons i:hover {
-  background-color: red;
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  color: rgb(220, 24, 24);
+}
+
+.icons i {
+  font-size: 20px;
+  cursor: pointer;
+   font-size: 30px;
+}
+.icons i:hover{
+   background-color: rgb(218, 59, 59);
   color: white;
-  transform: scale(1.2) rotate(2deg);
-  box-shadow: 0 4px 12px rgba(139, 80, 80, 0.4);
-}
-
-/* Click animation */
-.icons i:active {
-  transform: scale(0.95);
+  transform: scale(1.0) rotate(1deg);
+  box-shadow: 0 4px 12px rgba(216, 133, 133, 0.4);
 }
 .banner img {
   width: 100%;
@@ -49,11 +57,10 @@ body {
 }
 .stats-card {
   border-radius: 12px;
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); */
-   transition: transform 0.3s ease-in-out; 
+  transition: transform 0.3s ease-in-out; 
 }
 .stats-card:hover{
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 .icon-box {
   width: 45px;

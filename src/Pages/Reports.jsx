@@ -1,9 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
 import Swal from "sweetalert2";
-
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Reports.css";
 
@@ -12,25 +10,23 @@ const Reports = () => {
     <>
       <div className="container-fluid p-3">
         <div className="top-bar flex-wrap gap-2">
-          <h4 className="mb-0 fw-bold"> </h4>
+          <h4 className="mb-0 fw-bold">Report </h4>
 
           <div className="d-flex align-items-center flex-wrap gap-3">
-            <div className="search-box">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"/>
-            </div>
+  <div className="top-bar1">
+  <input
+    type="text"
+    className="search-input"
+    placeholder="Search"
+  />
 
-            <div className="icons">
-              <a href="/notifications">
-            <i className="fa-solid fa-bell"></i></a>
-              <a href="/profile">
-            <i className="fa-solid fa-user"></i></a>
-            </div>
+  <div className="icons">
+    <i className="bi bi-bell-fill"></i>
+    <i className="bi bi-person-fill"></i>
+  </div>
+</div>
           </div>
         </div>
-
         <div className="banner">
           <img
             src="https://static.vecteezy.com/system/resources/previews/023/890/504/non_2x/gas-station-3d-01-vector.jpg"
