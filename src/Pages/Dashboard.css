@@ -3,8 +3,10 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  min-height: calc(100vh - 70px); 
   background-color: #f5f7fa;
   padding: 30px 20px;
+  padding-bottom: 100px; 
 }
 
 .sales-cards {
@@ -83,6 +85,13 @@
     min-height: 105px;
     padding: 18px;
   }
+
+  @media (max-width: 600px) {
+  .dashboard {
+    padding-bottom: 130px; 
+  }
+}
+
 
   .card-icon {
     width: 48px;
