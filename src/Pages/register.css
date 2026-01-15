@@ -1,4 +1,4 @@
-/* * {
+ * {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
@@ -70,7 +70,7 @@ form textarea {
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 17px;
+  font-size: 16px;
   cursor: pointer;
 }
 
@@ -88,4 +88,4 @@ form textarea {
   color: #1e90ff;
   cursor: pointer;
   font-weight: bold;
-} */
+} 
