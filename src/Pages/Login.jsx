@@ -1,15 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import "../Pages/Login.css";
 import Swal from "sweetalert2";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaUser, FaLock } from "react-icons/fa";
+
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
   // STATIC CREDENTIALS
   const staticUsername = "admin@admin.com";
   const staticPassword = "password"; 
+  
 const handleLogin = () => {
   if (username === staticUsername && password === staticPassword) {
     Swal.fire({
@@ -20,6 +24,10 @@ const handleLogin = () => {
       timer: 5000, // 5 seconds
       timerProgressBar: true,
     });
+    // Navigate to dashboard after login
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 1500);
   } 
   else {
     Swal.fire({
@@ -32,6 +40,7 @@ const handleLogin = () => {
     });
   }
 };
+
  return (
     <div className="login-page">
       <div className="login-overlay"></div>
@@ -46,7 +55,7 @@ const handleLogin = () => {
         <div className="login-body">
           {/* USERNAME */}
           <div className="input-group">
-            <span className="input-icon">👤</span>
+            <span className="input-icon"><FaUser /></span>
             <input
               type="text"
               placeholder="Username"
@@ -56,7 +65,7 @@ const handleLogin = () => {
           </div>
           {/* PASSWORD */}
           <div className="input-group password-group">
-            <span className="input-icon">🔒</span>
+            <span className="input-icon"><FaLock /></span>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -93,4 +102,3 @@ const handleLogin = () => {
 };
 
 export default Login;
-
