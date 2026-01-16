@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import PumpImage from "../assets/PumpImage.jpeg";
 import "./register.css";
@@ -138,12 +139,14 @@ function Register() {
           </button>
 
           <div className="login-text">
-            Do you have an account? <span>Sign in</span>
+            Do you have an account?
+            <Link to="/">Sign in</Link>
           </div>
         </form>
       </div>
     </div>
   );
+
 }
 
 export default Register;
