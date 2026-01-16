@@ -1,18 +1,15 @@
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import "../Pages/Login.css";
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   // STATIC CREDENTIALS
   const staticUsername = "admin@admin.com";
-  const staticPassword = "password";
-
-  
+  const staticPassword = "password"; 
 const handleLogin = () => {
   if (username === staticUsername && password === staticPassword) {
     Swal.fire({
@@ -23,7 +20,8 @@ const handleLogin = () => {
       timer: 5000, // 5 seconds
       timerProgressBar: true,
     });
-  } else {
+  } 
+  else {
     Swal.fire({
       icon: "error",
       title: "Login Failed",
@@ -34,16 +32,7 @@ const handleLogin = () => {
     });
   }
 };
-
-
-
-
-
-
-
-
-
-  return (
+ return (
     <div className="login-page">
       <div className="login-overlay"></div>
 
@@ -65,7 +54,6 @@ const handleLogin = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-
           {/* PASSWORD */}
           <div className="input-group password-group">
             <span className="input-icon">🔒</span>
@@ -75,7 +63,6 @@ const handleLogin = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-
             <span
               className="eye-icon"
               onClick={() => setShowPassword(!showPassword)}
@@ -92,9 +79,13 @@ const handleLogin = () => {
             Login
           </button>
 
-          <div className="register">
+          {/* <div className="register"> 
             Don’t have an account? <a href="#">Register</a>
-          </div>
+          </div> */}
+         <div className="register">
+  Don’t have an account? <Link to="/register">Register</Link>
+</div>
+
         </div>
       </div>
     </div>
