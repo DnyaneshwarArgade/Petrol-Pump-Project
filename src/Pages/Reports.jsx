@@ -1,5 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import Swal from "sweetalert2";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Reports.css";
 
@@ -8,25 +10,23 @@ const Reports = () => {
     <>
       <div className="container-fluid p-3">
         <div className="top-bar flex-wrap gap-2">
-          <h4 className="mb-0 fw-bold">Reports Page </h4>
+          <h4 className="mb-0 fw-bold">Report </h4>
 
           <div className="d-flex align-items-center flex-wrap gap-3">
-            <div className="search-box">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"/>
-            </div>
+  <div className="top-bar1">
+  <input
+    type="text"
+    className="search-input"
+    placeholder="Search"
+  />
 
-            <div className="icons">
-              <span className="m-1"><h2>🔔</h2></span>
-              <div className="profile">
-                <p><h2>&#128104;</h2></p>
-              </div>
-            </div>
+  <div className="icons">
+    <i className="bi bi-bell-fill"></i>
+    <i className="bi bi-person-fill"></i>
+  </div>
+</div>
           </div>
         </div>
-
         <div className="banner">
           <img
             src="https://static.vecteezy.com/system/resources/previews/023/890/504/non_2x/gas-station-3d-01-vector.jpg"
@@ -79,13 +79,15 @@ const Reports = () => {
                 </div>
                 <select className="week">
                   <option>This Week</option>
+                  <option>Monthly</option>
+                  <option>Yearly</option>
                 </select>
               </div>
             </div>
           </div>
         </div>
       </div>
-<div className="card">
+<div className="card p-3">
 <div className="container px-3 mt-4">
   <h4 className="fw-bold mb-3">Fuel Sales Summary</h4>
   <div className="row g-3">
