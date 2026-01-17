@@ -1,14 +1,20 @@
-
 .navbar {
-  height: 60px;
-  background-color: #333;
+  height: 70px;
+  background-color: lab(100% 0.01 -0.01);
   color: #fff;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 20px;
   position: fixed;
   width: 100%;
   z-index: 1100;
+}
+
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .navbar-container {
@@ -18,8 +24,18 @@
 }
 
 .logo img {
-  height: 50px;
+  height: 55px;
   width: auto;
+  margin-left: 15px;
+}
+
+.navbar-title h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #302e2e;
+  margin-left: 10px;
 }
 
 /* Button */
@@ -40,12 +56,12 @@
 .sidebar {
   position: fixed;
   top: 0;
-  left: -250px; 
+  left: -250px;
   width: 250px;
   height: 100%;
   background-color: #222;
   color: #fff;
-  padding-top: 60px; 
+  padding-top: 60px;
   transition: left 0.3s ease;
   z-index: 1000;
 }
@@ -76,20 +92,33 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+
+.menu-btn {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #080808;
+  margin-right: 20px;
+}
+
 
 /* ------------------------- */
 /* Responsive for smaller screens */
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%;       /* Full width sidebar on mobile */
-    left: -100%;       /* Hidden initially */
+    width: 100%;
+    /* Full width sidebar on mobile */
+    left: -100%;
+    /* Hidden initially */
   }
 
   .sidebar.open {
-    left: 0;           /* Slide in fully */
+    left: 0;
+    /* Slide in fully */
   }
 
   .nav-btn {

@@ -1,0 +1,11 @@
+.layout-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-layout {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 0px;
+}
