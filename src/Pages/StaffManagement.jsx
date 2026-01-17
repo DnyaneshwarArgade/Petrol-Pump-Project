@@ -19,7 +19,7 @@ const EmployeeManagement = () => {
   return (
     <div className="container-fluid px-4 py-3 main-bg">
 
-      {/* ===== HEADER ===== */}
+
       <div className="d-flex justify-content-between align-items-center mb-4 header-bar">
         <div>
           <h3 className="fw-bold">Employee Management</h3>
@@ -36,7 +36,7 @@ const EmployeeManagement = () => {
         </div>
       </div>
 
-      {/* ===== TOP CARDS ===== */}
+     
       <div className="row g-4 mb-4">
         <Card icon={<BsPeopleFill />} title="All Employees" count="12" color="#0F8A4B" />
         <Card icon={<BsPersonLinesFill />} title="Attendants" count="6" color="#00B8E6" />
@@ -45,10 +45,10 @@ const EmployeeManagement = () => {
         <Card icon={<BsBellFill />} title="Pending Requests" count="3" color="#0F8A4B" bg="#E9F7EF" />
       </div>
 
-      {/* ===== MANAGE EMPLOYEES ===== */}
+
       <div className="manage-box">
 
-        {/* Title + Search */}
+    
         <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
           <h5 className="fw-bold mb-0">Manage Employees</h5>
 
@@ -58,10 +58,10 @@ const EmployeeManagement = () => {
           </div>
         </div>
 
-        {/* ===== FILTER ROW ===== */}
+
         <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
 
-          {/* Left Filters */}
+         
           <div className="d-flex gap-3 flex-wrap">
             <select className="form-select filter-select">
               <option>All Departments</option>
@@ -72,7 +72,7 @@ const EmployeeManagement = () => {
             </select>
           </div>
 
-          {/* Right Settings + Export */}
+          
           <div className="d-flex gap-2">
             <button className="btn btn-light filter-icon-btn">⚙️</button>
 
@@ -95,7 +95,6 @@ const EmployeeManagement = () => {
 
         </div>
 
-        {/* ===== TABLE ===== */}
         <div className="table-responsive">
           <table className="table align-middle">
             <thead>
@@ -129,11 +128,8 @@ const EmployeeManagement = () => {
                 <td>david.miller@gmail.com</td>
                 <td>9858755565</td>
                 <td>
-                  {/* <span className="shift-day">Day</span> */}
 
-                  
-                  <select className="form-select shift-select">
-                 <option>Day</option>
+                  <select className="form-select shift-select"><option>Day</option>
                <option>Evening</option>
                  <option>Night</option>
                  <option>Afternoon</option>
@@ -150,7 +146,7 @@ const EmployeeManagement = () => {
           </table>
         </div>
 
-        {/* Footer */}
+
         <div className="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
           <button className="btn btn-light btn-sm">Delete Selected</button>
           <small className="text-muted">Showing 1 of 1</small>
@@ -164,7 +160,7 @@ const EmployeeManagement = () => {
   );
 };
 
-/* Card Component */
+
 const Card = ({ icon, title, count, color, bg }) => (
   <div className="col-12 col-sm-6 col-md-4 col-lg-2 flex-grow-1">
     <div className="emp-card" style={{ background: bg || "#fff" }}>

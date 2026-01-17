@@ -1,92 +1,98 @@
 
    body {
-  background: #f6f7fb;
-  }
+    background: #f6f7fb;
+    }
 
    .main-bg {
-  background: #f6f7fb;
-  min-height: 100vh;
-  }
-  /* Header Icons */
+     background: #f6f7fb;
+    min-height: 100vh;
+    }
+  
    .icon-circle {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
-  }
-
-    /* Cards */
-   .emp-card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 18px 20px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
-  height: 90px;
+    width: 38px;
+     height: 38px;
+   border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+     justify-content: center;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+    .emp-card {
+    display: flex;
+     align-items: center;
+    gap: 15px;
+    padding: 18px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+   height: 90px;
+    cursor: pointer;
+    transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease;
+        }
+   .emp-card:hover {
+    transform: translateY(-6px);
+   box-shadow: 0px 10px 20px rgba(0,0,0,0.15);
+    background-color: #f9fffc;
+   }
+     .emp-icon {
+     width: 55px;
+     height: 55px;
+     border-radius: 50%;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+      color: white;
+    font-size: 22px;
    }
 
-   .emp-icon {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 22px;
+
+    .manage-box {
+    background: #fff;
+   padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.05);
    }
 
-   /* Manage Box */
-  .manage-box {
-  background: #fff;
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0px 3px 8px rgba(0,0,0,0.05);
-   }
 
-  /* Search */
    .search-box {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: #f6f7fb;
-  padding: 6px 10px;
-  border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f6f7fb;
+    padding: 6px 10px;
+    border-radius: 8px;
    }
 
    .search-box input {
-  border: none;
-  outline: none;
-  background: transparent;
+    border: none;
+   outline: none;
+    background: transparent;
    }
 
-  /* Filters */
+
    .filter-select {
-  width: 180px;
-  border-radius: 8px;
+    width: 180px;
+     border-radius: 8px;
    }
 
    .filter-icon-btn {
-  border-radius: 8px;
+     border-radius: 8px;
    }
 
-   /* Table */
-  .user-icon {
-  font-size: 38px;
-  color: #0F8A4B;
+  
+    .user-icon {
+    font-size: 38px;
+    color: #0F8A4B;
    }
 
    .status-active {
-  background: #D4F4DD;
-  color: #0F8A4B;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 13px;
+    background: #D4F4DD;
+    color: #0F8A4B;
+   padding: 4px 12px;
+   border-radius: 20px;
+    font-size: 13px;
    }
 
   .shift-day {
@@ -100,7 +106,7 @@
   padding: 4px 8px;
   min-width: 90px;
    }
-  /* Pagination */
+
    .pagination-box {
      display: flex;
   gap: 5px;
@@ -118,8 +124,7 @@
   color: #fff;
   }
 
-/* ===== RESPONSIVE ===== */
-
+  
    @media (max-width: 991px) {
   .emp-card {
     height: auto;
