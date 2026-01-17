@@ -24,18 +24,18 @@
 }
 
 .logo img {
-  height: 55px;
+  height: 50px;
   width: auto;
-  margin-left: 15px;
+  /* margin-left: 10px; */
 }
 
 .navbar-title h1 {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   white-space: nowrap;
   color: #302e2e;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 /* Button */
