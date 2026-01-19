@@ -87,10 +87,6 @@ const handleLogin = () => {
           <button className="login-btn" onClick={handleLogin}>
             Login
           </button>
-
-          {/* <div className="register"> 
-            Don’t have an account? <a href="#">Register</a>
-          </div> */}
          <div className="register">
   Don’t have an account? <Link to="/register">Register</Link>
 </div>

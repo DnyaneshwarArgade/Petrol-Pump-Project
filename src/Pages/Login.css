@@ -76,23 +76,7 @@
   color: #000;
   font-size: 18px;
 }
-/* LOGIN BUTTON */
-.login-btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 5px;
-}
-/* HOVER EFFECT */
-.login-btn:hover {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #000;
-}
+
 .forgot {
   text-align: right;
   margin-bottom: 20px;
@@ -110,7 +94,7 @@
   border: none;
   border-radius: 14px;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 600;
   cursor: pointer;
   position: relative;
