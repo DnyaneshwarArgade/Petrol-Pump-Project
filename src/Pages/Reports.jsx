@@ -44,7 +44,7 @@ const Reports = () => {
     <> 
 <div className="container-fluid p-2">
       <div className="d-flex align-items-center  justify-content-between">
-        <h5 className="mb-0 fw-bold">Report Management</h5>
+        <h4 className="mb-0 fw-bold">Report Management</h4>
       </div>
  <div className="banner mt-2  h-25">
     <img src="https://img.freepik.com/premium-photo/electric-cha…ith-eco-friendly-clean-energy_564714-3.jpg"
@@ -94,13 +94,13 @@ const Reports = () => {
                 <div className="card-value">₹ 1,23,350</div>
             </div>
           </div>
-      <div className="dropdown-container">
+      {/* <div className="dropdown-container">
            <select  id="timeFilter" className="filter-dropdown" onchange="updateData(this.value)">
            <option value="thisWeek">This Week</option>
            <option value="monthly">Monthly</option>
            <option value="yearly">Yearly</option>
         </select>
-      </div>
+      </div> */}
       </div>
     </div>
   </div>
@@ -150,7 +150,7 @@ const Reports = () => {
   {/* Transactions */}
   <div className="container-fluid px-3 mt-4 mb-5">
   <div className="d-flex justify-content-between">
-  <h5 className="fw-bold m-2">Recent Transactions</h5>
+  <h5 className="fw-bold mt-3">Recent Transactions</h5>
    <div className="position-relative m-3" style={{ width: "310px" }}>
           <input
             ref={inputRef}
@@ -178,7 +178,7 @@ const Reports = () => {
         </div>
       
   <div className="table-scroll">
-    <table className="table table-bordered table-hover table-striped">
+    <table className="table table-bordered table-hover table-striped mb-3">
       <thead className="table-light">
         <tr>
           <th>Date</th>
@@ -205,7 +205,7 @@ const Reports = () => {
       {data.length > itemsPerPage && (
            <nav className="d-flex justify-content-center mt-3">
              <ul className="pagination gap-2">
-               <li className="page-item">
+               <li className="page-item mb-3">
                  <button
                    className="page-link rounded-pill"
                    onClick={() => handlePageChange(1)}
@@ -234,7 +234,7 @@ const Reports = () => {
                    </button>
                  </li>
                ))}
-               <li className="page-item">
+               <li className="page-item ">
                  <button
                    className="page-link rounded-pill"
                    onClick={() => handlePageChange(currentPage + 1)}
@@ -243,7 +243,7 @@ const Reports = () => {
                    »
                   </button>
                </li>
-               <li className="page-item">
+               <li className="page-item ">
                  <button
                    className="page-link rounded-pill"
                    onClick={() => handlePageChange(totalPages)}
