@@ -12,36 +12,36 @@ const Login = () => {
 
   // STATIC CREDENTIALS
   const staticUsername = "admin@admin.com";
-  const staticPassword = "password"; 
-  
-const handleLogin = () => {
-  if (username === staticUsername && password === staticPassword) {
-    Swal.fire({
-      icon: "success",
-      title: "Login Successful",
-      text: "Welcome to your account!",
-      showConfirmButton: false,
-      timer: 5000, // 5 seconds
-      timerProgressBar: true,
-    });
-    // Navigate to dashboard after login
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 1500);
-  } 
-  else {
-    Swal.fire({
-      icon: "error",
-      title: "Login Failed",
-      text: "Invalid Username or Password",
-      showConfirmButton: false,
-      timer: 5000, // 5 seconds
-      timerProgressBar: true,
-    });
-  }
-};
+  const staticPassword = "password";
 
- return (
+  const handleLogin = () => {
+    if (username === staticUsername && password === staticPassword) {
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        text: "Welcome to your account!",
+        showConfirmButton: false,
+        timer: 5000, // 5 seconds
+        timerProgressBar: true,
+      });
+      // Navigate to dashboard after login
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
+    }
+    else {
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: "Invalid Username or Password",
+        showConfirmButton: false,
+        timer: 5000, // 5 seconds
+        timerProgressBar: true,
+      });
+    }
+  };
+
+  return (
     <div className="login-page">
       <div className="login-overlay"></div>
 
@@ -87,9 +87,14 @@ const handleLogin = () => {
           <button className="login-btn" onClick={handleLogin}>
             Login
           </button>
+
          <div className="register">
   Don’t have an account? <Link to="/register">Register</Link>
-</div>
+</div>        
+          <div className="register">
+            Don’t have an account? <Link to="/">Register</Link>
+          </div>
+
 
         </div>
       </div>

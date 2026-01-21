@@ -13,14 +13,54 @@ import "./Dashboard.css";
 
 function Dashboard() {
   const cards = [
-    { title: "Total Sales", value: "₹2,583", icon: <FaMoneyBillWave /> },
-    { title: "Petrol Sales", value: "450 L", icon: <FaGasPump /> },
-    { title: "Diesel Sales", value: "320 L", icon: <FaOilCan /> },
-    { title: "CNG Sales", value: "180 Kg", icon: <FaFire /> },
-    { title: "Total Employees", value: "48", icon: <FaUsers /> },
-    { title: "Cashiers", value: "12", icon: <FaUserCheck /> },
-    { title: "Managers", value: "5", icon: <FaUserTie /> },
-    { title: "Attendance", value: "42 Present", icon: <FaClipboardList /> },
+    {
+      title: "Total Sales",
+      value: "₹2,583",
+      icon: <FaMoneyBillWave />,
+      color: "green",
+    },
+    {
+      title: "Petrol Sales",
+      value: "450 L",
+      icon: <FaGasPump />,
+      color: "blue",
+    },
+    {
+      title: "Diesel Sales",
+      value: "320 L",
+      icon: <FaOilCan />,
+      color: "yellow",
+    },
+    {
+      title: "CNG Sales",
+      value: "180 Kg",
+      icon: <FaFire />,
+      color: "orange",
+    },
+    {
+      title: "Total Employees",
+      value: "48",
+      icon: <FaUsers />,
+      color: "purple",
+    },
+    {
+      title: "Cashiers",
+      value: "12",
+      icon: <FaUserCheck />,
+      color: "teal",
+    },
+    {
+      title: "Managers",
+      value: "5",
+      icon: <FaUserTie />,
+      color: "indigo",
+    },
+    {
+      title: "Attendance",
+      value: "42 Present",
+      icon: <FaClipboardList />,
+      color: "pink",
+    },
   ];
 
   return (
@@ -28,7 +68,10 @@ function Dashboard() {
       <div className="sales-cards">
         {cards.map((card, index) => (
           <div className="sales-card" key={index}>
-            <div className="card-icon">{card.icon}</div>
+            <div className={`card-icon ${card.color}`}>
+              {card.icon}
+            </div>
+
             <div className="card-content">
               <p className="card-title">{card.title}</p>
               <h3 className="card-value">{card.value}</h3>

@@ -1,4 +1,4 @@
- * {
+* {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
@@ -35,15 +35,18 @@
   background: rgba(0, 0, 0, 0.15);
 }
 
+
 .register-title {
   text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  margin: 15px 0;
+  font-size: 24px;          
+  font-weight: 600;        
+  margin: 2px 0 4px 0;
+  letter-spacing: 1px;
+  color: black;
 }
 
 form {
-  padding: 25px;
+  padding: 6px 20px 20px;
   display: flex;
   flex-direction: column;
 }
@@ -51,8 +54,8 @@ form {
 form input,
 form textarea {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
+  padding: 10px;
+  margin-bottom: 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
@@ -71,6 +74,7 @@ form textarea {
   border: none;
   border-radius: 6px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
 }
 
@@ -84,8 +88,38 @@ form textarea {
   font-size: 14px;
 }
 
-.login-text span {
-  color: #1e90ff;
+
+.signin-link {
+  font-weight: 600;
+  margin-left: 6px;
+  color: #086acc;
+  text-decoration: none;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.password-wrapper input {
+  width: 100%;
+  height: 44px;             
+  box-sizing: border-box;
+  padding-right: 45px;      
+  vertical-align: middle; 
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 40%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;           
   cursor: pointer;
-  font-weight: bold;
-} 
+  color: #555;
+  line-height: 1;           
+}

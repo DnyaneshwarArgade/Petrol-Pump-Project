@@ -3,54 +3,39 @@
   padding: 0px;
 }
 body {
-            background-color: #f4f6f9;
-        }
-.top-bar {
-           background: #fff;
-            padding: 12px 20px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-left: 10px;
-        }
-
-    .top-bar1 {
-  display: flex;
-  align-items: center;
+ background-color: #f4f6f9;
+}
+.reports{
   justify-content: space-between;
-  gap: 10px;
-  flex-wrap: nowrap;  
-  width: 340px; 
-   background-color: white;
 }
-.search-input {
-  flex: 1;                
-  min-width: 0;
+.search-wrapper input{
+  padding-right: 40px;
+  border-radius: 30px;
+  justify-content: space-between;
 }
-
-.icons {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  white-space: nowrap;
-  color: rgb(220, 24, 24);
-}
-
-.icons i {
-  font-size: 20px;
+.clear-btn{
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-   font-size: 30px;
+  font-size: 18px;
+  color: #999;
+  display: none;
 }
-.icons i:hover{
-   background-color: rgb(218, 59, 59);
-  color: white;
-  transform: scale(1.0) rotate(1deg);
-  box-shadow: 0 4px 12px rgba(216, 133, 133, 0.4);
+.clear-btn:hover{
+  color: #000;
+}
+@media (max-width:576px){
+  .report-header{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 100px;
+  }
 }
 .banner img {
   width: 100%;
-  height: 450px;
+  /* height: 20%; */
   object-fit: cover;
   border-radius: 10px;
   margin-top: 15px;
@@ -58,18 +43,23 @@ body {
 .stats-card {
   border-radius: 12px;
   transition: transform 0.3s ease-in-out; 
+  margin: 0px;
 }
 .stats-card:hover{
   transform: scale(1.05);
 }
 .icon-box {
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
+}
+.icon-box h4{
+  justify-content: center;
+  text-align: center;
 }
 .icon-green {
   background-color: #28a745;
@@ -88,13 +78,25 @@ body {
   font-size: 18px;
   font-weight: bold;
 }
-.week {
-  border-radius: 6px;
-  padding: 4px 8px;
-}
-.card{
-      margin: 5px 50px 7px 50px;
+@media (max-width: 600px) {
+    .filter-dropdown {
+        font-size: 18px;
+        padding: 15px;
+        margin: 5px;
+        border-radius: 10px;
+        background-color: #f9f9f9;
     }
+    .dropdown-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.filter-dropdown{
+  background-color: rgb(194, 93, 93);
+  border-radius: 10px;
+  border: 3px solid rgb(218, 111, 111);
+}
    .summary-card {
       border-radius: 12px;
       overflow: hidden;
@@ -155,8 +157,7 @@ body {
     @media (max-width: 768px) {
       .fuel-value {
         font-size: 24px;
-      }
-    }
+      }}
       .card {
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
@@ -176,48 +177,64 @@ body {
         .search-box input {
             max-width: 220px;
         }
-        .status-btn {
-            background-color: #e9f2ff;
-            border: none;
-            color: #0d6efd;
-            padding: 4px 11px;
-            border-radius: 6px;
-            font-size: 14px;
-            margin-left: 90px;
+    .table td, .table th {
+      border: none !important;
+      }
+   .show{
+     padding:5px 5px 5px 55px ;
         }
-        .pagination .page-link {
-            color: #0d6efd;
-            width: 40px;
-            height: 30px;
-            margin-top: 10px;
-        }
-        .pagination .active .page-link {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
-            color: #fff;   
-        }
-        .Search{
+     .Search{
             padding: 10px 70px 0px 100px;
-        }
-        @media (max-width: 768px) {
+        } 
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #ccc;
+}
+.status-dot.active {
+  background: #0d6efd;
+}
+     @media (max-width:768px)  {
             .search-box {
                 margin-top: 10px;
-                width: 100%;
+                width: 100%; 
             }
             .search-box input {
-                max-width: 100%;
-            }
-        }
-        @media (max-width: 768px) {
+    width: 100%;
+  }
+  @media (max-width:768px) {
   .top-bar {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
   }
   .search-box input {
     width: 100%;
   }
+    }
+.filter-dropdown {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-        }
+/* Today i am Updated this code */
+  /* Default styles */
+  .filter-dropdown {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
-
+  .table-scroll table {
+    min-width: 600px;
+  }
+  }
