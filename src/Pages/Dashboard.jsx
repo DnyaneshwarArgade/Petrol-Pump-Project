@@ -57,7 +57,7 @@ function Dashboard() {
     },
     {
       title: "Attendance",
-      value: "42 Present",
+      value: "42",
       icon: <FaClipboardList />,
       color: "pink",
     },
