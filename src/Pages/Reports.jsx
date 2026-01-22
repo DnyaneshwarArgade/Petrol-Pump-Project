@@ -19,24 +19,65 @@ const data = [
   { date: "23 Apr 2024", pumpId: "PUMP-103", fuelType: "Diesel", volume: "1,200 L", amount: "₹33,180" },
 ];
 const itemsPerPage = 10;
+
 const Reports = () => {
   const inputRef = useRef(null);
+
   const [showClear, setShowClear] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const handleChange = () => {
-    setShowClear(inputRef.current.value.length > 0);
-  };
-  const clearSearch = () => {
-    inputRef.current.value = "";
-    setShowClear(false);
-    inputRef.current.focus();
-  };
-  const handlePageChange = (page) => {
-    if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
-  };
-  const paginatedData = data.slice(
+  const [searchText, setSearchText] = useState("");
+const [suggestions, setSuggestions] = useState([]);
+const [showSuggestions, setShowSuggestions] = useState(false);
+  /* SEARCH */
+  const handleSearch = () => {
+  const value = inputRef.current.value;
+  setSearchText(value);
+  setShowClear(value.length > 0);
+
+  if (value.trim() === "") {
+    setSuggestions([]);
+    setShowSuggestions(false);
+    return;
+  }
+
+  const matched = [
+    ...new Set(
+      data
+        .flatMap(item => Object.values(item))
+        .map(v => v.toString())
+        .filter(v =>
+          v.toLowerCase().includes(value.toLowerCase())
+        )
+    )
+  ].slice(0, 6);
+
+  setSuggestions(matched);
+  setShowSuggestions(true);
+};
+
+const handleSuggestionClick = (text) => {
+  inputRef.current.value = text;
+  setSearchText(text);
+  setShowSuggestions(false);
+  setShowClear(true);
+};
+const clearSearch = () => {
+  inputRef.current.value = "";
+  setSearchText("");
+  setShowClear(false);
+  setShowSuggestions(false);
+  inputRef.current.focus();
+};
+  /* FILTER */
+  const filteredData = data.filter(item =>
+    Object.values(item)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchText.toLowerCase())
+  );
+  /* PAGINATION */
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const paginatedData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -46,9 +87,8 @@ const Reports = () => {
       <div className="d-flex align-items-center  justify-content-between">
         <h4 className="mb-0 fw-bold">Report Management</h4>
       </div>
- <div className="banner mt-2  h-25">
-    <img src="https://img.freepik.com/premium-photo/electric-cha…ith-eco-friendly-clean-energy_564714-3.jpg"
-    //  src="https://img.freepik.com/premium-photo/chonburi-12-may-2017-ptt-gas-station-chonburi-thailand-ptt-is-largest-oil-company-thailand_49882-414.jpg"
+ <div className="banner mt-2 h-25">
+    <img src="src/assets/report_banner_cropped.jpg"
      alt="Gas Station"
      className="img-fluid rounded"
     />
@@ -57,7 +97,7 @@ const Reports = () => {
 <div className="container-fluid p-1">
         <div className="row g-1">
           <div className="col-lg-4 col-md-6">
-            <div className="card stats-card m-2">
+            <div className="card stats-card">
               <div className="card-body d-flex align-items-center">
                 <div className="icon-box icon-green me-3 ">
                  <h2 className="m-4"><i className="bi bi-currency-rupee"></i></h2>
@@ -70,7 +110,7 @@ const Reports = () => {
             </div>
           </div>
 <div className="col-lg-4 col-md-6">
-             <div className="card stats-card m-2">
+             <div className="card stats-card">
                <div className="card-body d-flex align-items-center">
                  <div className="icon-box icon-orange me-3">
                   <h4  className="m-4"><i className="bi bi-fuel-pump"></i></h4> 
@@ -83,7 +123,7 @@ const Reports = () => {
              </div>
           </div>
  <div className="col-lg-4 col-md-12">
-             <div className="card stats-card m-2">
+             <div className="card stats-card">
                <div className="card-body d-flex align-items-center justify-content-between">
                  <div className="d-flex align-items-center">
                    <div className="icon-box icon-red me-3">
@@ -94,13 +134,6 @@ const Reports = () => {
                 <div className="card-value">₹ 1,23,350</div>
             </div>
           </div>
-      {/* <div className="dropdown-container">
-           <select  id="timeFilter" className="filter-dropdown" onchange="updateData(this.value)">
-           <option value="thisWeek">This Week</option>
-           <option value="monthly">Monthly</option>
-           <option value="yearly">Yearly</option>
-        </select>
-      </div> */}
       </div>
     </div>
   </div>
@@ -110,9 +143,10 @@ const Reports = () => {
     <h4 className="fw-bold mb-3">Fuel Sales Summary</h4>
          <div className="row g-3">
          <div className="col-md-4">
-             <div className="summary-card m-2">
+             <div className="summary-card m-1">
                <div className="card-header-custom petrol">
-                 <h1>⛽Petrol</h1>
+                 {/* <h1>⛽Petrol</h1> */}
+                 <h1><i className="bi bi-fuel-pump m-3"></i>Petrol</h1>
                </div>
                <div className="card-body-custom">
                  <div className="fuel-value">12,540  L</div>
@@ -122,9 +156,10 @@ const Reports = () => {
           </div>
       </div>
 <div className="col-md-4">
-        <div className="summary-card m-2">
+        <div className="summary-card m-1">
                <div className="card-header-custom diesel">
-                 <h1>⛽Diesel</h1>
+                 {/* <h1>⛽Diesel</h1> */}
+                 <h1><i className="bi bi-fuel-pump m-3"></i>Petrol</h1>
                </div>
                <div className="card-body-custom">
                  <div className="fuel-value">5,200 L</div>
@@ -134,9 +169,10 @@ const Reports = () => {
              </div>
            </div>
 <div className="col-md-4">
-    <div className="summary-card m-2">
+    <div className="summary-card m-1">
       <div className="card-header-custom cng">
-        <h1> 🏭CNG </h1>
+        {/* <h1> 🏭CNG </h1> */}
+        <h1><i className="bi bi-fuel-pump m-3"></i>CNG</h1>
           </div>
                <div className="card-body-custom">
                  <div className="fuel-value">550 kg Sold</div>
@@ -148,16 +184,17 @@ const Reports = () => {
         </div>
       </div>
   {/* Transactions */}
-  <div className="container-fluid px-3 mt-4 mb-5">
-  <div className="d-flex justify-content-between">
-  <h5 className="fw-bold mt-3">Recent Transactions</h5>
-   <div className="position-relative m-3" style={{ width: "310px" }}>
+     <div className="rt-container">
+      {/* HEADER */}
+      <div className="rt-header">
+        <h5 className="rt-title">Recent Transactions</h5>
+
+        <div className="rt-search mb-4">
           <input
             ref={inputRef}
             type="text"
-            className="form-control ps-5 pe-5 rounded-pill"
             placeholder="Search"
-            onChange={handleChange}
+            onChange={handleSearch}
           />
           <span
             className="position-absolute top-50 translate-middle-y"
@@ -166,98 +203,86 @@ const Reports = () => {
             <i className="bi bi-search search-icon"></i>
           </span>
           {showClear && (
-            <span
-              className="position-absolute top-50 translate-middle-y"
-              style={{ right: "15px", cursor: "pointer" }}
-              onClick={clearSearch}
-            >
-              ✕
-            </span>
+            <span className="rt-clear" onClick={clearSearch}>✕</span>
           )}
+          {showSuggestions && suggestions.length > 0 && (
+    <ul className="rt-suggestions">
+      {suggestions.map((item, index) => (
+        <li key={index} onClick={() => handleSuggestionClick(item)}>
+          <i className="bi bi-search search-icon"></i>  {item}
+        </li>
+      ))}
+    </ul>
+  )}
+
+   {/* 🔍  */}
         </div>
+      </div>
+
+      {/* SEARCH TEXT SHOW */}
+      {searchText && (
+        <div className="rt-search-info">
+          Showing results for <b>"{searchText}"</b>
         </div>
-      
-  <div className="table-scroll">
-    <table className="table table-bordered table-hover table-striped mb-3">
-      <thead className="table-light">
-        <tr>
-          <th>Date</th>
-          <th>Pump ID</th>
-          <th>Fuel Type</th>
-          <th>Volume</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        {paginatedData.map((row, index) => (
-          <tr key={index}>
-            <td>{row.date}</td>
-            <td>{row.pumpId}</td>
-            <td>{row.fuelType}</td>
-            <td>{row.volume}</td>
-            <td>{row.amount}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-{/* pagination */}
-      {data.length > itemsPerPage && (
-           <nav className="d-flex justify-content-center mt-3">
-             <ul className="pagination gap-2">
-               <li className="page-item mb-3">
-                 <button
-                   className="page-link rounded-pill"
-                   onClick={() => handlePageChange(1)}
-                   disabled={currentPage === 1}
-                 >
-                   ««
-                 </button>
-               </li>           
-               <li className="page-item">
-                 <button
-                   className="page-link rounded-pill"
-                   onClick={() => handlePageChange(currentPage - 1)}
-                   disabled={currentPage === 1}
-                 >
-                   «
-                 </button>
-               </li>
-               {Array.from({ length: totalPages }, (_, i) => (
-                 <li key={i} className="page-item">
-                   <button
-                     className={`page-link rounded-pill ${currentPage === i + 1 ? "active bg-primary text-white" : ""
-                       }`}
-                     onClick={() => handlePageChange(i + 1)}
-                   >
-                     {i + 1}
-                   </button>
-                 </li>
-               ))}
-               <li className="page-item ">
-                 <button
-                   className="page-link rounded-pill"
-                   onClick={() => handlePageChange(currentPage + 1)}
-                   disabled={currentPage === totalPages}
-                 >
-                   »
-                  </button>
-               </li>
-               <li className="page-item ">
-                 <button
-                   className="page-link rounded-pill"
-                   onClick={() => handlePageChange(totalPages)}
-                   disabled={currentPage === totalPages}
-                 >
-                   »»
-                 </button>
-               </li>
-             </ul>
-           </nav>
-         )}
+      )}
+
+      {/* TABLE */}
+      <div className="rt-table-wrapper">
+        {/* <table className="rt-table table-hover"> */}
+        <table className="rt-table table table-hover">
+
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Pump ID</th>
+              <th>Fuel Type</th>
+              <th>Volume</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedData.length > 0 ? (
+              paginatedData.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.date}</td>
+                  <td>{row.pumpId}</td>
+                  <td>{row.fuelType}</td>
+                  <td>{row.volume}</td>
+                  <td>{row.amount}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="rt-no-data">
+                  No data found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* PAGINATION */}
+      {filteredData.length > itemsPerPage && (
+        <div className="rt-pagination mb-5">
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
+
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              className={currentPage === i + 1 ? "active" : ""}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>»</button>
+          <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
+        </div>
+      )}
     </div>
     </>
   );
 };
 export default Reports;
-

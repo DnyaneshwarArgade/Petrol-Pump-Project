@@ -3,19 +3,17 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: #f5f7fa;
   padding: 80px 20px 100px;
   overflow: hidden;
 
   background-image: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.55)
     ),
     url("../assets/petrolpump.jpg");
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
-  
 }
 
 .sales-cards {
@@ -26,38 +24,41 @@
   gap: 40px;
 }
 
+/* CARD */
 .sales-card {
   background: #ffffff;
-  min-height: 100px;
-  padding: 35px 24px 22px;
+  min-height: 120px;
+  padding: 35px 24px;
   border-radius: 16px;
   display: flex;
   align-items: center;
   gap: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .sales-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
 }
 
+/* ICON */
 .card-icon {
-  width: 54px;
-  height: 54px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 24px;
   color: #ffffff;
   flex-shrink: 0;
 }
 
 .card-icon.green   { background: #16a34a; }
-.card-icon.blue    { background: #0ea5e9; }
+.card-icon.blue    { background: #0284c7; }
 .card-icon.yellow  { background: #facc15; color: #000; }
 .card-icon.orange  { background: #f97316; }
 .card-icon.purple  { background: #9333ea; }
@@ -70,15 +71,18 @@
   flex-direction: column;
 }
 
-.card-title {
-  font-weight: 900;
-  color: #6b7280;
+.sales-card .card-title {
+  color: #0f172a !important;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.2px;
   margin: 0;
+  opacity: 1 !important;
 }
 
 .card-value {
   margin-top: 6px;
-  font-size: 22px;
+  font-size: 17px;
   font-weight: 600;
   color: #111827;
 }
@@ -90,7 +94,6 @@
   }
 }
 
-
 @media (max-width: 600px) {
   .dashboard {
     padding: 20px 12px 90px;
@@ -101,7 +104,7 @@
   }
 
   .sales-card {
-    min-height: 105px;
+    min-height: 110px;
     padding: 18px;
   }
 
