@@ -21,21 +21,20 @@ const Login = () => {
         title: "Login Successful",
         text: "Welcome to your account!",
         showConfirmButton: false,
-        timer: 5000, // 5 seconds
+        timer: 1000,
         timerProgressBar: true,
       });
-      // Navigate to dashboard after login
+
       setTimeout(() => {
         navigate("/dashboard");
       }, 1500);
-    }
-    else {
+    } else {
       Swal.fire({
         icon: "error",
         title: "Login Failed",
         text: "Invalid Username or Password",
         showConfirmButton: false,
-        timer: 5000, // 5 seconds
+        timer: 1000,
         timerProgressBar: true,
       });
     }
@@ -46,16 +45,21 @@ const Login = () => {
       <div className="login-overlay"></div>
 
       <div className="login-card">
-        <div className="login-header"></div>
-
-        <div className="login-header-h6">
-          <h6>Login to your account!</h6>
+        {/* HEADER ICON */}
+        <div className="login-header">
+          <div className="login-avatar">
+            <FaUser />
+          </div>
         </div>
+
+        <h6 className="login-title">Login to your account!</h6>
 
         <div className="login-body">
           {/* USERNAME */}
           <div className="input-group">
-            <span className="input-icon"><FaUser /></span>
+            <span className="input-icon">
+              <FaUser />
+            </span>
             <input
               type="text"
               placeholder="Username"
@@ -63,9 +67,12 @@ const Login = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
+
           {/* PASSWORD */}
           <div className="input-group password-group">
-            <span className="input-icon"><FaLock /></span>
+            <span className="input-icon">
+              <FaLock />
+            </span>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -88,14 +95,9 @@ const Login = () => {
             Login
           </button>
 
-         <div className="register">
-  Don’t have an account? <Link to="/register">Register</Link>
-</div>        
           <div className="register">
             Don’t have an account? <Link to="/">Register</Link>
           </div>
-
-
         </div>
       </div>
     </div>
