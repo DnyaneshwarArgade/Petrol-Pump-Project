@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import "../Pages/Login.css";
+import "./login.css";
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash, FaUser, FaLock } from "react-icons/fa";
 

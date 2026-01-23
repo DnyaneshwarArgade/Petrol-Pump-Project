@@ -12,14 +12,10 @@ function Sidebar({ isOpen, toggleSidebar }) {
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
-        {/* <div className="sidebar-header">
-          <div className="sidebar-avatar">PP</div>
-          <div className="sidebar-title">Petrol Pump</div>
-        </div> */}
 
         <div className="sidebar-content">
-          <Link to="/dashboard" onClick={toggleSidebar}>Dashboard</Link>
-          <Link to="/register" onClick={toggleSidebar}>Register</Link>
+          <Link to="/expensemanagement" onClick={toggleSidebar}>Expense Management</Link>
+          <Link to="/fuelstockmanagement" onClick={toggleSidebar}>Fuel Stock Management</Link>
           <Link to="/nozzle" onClick={toggleSidebar}>Nozzle</Link>
           <Link to="/" onClick={toggleSidebar}>Logout</Link>
         </div>
