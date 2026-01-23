@@ -2,11 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../SideBar/Sidebar";
 import "./Navbar.css";
-<<<<<<< HEAD:src/Components/Navbar/Navbar.jsx
-=======
-import Sidebar from "./SideBar/Sidebar";
+
 import { FiMenu } from "react-icons/fi";
->>>>>>> 379b1f63b09ad6935fee34ea6afb7fe7451983e4:src/Components/Navbar.jsx
 
 function Navbar() {
   const [isRightOpen, setIsRightOpen] = useState(false);
