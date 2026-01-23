@@ -52,7 +52,7 @@ const Login = () => {
           </div>
         </div>
 
-        <h6 className="login-title">Login to your account!</h6>
+        <h4 className="login-title">Login to your account!</h4>
 
         <div className="login-body">
           {/* USERNAME */}
