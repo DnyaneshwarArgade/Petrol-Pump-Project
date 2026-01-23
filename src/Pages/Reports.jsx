@@ -87,7 +87,7 @@ const clearSearch = () => {
       <div className="d-flex align-items-center  justify-content-between">
         <h4 className="mb-0 fw-bold">Report Management</h4>
       </div>
- <div className="banner mt-2 h-25">
+ <div className="banner mt-2">
     <img src="src/assets/report_banner_cropped.jpg"
      alt="Gas Station"
      className="img-fluid rounded"
@@ -95,7 +95,7 @@ const clearSearch = () => {
  </div>
  </div>
 <div className="container-fluid p-1">
-        <div className="row g-1">
+        <div className="row g-2">
           <div className="col-lg-4 col-md-6">
             <div className="card stats-card">
               <div className="card-body d-flex align-items-center">
@@ -214,24 +214,21 @@ const clearSearch = () => {
       ))}
     </ul>
   )}
-
    {/* 🔍  */}
         </div>
       </div>
-
       {/* SEARCH TEXT SHOW */}
       {searchText && (
         <div className="rt-search-info">
           Showing results for <b>"{searchText}"</b>
         </div>
       )}
-
       {/* TABLE */}
-      <div className="rt-table-wrapper">
+      <div className="rt-table-wrapper mb-5">
         {/* <table className="rt-table table-hover"> */}
         <table className="rt-table table table-hover">
 
-          <thead>
+          <thead className="heads">
             <tr>
               <th>Date</th>
               <th>Pump ID</th>
@@ -253,9 +250,12 @@ const clearSearch = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="5" className="rt-no-data">
-                  No data found
-                </td>
+            <tr className="no-data-row">
+  <td colSpan="5" className="rt-no-data">
+    No data found!
+  </td>
+</tr>
+
               </tr>
             )}
           </tbody>
