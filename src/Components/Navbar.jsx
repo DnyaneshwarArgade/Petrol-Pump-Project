@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Sidebar from "./SideBar/Sidebar";
+import { FiMenu } from "react-icons/fi";
 
 function Navbar() {
   const [isRightOpen, setIsRightOpen] = useState(false);
@@ -9,6 +10,7 @@ function Navbar() {
   return (
     <>
       <nav className="navbar">
+        
         <div className="logo-title-container">
           <div className="logo">
             <Link to="/" className="logo-link">
@@ -20,13 +22,22 @@ function Navbar() {
           </div>
         </div>
 
-        <button className="menu-btn" onClick={() => setIsRightOpen(!isRightOpen)}>
-          ☰
-        </button>
+        
+        <div className="nav-center">
+           <button className="hi-admin">Hi Admin</button>
+          <button
+            className="menu-btn"
+            onClick={() => setIsRightOpen(!isRightOpen)}
+          >
+            <FiMenu />
+          </button>
+        </div>
       </nav>
 
-
-      <Sidebar isOpen={isRightOpen} toggleSidebar={() => setIsRightOpen(false)} />
+      <Sidebar
+        isOpen={isRightOpen}
+        toggleSidebar={() => setIsRightOpen(false)}
+      />
     </>
   );
 }
