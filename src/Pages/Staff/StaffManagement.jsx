@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import "../Pages/StaffManagement.css";
+import React, { useState, useEffect } from "react";
+import "./StaffManagement.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import AddEmp from "./AddEmp";
 import Swal from "sweetalert2";
 
 import {
@@ -18,100 +19,132 @@ import { FaUserCircle } from "react-icons/fa";
 
 const EmployeeManagement = () => {
   const [showModal, setShowModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [employeeStatus, setEmployeeStatus] = useState("Active");
+  const [isEdit, setIsEdit] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [search, setSearch] = useState("");
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  const handleDelete = () => {
+  // Load employees
+  const [employees, setEmployees] = useState(() => {
+    const saved = localStorage.getItem("employees");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Save employees
+  useEffect(() => {
+    localStorage.setItem("employees", JSON.stringify(employees));
+  }, [employees]);
+
+  // Reset page on search
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
+
+  // Add employee
+  const handleAddEmployee = (employeeData) => {
+    const newEmployee = { ...employeeData, id: Date.now() };
+    setEmployees(prev => [newEmployee, ...prev]);
+  };
+
+  // Update employee
+  const handleUpdateEmployee = (updatedEmployee) => {
+    setEmployees(prev =>
+      prev.map(emp => (emp.id === updatedEmployee.id ? updatedEmployee : emp))
+    );
+  };
+
+  // Delete Record
+  const handleDelete = (empId) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "This employee will be deleted permanently!",
+      text: "This record will be permanently deleted!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#dc3545",
       cancelButtonColor: "#6c757d",
-      confirmButtonText: "Delete!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        setEmployees(prev =>
+          prev.filter(e => e.id !== empId)
+        );
+
         Swal.fire({
-          title: "Deleted!",
-          text: "Employee has been deleted.",
           icon: "success",
+          title: "Deleted!",
+          text: "Employee record has been deleted.",
+          timer: 1500,
           showConfirmButton: false,
-          timer: 1500
         });
       }
     });
   };
 
-  const handleSaveEmployee = (e) => {
-    e.preventDefault();
-    console.log("Employee Saved!");
-    setShowModal(false);
-  };
 
-  const handleUpdateEmployee = (e) => {
-    e.preventDefault();
-    console.log("Employee Updated!");
-    setShowEditModal(false);
-  };
+  // 🔍 SEARCH ALL DATA (before pagination)
+  const filteredData = employees.filter(emp =>
+    emp.name?.toLowerCase().includes(search.toLowerCase())
+  );
+
+  // Pagination after search
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="container-fluid px-4 py-3 main-bg">
-
-      {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+      <div className="d-flex justify-content-between align-items-center mb-4">
         <h3 className="fw-bold">Employee Management</h3>
-        {/* <div className="date-time">
-          Thursday, April 25, 2024 | 8:25 AM
-        </div> */}
       </div>
 
       {/* Cards */}
       <div className="row g-4 mb-4">
-        <Card icon={<BsPeopleFill />} title="All Employees" count="12" color="#0F8A4B" />
-        <Card icon={<BsPersonLinesFill />} title="Attendants" count="6" color="#00B8E6" />
-        <Card icon={<BsPersonBadgeFill />} title="Cashiers" count="2" color="#FFC107" />
-        <Card icon={<BsPersonCheckFill />} title="Managers" count="1" color="#0D6EFD" />
-        <Card icon={<BsPersonFillCheck />} title="Present Staff" count="8" color="#0F8A4B" />
+        <Card icon={<BsPeopleFill />} title="All Employees" count={employees.length} color="#0F8A4B" />
+        <Card icon={<BsPersonLinesFill />} title="Attendants" count={employees.filter(e => e.jobTitle === "Attendant").length} color="#00B8E6" />
+        <Card icon={<BsPersonBadgeFill />} title="Cashiers" count={employees.filter(e => e.jobTitle === "Cashier").length} color="#FFC107" />
+        <Card icon={<BsPersonCheckFill />} title="Managers" count={employees.filter(e => e.jobTitle === "Manager").length} color="#0D6EFD" />
+        <Card icon={<BsPersonFillCheck />} title="Active Staff" count={employees.filter(e => e.status === "Active").length} color="#0F8A4B" />
       </div>
 
       {/* Manage Section */}
-      <div className="manage-box">
-        <div className="d-flex justify-content-between align-items-center flex-wrap mb-3 gap-4">
-          <div>
-            <h4 className="fw-bold mb-2">Manage Employees</h4>
-            <div className="search-box">
-              <BsSearch />
-              <input type="text" placeholder="Search Employee..." />
+      <div className="manage-box mb-4">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-3">
+          <div className="flex-grow-1 w-100">
+            <div className="d-flex justify-content-between align-items-center">
+              <h4 className="fw-bold mb-0">Manage Employees</h4>
+              <button className="btn-add d-none d-md-flex" onClick={() => { setIsEdit(false); setSelectedEmployee(null); setShowModal(true); }}>+</button>
             </div>
-          </div>
 
-          {/* Add & Export */}
-          <div className="d-flex gap-2">
-            <button className="btn-add" onClick={() => setShowModal(true)}>
-              + Add
-            </button>
+            {/* Search */}
+            <div className="d-flex align-items-center gap-2 mt-3 w-100">
+              <div className="search-box flex-grow-1 position-relative d-flex align-items-center">
+                <BsSearch className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="Search Employee..."
+                  className="w-100 ps-4 pe-4"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                {search && (
+                  <span className="input-clear" onClick={() => setSearch("")}>✕</span>
+                )}
+              </div>
 
-            <div className="dropdown">
-              <button className="btn-export dropdown-toggle" data-bs-toggle="dropdown">
-                ⬇ Export
-              </button>
-              <ul className="dropdown-menu dropdown-menu-end">
-                <li><a className="dropdown-item" href="#">📄 PDF</a></li>
-                <li><a className="dropdown-item" href="#">📊 Excel</a></li>
-              </ul>
+              <button className="btn-add d-md-none" onClick={() => { setIsEdit(false); setSelectedEmployee(null); setShowModal(true); }}>+</button>
             </div>
           </div>
         </div>
 
-        {/* Employee Table */}
+        {/* Table */}
         <div className="table-responsive">
           <table className="table align-middle">
             <thead>
-              <tr>
+              <tr className="table-secondary">
                 <th>Employee</th>
-                <th>Job Title</th>
                 <th>Email</th>
                 <th>Contact</th>
                 <th>Shift</th>
@@ -120,195 +153,79 @@ const EmployeeManagement = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center gap-3">
-                    <FaUserCircle className="user-icon" />
-                    <div>
-                      <div className="fw-bold">David Miller</div>
-                      <small className="text-muted">Attendant</small>
-                    </div>
-                  </div>
-                </td>
-                <td>Attendant</td>
-                <td>david.miller@gmail.com</td>
-                <td>9858755565</td>
-                <td>
-                  <select className="form-select shift-select">
-                    <option>Day</option>
-                    <option>Night</option>
-                  </select>
-                </td>
-                <td>
-                  <select
-                    className="status-select"
-                    value={employeeStatus}
-                    onChange={(e) => setEmployeeStatus(e.target.value)}
-                    style={{
-                      background: employeeStatus === "Active" ? "#d1f5dd" : "#ffd6d6",
-                      color: employeeStatus === "Active" ? "#0F8A4B" : "#dc3545",
-                    }}
-                  >
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                  </select>
-                </td>
-                <td>
-                  <div className="action-icons">
-                  <div className="icon-box edit-box" onClick={() => setShowEditModal(true)}>
-                  <BsPencilSquare className="edit-icon" />
-                </div>
-                <div className="icon-box delete-box" onClick={handleDelete}>
-                 <BsTrashFill className="delete-icon" />
-               </div>
-          </div>
+              {paginatedData.length > 0 ? (
+                paginatedData.map(emp => (
+                  <tr key={emp.id}>
+                    <td>
+                      <div className="d-flex align-items-center gap-3">
+                        <FaUserCircle className="user-icon" />
+                        <div>
+                          <div className="fw-bold">{emp.name}</div>
+                          <small className="text-muted">{emp.jobTitle}</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{emp.email}</td>
+                    <td>{emp.phone}</td>
+                    <td>{emp.shift}</td>
+                    <td>{emp.status}</td>
+                    <td>
+                      <div className="action-icons">
+                        <div className="icon-box edit-box" onClick={() => { setSelectedEmployee(emp); setIsEdit(true); setShowModal(true); }}>
+                          <BsPencilSquare />
+                        </div>
 
-                </td>
-              </tr>
+                        <div
+                          className="icon-box delete-box"
+                          onClick={() => handleDelete(emp.id)}
+                        >
+                          <BsTrashFill />
+                        </div>
+
+
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="text-center text-muted">No employee found</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* ADD EMPLOYEE MODAL */}
-      {showModal && (
-        <div className="modal fade show modal-bg" style={{ display: "block" }}>
-          <div className="modal-dialog modal-dialog-centered modal-lg">
-            <div className="modal-content add-modal">
-              <div className="modal-header border-0">
-                <h5 className="modal-title fw-bold">Add New Employee</h5>
-                <button className="close-btn" onClick={() => setShowModal(false)}>×</button>
-              </div>
-
-              <div className="modal-body">
-                <form onSubmit={handleSaveEmployee}>
-                  <div className="row g-3 mb-3">
-                    <div className="col-md-6">
-                      <label className="form-label">Employee Name</label>
-                      <input className="form-control custom-input" required />
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">Job Title</label>
-                      <input className="form-control custom-input" required />
-                    </div>
-                  </div>
-
-                  <div className="row g-3 mb-3">
-                    <div className="col-md-6">
-                      <label className="form-label">Email Address</label>
-                      <input type="email" className="form-control custom-input" required />
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">Contact Number</label>
-                      <input type="tel" className="form-control custom-input" required />
-                    </div>
-                  </div>
-
-                  <div className="row g-3 mb-4">
-                    <div className="col-md-6">
-                      <label className="form-label">Shift</label>
-                      <select className="form-control custom-input" required>
-                        <option>Select Shift</option>
-                        <option>Day</option>
-                        <option>Night</option>
-                      </select>
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">Status</label>
-                      <select className="form-control custom-input" required>
-                        <option>Select Status</option>
-                        <option>Active</option>
-                        <option>Inactive</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="d-flex justify-content-end gap-3">
-                    <button type="button" className="btn-cancel" onClick={() => setShowModal(false)}>
-                      Cancel
-                    </button>
-                    <button type="submit" className="btn-save">
-                      Save Employee
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
+      {/* Pagination */}
+      <div className="mb-4">
+        {filteredData.length > itemsPerPage && (
+          <div className="rt-pagination">
+            <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
+            <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button key={i} className={currentPage === i + 1 ? "active" : ""} onClick={() => setCurrentPage(i + 1)}>
+                {i + 1}
+              </button>
+            ))}
+            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>»</button>
+            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
-      {/* EDIT EMPLOYEE MODAL */}
-      {showEditModal && (
-        <div className="modal fade show modal-bg" style={{ display: "block" }}>
-          <div className="modal-dialog modal-dialog-centered modal-lg">
-            <div className="modal-content add-modal">
-              <div className="modal-header border-0">
-                <h5 className="modal-title fw-bold">Edit Employee</h5>
-                <button className="close-btn" onClick={() => setShowEditModal(false)}>×</button>
-              </div>
-
-              <div className="modal-body">
-                <form onSubmit={handleUpdateEmployee}>
-                  <div className="row g-3 mb-3">
-                    <div className="col-md-6">
-                      <label className="form-label">Employee Name</label>
-                      <input className="form-control custom-input" defaultValue="David Miller" required />
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">Job Title</label>
-                      <input className="form-control custom-input" defaultValue="Attendant" required />
-                    </div>
-                  </div>
-
-                  <div className="row g-3 mb-3">
-                    <div className="col-md-6">
-                      <label className="form-label">Email Address</label>
-                      <input className="form-control custom-input" defaultValue="david.miller@gmail.com" required />
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">Contact Number</label>
-                      <input className="form-control custom-input" defaultValue="9858755565" required />
-                    </div>
-                  </div>
-
-                  <div className="row g-3 mb-4">
-                    <div className="col-md-6">
-                      <label className="form-label">Shift</label>
-                      <select className="form-control custom-input" required>
-                        <option>Day</option>
-                        <option>Night</option>
-                      </select>
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">Status</label>
-                      <select className="form-control custom-input" required>
-                        <option selected>Active</option>
-                        <option>Inactive</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="d-flex justify-content-end gap-3">
-                    <button type="button" className="btn-cancel" onClick={() => setShowEditModal(false)}>
-                      Cancel
-                    </button>
-                    <button type="submit" className="btn-save">
-                      Update Employee
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
+      <AddEmp
+        showModal={showModal}
+        setShowModal={setShowModal}
+        isEdit={isEdit}
+        selectedEmployee={selectedEmployee}
+        onAdd={handleAddEmployee}
+        onUpdate={handleUpdateEmployee}
+      />
     </div>
   );
 };
 
-// Card Component
 const Card = ({ icon, title, count, color }) => (
   <div className="col">
     <div className="emp-card">
