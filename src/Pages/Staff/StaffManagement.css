@@ -1,14 +1,13 @@
-
 .main-bg {
   background: #f6f8fb;
   min-height: 100vh;
   padding-bottom: 30px;
 }
-.date-time {
+/* .date-time {
   font-size: 14px;
   color: #6c757d;
   font-weight: 500;
-}
+} */
 
 .emp-card {
   background: #fff;
@@ -50,6 +49,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 600px;
 }
 
 .search-box input {
@@ -113,6 +113,8 @@
 }
 .modal-bg {
   background: rgba(0,0,0,0.4);
+  position: fixed;
+  inset: 0;
 }
 
 .action-icons {
@@ -120,6 +122,30 @@
   gap: 14px;
 }
 
+.icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;          
+  height: 35px;
+  border-radius: 6px;   
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.icon-box:hover {
+  transform: scale(1.1);  
+}
+
+.edit-box {
+  background-color: #e0f0ff; 
+  color: #007bff;           
+}
+
+.delete-box {
+  background-color: #ffe0e0; 
+  color: #ff4d4d;            
+}
 .edit-icon {
   font-size: 18px;
   color: #0d6efd;
@@ -375,6 +401,4 @@ table td, table th {
 .add-modal .modal-body {
   overflow: visible !important;
 }
-
-
 

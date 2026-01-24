@@ -1,48 +1,71 @@
-  * {
+ * {
   box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
 }
+
 .login-page {
   min-height: 100vh;
   background-image: url("public/IndianOil.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 }
+
 .login-overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
 }
+
 .login-card {
   width: 420px;
-  background: #fff;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 14px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
   z-index: 1;
+  overflow: hidden;
 }
+
+/* HEADER ICON */
 .login-header {
-  height: 100px;
-  background-image: url("https://img.freepik.com/premium-vector/3d-simple-user-icon-isolated_169241-6922.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center; 
+  height: 80px;
+  padding-top: 15px;         
+  margin-bottom: 15px;       
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
-.login-header-h6{
-  margin-left: 130px;
+
+.login-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5fa9ff, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
+
+
+.login-title {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 12px 0 6px;   
+}
+
+
 .login-body {
-  padding: 30px;
+  padding: 22px 30px 30px;  
 }
+
 .input-group {
   display: flex;
   align-items: center;
@@ -52,21 +75,25 @@
   margin-bottom: 15px;
   position: relative;
 }
+
 .input-icon {
   margin-right: 10px;
   font-size: 18px;
+  color: #555;
 }
+
 .input-group input {
   border: none;
   outline: none;
   font-size: 16px;
   flex: 1;
 }
-/* PASSWORD GROUP */
+
+
 .password-group {
   position: relative;
 }
-/* EYE ICON */
+
 .eye-icon {
   position: absolute;
   right: 12px;
@@ -77,20 +104,23 @@
   font-size: 18px;
 }
 
+
 .forgot {
   text-align: right;
   margin-bottom: 20px;
 }
+
 .forgot a {
   color: #1f6fdc;
   font-size: 14px;
   text-decoration: none;
 }
 
+/* BUTTON */
 .login-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #5fa9ff, #3b82f6); /* Sky Blue */
+  background: linear-gradient(135deg, #5fa9ff, #3b82f6);
   border: none;
   border-radius: 14px;
   color: #ffffff;
@@ -99,10 +129,9 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: all 0.45s ease;
+  transition: all 0.4s ease;
 }
 
-/* Diamond + Rose + Blue shine */
 .login-btn::before {
   content: "";
   position: absolute;
@@ -115,14 +144,12 @@
     transparent 65%
   );
   opacity: 0;
-  transition: opacity 0.45s ease;
+  transition: opacity 0.4s ease;
 }
 
-/* Hover */
 .login-btn:hover {
   background: linear-gradient(135deg, #f2c6b3, #6b8cff);
-  box-shadow:
-    0 14px 32px rgba(232, 180, 160, 0.45),
+  box-shadow: 0 14px 32px rgba(232, 180, 160, 0.45),
     0 0 24px rgba(52, 120, 246, 0.5);
   color: #1c2440;
   transform: translateY(-3px);
@@ -132,29 +159,51 @@
   opacity: 1;
 }
 
-/* Active */
 .login-btn:active {
   transform: scale(0.96);
 }
+
+
 .register {
   text-align: center;
   margin-top: 20px;
   font-size: 14px;
 }
+
 .register a {
   color: #1f6fdc;
   font-weight: bold;
   text-decoration: none;
 }
+
+
+@media (max-width: 768px) {
+  .login-card {
+    width: 92%;
+  }
+
+  .login-title {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 480px) {
   .login-card {
-    width: 90%;
+    width: 94%;
   }
 
-  .login-body {
-    padding: 20px;
+  .login-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 26px;
   }
-} 
 
+  .input-group input {
+    font-size: 14px;
+  }
 
-
+  .login-btn {
+    font-size: 17px;
+    padding: 12px;
+  }
+}

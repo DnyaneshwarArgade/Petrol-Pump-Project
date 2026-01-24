@@ -4,14 +4,23 @@ import './App.css';
 
 import Layout from './Layout/Layout';
 
-import Dashboard from './Pages/Dashboard';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
-import Nozzle from './Pages/Nozzle';
-import Reports from './Pages/Reports';
-import StaffManagement from './Pages/StaffManagement';
-import Sidebar from './Components/SideBar/Sidebar';
+// import Dashboard from './Pages/Dashboard';
+// import Login from './Pages/Login';
+// import Register from './Pages/Register';
+// import Nozzle from './Pages/Nozzle';
+// import Reports from './Pages/Reports';
+// import StaffManagement from './Pages/StaffManagement';
+// import Sidebar from './Components/SideBar/Sidebar';
 
+import Dashboard from './Pages/Dashboard/Dashboard'
+import Login from './Pages/Auth/Login'
+import Register from './Pages/Auth/Register'
+import Nozzle from './Pages/Nozzle/Nozzle'
+import Reports from './Pages/Report/Reports'
+import StaffManagement from './Pages/Staff/StaffManagement'
+import Sidebar from './Components/SideBar/Sidebar'
+import ExpenseManagement from './Pages/Expense/ExpenseManagement';
+import FuelStockManagement from './Pages/FuelStock/FuelStockManagement';
 
 function App() {
   return (
@@ -27,6 +36,8 @@ function App() {
           <Route path="/reports" element={<Reports />} />
           <Route path="/staffmanagement" element={<StaffManagement />} />
           <Route path="/sidebar" element={<Sidebar />} />
+          <Route path="/expensemanagement" element={<ExpenseManagement />} />
+          <Route path="/fuelstockmanagement" element={<FuelStockManagement />} />
         </Route>
 
       </Routes>

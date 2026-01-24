@@ -10,7 +10,7 @@
       rgba(0, 0, 0, 0.55),
       rgba(0, 0, 0, 0.55)
     ),
-    url("../assets/petrolpump.jpg");
+    url('../../assets/petrolpump.jpg');
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;

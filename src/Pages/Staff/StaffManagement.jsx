@@ -21,6 +21,7 @@ const EmployeeManagement = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [employeeStatus, setEmployeeStatus] = useState("Active");
 
+
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -61,9 +62,9 @@ const EmployeeManagement = () => {
       {/* Header */}
       <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap">
         <h3 className="fw-bold">Employee Management</h3>
-        <div className="date-time">
+        {/* <div className="date-time">
           Thursday, April 25, 2024 | 8:25 AM
-        </div>
+        </div> */}
       </div>
 
       {/* Cards */}
@@ -154,9 +155,14 @@ const EmployeeManagement = () => {
                 </td>
                 <td>
                   <div className="action-icons">
-                    <BsPencilSquare className="edit-icon" onClick={() => setShowEditModal(true)} />
-                    <BsTrashFill className="delete-icon" onClick={handleDelete} />
-                  </div>
+                  <div className="icon-box edit-box" onClick={() => setShowEditModal(true)}>
+                  <BsPencilSquare className="edit-icon" />
+                </div>
+                <div className="icon-box delete-box" onClick={handleDelete}>
+                 <BsTrashFill className="delete-icon" />
+               </div>
+          </div>
+
                 </td>
               </tr>
             </tbody>
