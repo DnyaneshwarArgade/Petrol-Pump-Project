@@ -54,7 +54,6 @@ const Reports = () => {
     setSuggestions(matched);
     setShowSuggestions(true);
   };
-
   const handleSuggestionClick = (text) => {
     inputRef.current.value = text;
     setSearchText(text);
@@ -188,7 +187,6 @@ const Reports = () => {
         {/* HEADER */}
         <div className="rt-header">
           <h5 className="rt-title">Recent Transactions</h5>
-
           <div className="rt-search mb-4">
             <input
               ref={inputRef}
@@ -224,10 +222,9 @@ const Reports = () => {
           </div>
         )}
         {/* TABLE */}
-        <div className="rt-table-wrapper mb-5">
+        <div className="rt-table-wrapper">
           {/* <table className="rt-table table-hover"> */}
           <table className="rt-table table table-hover">
-
             <thead className="heads">
               <tr>
                 <th>Date</th>
@@ -238,30 +235,26 @@ const Reports = () => {
               </tr>
             </thead>
             <tbody>
-              {paginatedData.length > 0 ? (
-                paginatedData.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.date}</td>
-                    <td>{row.pumpId}</td>
-                    <td>{row.fuelType}</td>
-                    <td>{row.volume}</td>
-                    <td>{row.amount}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <tr className="no-data-row">
-                    <td colSpan="5" className="rt-no-data">
-                      No data found!
-                    </td>
-                  </tr>
-
-                </tr>
-              )}
-            </tbody>
+           {paginatedData.length > 0 ? (
+           paginatedData.map((row, index) => (
+      <tr key={index}>
+        <td>{row.date}</td>
+        <td>{row.pumpId}</td>
+        <td>{row.fuelType}</td>
+        <td>{row.volume}</td>
+        <td>{row.amount}</td>
+      </tr>
+    ))
+  ) : (
+    <tr className="no-data-row">
+      <td colSpan="7" className="text-center rt-no-data">
+        No data found!
+      </td>
+     </tr>
+      )}
+    </tbody>
           </table>
         </div>
-
         {/* PAGINATION */}
         {filteredData.length > itemsPerPage && (
           <div className="rt-pagination mb-5">

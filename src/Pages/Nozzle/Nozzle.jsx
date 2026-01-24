@@ -24,11 +24,14 @@ const Nozzles = () => {
   const [page, setPage] = useState(1);
   const perPage = 10;
 
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
 
-  const [toast, setToast] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState("success"); // success / error
+  const [messageText, setMessageText] = useState("");
 
   const [form, setForm] = useState({
     pump: "PUMP-101",
@@ -37,34 +40,54 @@ const Nozzles = () => {
     price: "",
     status: "Active",
   });
-
   /* SEARCH */
   const filtered = data.filter((n) =>
     Object.values(n).join(" ").toLowerCase().includes(search.toLowerCase())
   );
-
   /* PAGINATION */
   const totalPages = Math.ceil(filtered.length / perPage);
   const start = (page - 1) * perPage;
   const paginated = filtered.slice(start, start + perPage);
-
-  /* TOAST */
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(""), 2500);
+  /* SEARCH SUGGESTIONS */
+  const getSuggestions = () => {
+    if (!search) return [];
+    const q = search.toLowerCase();
+    const values = data.flatMap((item) => [
+      item.id,
+      item.pump,
+      item.fuel,
+      item.status,
+      String(item.price),
+    ]);
+    return [...new Set(values.filter((v) => v.toLowerCase().includes(q)))];
   };
-
-  /* ADD */
+  /* Popup trigger function */
+  const triggerMessage = (type, text) => {
+    setMessageType(type);
+    setMessageText(text);
+    setShowMessage(true);
+    setTimeout(() => setShowMessage(false), 1000); // auto hide 3 sec
+  };
   const handleAdd = () => {
-    if (!form.id || !form.price) return;
+  if (!form.id || !form.price)
+    return triggerMessage("error", "Please fill all fields");
 
-    setData([...data, { ...form, dispensed: "0 L" }]);
-    setShowModal(false);
-    showToast("✅ Nozzle Added Successfully");
+  const newItem = { ...form, dispensed: "0 L" };
+  setData([newItem, ...data]);
 
-    setForm({ pump: "PUMP-101", id: "", fuel: "Petrol", price: "", status: "Active" });
-  };
-
+  setForm({
+    pump: "PUMP-101",
+    id: "",
+    fuel: "Petrol",
+    price: "",
+    status: "Active",
+  });
+  setSearch("");  
+  setShowSuggestions(false);
+  setShowModal(false);
+  setPage(1);
+  triggerMessage("success", "✅ Nozzle Data Added Successfully");
+};
   /* EDIT */
   const handleEdit = (item, index) => {
     setForm(item);
@@ -72,7 +95,6 @@ const Nozzles = () => {
     setIsEdit(true);
     setShowModal(true);
   };
-
   /* SAVE */
   const handleSave = () => {
     const updated = [...data];
@@ -80,14 +102,13 @@ const Nozzles = () => {
     setData(updated);
     setShowModal(false);
     setIsEdit(false);
-    showToast("✅ Data Updated Successfully");
+    triggerMessage("success", "✅ Nozzle Data Updated Successfully");
   };
-
   /* DELETE */
   const handleDelete = (index) => {
     if (window.confirm("Are you sure you want to delete?")) {
       setData(data.filter((_, i) => i !== start + index));
-      showToast("🗑 Deleted Successfully");
+      triggerMessage("error", "🗑 Deleted Successfully");
     }
   };
 
@@ -100,30 +121,151 @@ const Nozzles = () => {
         </div>
 
         <div className="d-flex align-items-center gap-3 flex-wrap">
-             <div className="search-box">
-               <i className="bi bi-search"></i>
-             <input
-            type="text"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+          <div className="search-box position-relative">
+            <i className="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Search"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setShowSuggestions(true);
+                setPage(1);
+              }}
+              onFocus={() => search && setShowSuggestions(true)}
             />
             {search && (
-           <i
-             className="bi bi-x-circle-fill clear"
-              onClick={() => setSearch("")}
-           ></i>
-    )}
-  </div>
-  <button className="btn btn-primary add-btn" onClick={() => setShowModal(true)}>
-      + Add Nozzle
-  </button>        
+              <i
+                className="bi bi-x-circle-fill clear"
+                onClick={() => {
+                  setSearch("");
+                  setShowSuggestions(false);
+                }}
+              ></i>
+            )}
+            {showSuggestions && search && (
+                   <div className="search-suggestions">
+                      {getSuggestions().length > 0 &&
+                      getSuggestions().slice(0, 6).map((item, i) => (
+                        <div
+                     key={i}
+                     className="suggestion-item"
+                     onClick={() => {
+                     setSearch(item);
+                     setShowSuggestions(false);
+                    }}
+                    >
+                 {item}
+                </div>
+               ))}
+             </div>
+            )}
+          </div>
+             <button className="btn btn-primary add-btn" onClick={() => setShowModal(true)}>
+            + Add Nozzle
+          </button>
         </div>
       </div>
+{/* PUMP STATUS CARDS */}
+<div className="conatiner-fluid pump-status-wrapper mb-3">
+  <h6 className="fw-bold mb-2">Pump Status</h6>
+
+  <div className="pump-status-grid">
+    <div className="pump-card">
+      <div className="pump-card-header green">
+        <i className="bi bi-currency-rupee"></i>
+        <span>Pump 1</span>
+      </div>
+      <div className="pump-card-body">
+        <div className="status green">
+          <i className="bi bi-check-circle-fill"></i> On me
+        </div>
+        <div className="fuel">
+          <i className="bi bi-fuel-pump"></i> Petrol
+        </div>
+      </div>
+    </div>
+
+    <div className="pump-card">
+      <div className="pump-card-header orange">
+        <i className="bi bi-check-circle"></i>
+        <span>Pump 2</span>
+      </div>
+      <div className="pump-card-body">
+        <div className="status orange">
+          <i className="bi bi-check-circle-fill"></i> Open
+        </div>
+        <div className="fuel">
+          <i className="bi bi-fuel-pump"></i> Diesel
+        </div>
+      </div>
+    </div>
+
+    <div className="pump-card">
+      <div className="pump-card-header red">
+        <i className="bi bi-exclamation-circle"></i>
+        <span>Pump 3</span>
+      </div>
+      <div className="pump-card-body">
+        <div className="status red">
+          <i className="bi bi-clock-fill"></i> In Use
+        </div>
+        <div className="fuel">
+           <i className="bi bi-fuel-pump"></i> AD NF
+        </div>
+      </div>
+    </div>
+
+    <div className="pump-card">
+      <div className="pump-card-header green">
+        <i className="bi bi-check-circle"></i>
+        <span>Pump 4</span>
+      </div>
+      <div className="pump-card-body">
+        <div className="status green">
+          <i className="bi bi-check-circle-fill"></i> Open
+        </div>
+        <div className="fuel">
+          <i className="bi bi-fuel-pump"></i> Petrol
+        </div>
+      </div>
+    </div>
+
+    <div className="pump-card">
+      <div className="pump-card-header orange">
+        <i className="bi bi-clock-history"></i>
+        <span>Pump 5</span>
+      </div>
+      <div className="pump-card-body">
+        <div className="status orange">
+          <i className="bi bi-clock-fill"></i> In Use
+        </div>
+        <div className="fuel">
+           <i className="bi bi-fuel-pump"></i> AD NF
+        </div>
+      </div>
+    </div>
+
+    <div className="pump-card">
+      <div className="pump-card-header red">
+        <i className="bi bi-power"></i>
+        <span>Offline</span>
+      </div>
+      <div className="pump-card-body">
+        <div className="status red">
+          <i className="bi bi-x-circle-fill"></i> On me
+        </div>
+        <div className="fuel">
+          <i className="bi bi-fuel-pump"></i> Petrol
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       {/* TABLE */}
       <div className="table-wrapper table-responsive">
         <table className="table align-middle table-hover">
-          <thead>
+          <thead className="heads">
             <tr>
               <th>Nozzle ID</th>
               <th>Pump ID</th>
@@ -135,59 +277,97 @@ const Nozzles = () => {
             </tr>
           </thead>
           <tbody>
-            {paginated.map((n, i) => (
-              <tr key={i}>
-                <td>{n.id}</td>
-                <td>{n.pump}</td>
-                <td>{n.fuel}</td>
-                <td>₹ {n.price}</td>
-                <td>{n.dispensed}</td>
-                <td>
-                  <span className={`badge ${n.status === "Active" ? "bg-success" : "bg-danger"}`}>
-                    {n.status}
-                  </span>
-                </td>
-                <td className="text-center">
-                  <i className="bi bi-pencil-square action edit" onClick={() => handleEdit(n, i)} />
-                  <i className="bi bi-trash action delete" onClick={() => handleDelete(i)} />
+            {paginated.length > 0 ? (
+              paginated.map((n, i) => (
+                <tr key={i}>
+                  <td>{n.id}</td>
+                  <td>{n.pump}</td>
+                  <td>{n.fuel}</td>
+                  <td>₹ {n.price}</td>
+                  <td>{n.dispensed}</td>
+                  <td>
+                    <span className={`badge ${n.status === "Active" ? "bg-success" : "bg-danger"}`}>
+                      {n.status}
+                    </span>
+                  </td>
+                  <td className="text-center">
+                    <i className="bi bi-pencil-square action edit" onClick={() => handleEdit(n, i)} />
+                    <i className="bi bi-trash action delete" onClick={() => handleDelete(i)} />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="text-center text-muted">
+                  No data found
                 </td>
               </tr>
-            ))}
+            )
+            }
           </tbody>
         </table>
       </div>
-
-      {/* PAGINATION */}
-      <div className="pagination-bar">
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>‹</button>
-        {[...Array(totalPages)].map((_, i) => (
-          <button
-            key={i}
-            className={page === i + 1 ? "active" : ""}
-            onClick={() => setPage(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
-        <button disabled={page === totalPages} onClick={() => setPage(page + 1)}>›</button>
-      </div>
-
+            <div className="pagination-bar mb-5">
+                    <button
+                          disabled={page === 1}
+                          onClick={() => setPage(1)}
+                           >
+                           &laquo;&laquo;
+                    </button>
+                    <button
+                   disabled={page === 1}
+                  onClick={() => setPage(page - 1)}
+                           >
+                           &lsaquo;
+                      </button>
+               {/* PAGE NUMBERS */}
+                     {[...Array(totalPages)].map((_, i) => (
+                         <button
+                         key={i}
+                         className={page === i + 1 ? "active" : ""}
+                         onClick={() => setPage(i + 1)}
+                            >
+                         {i + 1}
+                         </button>
+                          ))}
+                    <button
+                      disabled={page === totalPages}
+                      onClick={() => setPage(page + 1)}
+                         >
+                      &rsaquo;
+                    </button>
+                  <button
+                        disabled={page === totalPages}
+                        onClick={() => setPage(totalPages)}
+                         >
+                   &raquo;&raquo;
+                 </button>
+             </div>
       {/* ADD / EDIT MODAL */}
       {showModal && (
         <div className="custom-modal">
           <div className="modal-box">
             <h6>{isEdit ? "Edit Nozzle" : "Add New Nozzle"}</h6>
+            <input
+              className="form-control mb-2"
+              list="pumpList"
+              placeholder="Pump ID (e.g. PUMP-104)"
+              value={form.pump}
+              disabled={isEdit}
+              onChange={(e) => setForm({ ...form, pump: e.target.value })}
+            />
+            <datalist id="pumpList">
+              {[...new Set(data.map(d => d.pump))].map((p, i) => (
+                <option key={i} value={p} />
+              ))}
+            </datalist>
 
-            <select className="form-select mb-2" value={form.pump}
-              onChange={(e) => setForm({ ...form, pump: e.target.value })}>
-              <option>PUMP-101</option>
-              <option>PUMP-102</option>
-              <option>PUMP-103</option>
-            </select>
-
-            <input className="form-control mb-2" placeholder="Nozzle ID"
-              value={form.id} onChange={(e) => setForm({ ...form, id: e.target.value })} />
-
+            <input
+              className="form-control mb-2"
+              placeholder="Nozzle ID"
+              value={form.id}
+              onChange={(e) => setForm({ ...form, id: e.target.value })}
+            />
             <select className="form-select mb-2" value={form.fuel}
               onChange={(e) => setForm({ ...form, fuel: e.target.value })}>
               <option>Petrol</option>
@@ -195,9 +375,12 @@ const Nozzles = () => {
               <option>CNG</option>
             </select>
 
-            <input className="form-control mb-2" placeholder="Unit Price"
-              value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
-
+            <input
+              className="form-control mb-2"
+              placeholder="Unit Price"
+              value={form.price}
+              onChange={(e) => setForm({ ...form, price: e.target.value })}
+            />
             <select className="form-select mb-3" value={form.status}
               onChange={(e) => setForm({ ...form, status: e.target.value })}>
               <option>Active</option>
@@ -213,12 +396,23 @@ const Nozzles = () => {
             </button>
           </div>
         </div>
-  
       )}
-      {/* RESPONSIVE TOAST */}
-      {toast && <div className="toast-responsive">{toast}</div>}
+      {/* Centered Popup */}
+      {showMessage && (
+        <div className="overlay">
+          <div className={`message-card text-center ${messageType}`}>
+            <i
+              className={`bi ${
+                messageType === "success" ? "bi-check-circle-fill" : "bi-x-circle-fill"
+              } message-icon`}
+            ></i>
+            <h2>{messageText}</h2>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
 export default Nozzles;
+
+
