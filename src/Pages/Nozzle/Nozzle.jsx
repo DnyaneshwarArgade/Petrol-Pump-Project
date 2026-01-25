@@ -69,25 +69,25 @@ const Nozzles = () => {
     setTimeout(() => setShowMessage(false), 1000); // auto hide 3 sec
   };
   const handleAdd = () => {
-  if (!form.id || !form.price)
-    return triggerMessage("error", "Please fill all fields");
+    if (!form.id || !form.price)
+      return triggerMessage("error", "Please fill all fields");
 
-  const newItem = { ...form, dispensed: "0 L" };
-  setData([newItem, ...data]);
+    const newItem = { ...form, dispensed: "0 L" };
+    setData([newItem, ...data]);
 
-  setForm({
-    pump: "PUMP-101",
-    id: "",
-    fuel: "Petrol",
-    price: "",
-    status: "Active",
-  });
-  setSearch("");  
-  setShowSuggestions(false);
-  setShowModal(false);
-  setPage(1);
-  triggerMessage("success", "✅ Nozzle Data Added Successfully");
-};
+    setForm({
+      pump: "PUMP-101",
+      id: "",
+      fuel: "Petrol",
+      price: "",
+      status: "Active",
+    });
+    setSearch("");
+    setShowSuggestions(false);
+    setShowModal(false);
+    setPage(1);
+    triggerMessage("success", "✅ Nozzle Data Added Successfully");
+  };
   /* EDIT */
   const handleEdit = (item, index) => {
     setForm(item);
@@ -144,124 +144,124 @@ const Nozzles = () => {
               ></i>
             )}
             {showSuggestions && search && (
-                   <div className="search-suggestions">
-                      {getSuggestions().length > 0 &&
-                      getSuggestions().slice(0, 6).map((item, i) => (
-                        <div
-                     key={i}
-                     className="suggestion-item"
-                     onClick={() => {
-                     setSearch(item);
-                     setShowSuggestions(false);
-                    }}
+              <div className="search-suggestions">
+                {getSuggestions().length > 0 &&
+                  getSuggestions().slice(0, 6).map((item, i) => (
+                    <div
+                      key={i}
+                      className="suggestion-item"
+                      onClick={() => {
+                        setSearch(item);
+                        setShowSuggestions(false);
+                      }}
                     >
-                 {item}
-                </div>
-               ))}
-             </div>
+                      {item}
+                    </div>
+                  ))}
+              </div>
             )}
           </div>
-             <button className="btn btn-primary add-btn" onClick={() => setShowModal(true)}>
+          <button className="btn btn-primary add-btn" onClick={() => setShowModal(true)}>
             + Add Nozzle
           </button>
         </div>
       </div>
-{/* PUMP STATUS CARDS */}
-<div className="conatiner-fluid pump-status-wrapper mb-3">
-  <h6 className="fw-bold mb-2">Pump Status</h6>
+      {/* PUMP STATUS CARDS */}
+      <div className="conatiner-fluid pump-status-wrapper mb-3">
+        <h6 className="fw-bold mb-2">Pump Status</h6>
 
-  <div className="pump-status-grid">
-    <div className="pump-card">
-      <div className="pump-card-header green">
-        <i className="bi bi-currency-rupee"></i>
-        <span>Pump 1</span>
-      </div>
-      <div className="pump-card-body">
-        <div className="status green">
-          <i className="bi bi-check-circle-fill"></i> On me
-        </div>
-        <div className="fuel">
-          <i className="bi bi-fuel-pump"></i> Petrol
-        </div>
-      </div>
-    </div>
+        <div className="pump-status-grid">
+          <div className="pump-card">
+            <div className="pump-card-header green">
+              <i className="bi bi-currency-rupee"></i>
+              <span>Pump 1</span>
+            </div>
+            <div className="pump-card-body">
+              <div className="status green">
+                <i className="bi bi-check-circle-fill"></i> On me
+              </div>
+              <div className="fuel">
+                <i className="bi bi-fuel-pump"></i> Petrol
+              </div>
+            </div>
+          </div>
 
-    <div className="pump-card">
-      <div className="pump-card-header orange">
-        <i className="bi bi-check-circle"></i>
-        <span>Pump 2</span>
-      </div>
-      <div className="pump-card-body">
-        <div className="status orange">
-          <i className="bi bi-check-circle-fill"></i> Open
-        </div>
-        <div className="fuel">
-          <i className="bi bi-fuel-pump"></i> Diesel
-        </div>
-      </div>
-    </div>
+          <div className="pump-card">
+            <div className="pump-card-header orange">
+              <i className="bi bi-check-circle"></i>
+              <span>Pump 2</span>
+            </div>
+            <div className="pump-card-body">
+              <div className="status orange">
+                <i className="bi bi-check-circle-fill"></i> Open
+              </div>
+              <div className="fuel">
+                <i className="bi bi-fuel-pump"></i> Diesel
+              </div>
+            </div>
+          </div>
 
-    <div className="pump-card">
-      <div className="pump-card-header red">
-        <i className="bi bi-exclamation-circle"></i>
-        <span>Pump 3</span>
-      </div>
-      <div className="pump-card-body">
-        <div className="status red">
-          <i className="bi bi-clock-fill"></i> In Use
-        </div>
-        <div className="fuel">
-           <i className="bi bi-fuel-pump"></i> AD NF
-        </div>
-      </div>
-    </div>
+          <div className="pump-card">
+            <div className="pump-card-header red">
+              <i className="bi bi-exclamation-circle"></i>
+              <span>Pump 3</span>
+            </div>
+            <div className="pump-card-body">
+              <div className="status red">
+                <i className="bi bi-clock-fill"></i> In Use
+              </div>
+              <div className="fuel">
+                <i className="bi bi-fuel-pump"></i> AD NF
+              </div>
+            </div>
+          </div>
 
-    <div className="pump-card">
-      <div className="pump-card-header green">
-        <i className="bi bi-check-circle"></i>
-        <span>Pump 4</span>
-      </div>
-      <div className="pump-card-body">
-        <div className="status green">
-          <i className="bi bi-check-circle-fill"></i> Open
-        </div>
-        <div className="fuel">
-          <i className="bi bi-fuel-pump"></i> Petrol
-        </div>
-      </div>
-    </div>
+          <div className="pump-card">
+            <div className="pump-card-header green">
+              <i className="bi bi-check-circle"></i>
+              <span>Pump 4</span>
+            </div>
+            <div className="pump-card-body">
+              <div className="status green">
+                <i className="bi bi-check-circle-fill"></i> Open
+              </div>
+              <div className="fuel">
+                <i className="bi bi-fuel-pump"></i> Petrol
+              </div>
+            </div>
+          </div>
 
-    <div className="pump-card">
-      <div className="pump-card-header orange">
-        <i className="bi bi-clock-history"></i>
-        <span>Pump 5</span>
-      </div>
-      <div className="pump-card-body">
-        <div className="status orange">
-          <i className="bi bi-clock-fill"></i> In Use
-        </div>
-        <div className="fuel">
-           <i className="bi bi-fuel-pump"></i> AD NF
-        </div>
-      </div>
-    </div>
+          <div className="pump-card">
+            <div className="pump-card-header orange">
+              <i className="bi bi-clock-history"></i>
+              <span>Pump 5</span>
+            </div>
+            <div className="pump-card-body">
+              <div className="status orange">
+                <i className="bi bi-clock-fill"></i> In Use
+              </div>
+              <div className="fuel">
+                <i className="bi bi-fuel-pump"></i> AD NF
+              </div>
+            </div>
+          </div>
 
-    <div className="pump-card">
-      <div className="pump-card-header red">
-        <i className="bi bi-power"></i>
-        <span>Offline</span>
-      </div>
-      <div className="pump-card-body">
-        <div className="status red">
-          <i className="bi bi-x-circle-fill"></i> On me
+          <div className="pump-card">
+            <div className="pump-card-header red">
+              <i className="bi bi-power"></i>
+              <span>Offline</span>
+            </div>
+            <div className="pump-card-body">
+              <div className="status red">
+                <i className="bi bi-x-circle-fill"></i> On me
+              </div>
+              <div className="fuel">
+                <i className="bi bi-fuel-pump"></i> Petrol
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="fuel">
-          <i className="bi bi-fuel-pump"></i> Petrol
-        </div>
       </div>
-    </div>
-  </div>
-</div>
       {/* TABLE */}
       <div className="table-wrapper table-responsive">
         <table className="table align-middle table-hover">
@@ -307,42 +307,42 @@ const Nozzles = () => {
           </tbody>
         </table>
       </div>
-            <div className="pagination-bar mb-5">
-                    <button
-                          disabled={page === 1}
-                          onClick={() => setPage(1)}
-                           >
-                           &laquo;&laquo;
-                    </button>
-                    <button
-                   disabled={page === 1}
-                  onClick={() => setPage(page - 1)}
-                           >
-                           &lsaquo;
-                      </button>
-               {/* PAGE NUMBERS */}
-                     {[...Array(totalPages)].map((_, i) => (
-                         <button
-                         key={i}
-                         className={page === i + 1 ? "active" : ""}
-                         onClick={() => setPage(i + 1)}
-                            >
-                         {i + 1}
-                         </button>
-                          ))}
-                    <button
-                      disabled={page === totalPages}
-                      onClick={() => setPage(page + 1)}
-                         >
-                      &rsaquo;
-                    </button>
-                  <button
-                        disabled={page === totalPages}
-                        onClick={() => setPage(totalPages)}
-                         >
-                   &raquo;&raquo;
-                 </button>
-             </div>
+      <div className="pagination-bar mb-5">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(1)}
+        >
+          &laquo;&laquo;
+        </button>
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+        >
+          &lsaquo;
+        </button>
+        {/* PAGE NUMBERS */}
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i}
+            className={page === i + 1 ? "active" : ""}
+            onClick={() => setPage(i + 1)}
+          >
+            {i + 1}
+          </button>
+        ))}
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+        >
+          &rsaquo;
+        </button>
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage(totalPages)}
+        >
+          &raquo;&raquo;
+        </button>
+      </div>
       {/* ADD / EDIT MODAL */}
       {showModal && (
         <div className="custom-modal">
@@ -402,9 +402,8 @@ const Nozzles = () => {
         <div className="overlay">
           <div className={`message-card text-center ${messageType}`}>
             <i
-              className={`bi ${
-                messageType === "success" ? "bi-check-circle-fill" : "bi-x-circle-fill"
-              } message-icon`}
+              className={`bi ${messageType === "success" ? "bi-check-circle-fill" : "bi-x-circle-fill"
+                } message-icon`}
             ></i>
             <h2>{messageText}</h2>
           </div>

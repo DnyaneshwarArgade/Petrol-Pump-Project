@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-import "..pages/StaffManagement.css";
-=======
 import React, { useState, useEffect } from "react";
 import "./StaffManagement.css";
->>>>>>> ca53b8f499dd44ccd7c8070f49a7d0fff9f39ef1
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import AddEmp from "./AddEmp";
