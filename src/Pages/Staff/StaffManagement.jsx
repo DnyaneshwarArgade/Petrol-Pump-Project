@@ -100,14 +100,53 @@ const EmployeeManagement = () => {
         <h3 className="fw-bold">Employee Management</h3>
       </div>
 
-      {/* Cards */}
       <div className="row g-4 mb-4">
-        <Card icon={<BsPeopleFill />} title="All Employees" count={employees.length} color="#0F8A4B" />
-        <Card icon={<BsPersonLinesFill />} title="Attendants" count={employees.filter(e => e.jobTitle === "Attendant").length} color="#00B8E6" />
-        <Card icon={<BsPersonBadgeFill />} title="Cashiers" count={employees.filter(e => e.jobTitle === "Cashier").length} color="#FFC107" />
-        <Card icon={<BsPersonCheckFill />} title="Managers" count={employees.filter(e => e.jobTitle === "Manager").length} color="#0D6EFD" />
-        <Card icon={<BsPersonFillCheck />} title="Active Staff" count={employees.filter(e => e.status === "Active").length} color="#0F8A4B" />
+        <div className="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <Card
+            icon={<BsPeopleFill />}
+            title="All Employees"
+            count={employees.length}
+            color="#0F8A4B"
+          />
+        </div>
+
+        <div className="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <Card
+            icon={<BsPersonLinesFill />}
+            title="Attendants"
+            count={employees.filter(e => e.jobTitle === "Attendant").length}
+            color="#00B8E6"
+          />
+        </div>
+
+        <div className="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <Card
+            icon={<BsPersonBadgeFill />}
+            title="Cashiers"
+            count={employees.filter(e => e.jobTitle === "Cashier").length}
+            color="#FFC107"
+          />
+        </div>
+
+        <div className="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <Card
+            icon={<BsPersonCheckFill />}
+            title="Managers"
+            count={employees.filter(e => e.jobTitle === "Manager").length}
+            color="#0D6EFD"
+          />
+        </div>
+
+        <div className="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <Card
+            icon={<BsPersonFillCheck />}
+            title="Active Staff"
+            count={employees.filter(e => e.status === "Active").length}
+            color="#0F8A4B"
+          />
+        </div>
       </div>
+
 
       {/* Manage Section */}
       <div className="manage-box mb-4">
