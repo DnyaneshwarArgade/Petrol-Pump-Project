@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -39,12 +36,10 @@ const Nozzle = () => {
     status: "Active",
   });
 
-  // Save to localStorage
   useEffect(() => {
     localStorage.setItem("nozzles", JSON.stringify(data));
   }, [data]);
 
-  // Filter data for search
   const filteredData = data.filter((item) =>
     Object.values(item).join(" ").toLowerCase().includes(search.toLowerCase())
   );
@@ -98,44 +93,38 @@ const Nozzle = () => {
 
     setShowModal(false);
   };
- const deleteNozzle = (nozzleId) => {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "This data will be deleted permanently!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    confirmButtonText: "Yes, delete",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      setData(prev => {
-        const updatedData = prev.filter(d => d.nozzleId !== nozzleId);
+  const deleteNozzle = (nozzleId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This data will be deleted permanently!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Yes, delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setData(prev => {
+          const updatedData = prev.filter(d => d.nozzleId !== nozzleId);
+          const newTotalPages = Math.ceil(updatedData.length / itemsPerPage);
+          if (currentPage > newTotalPages && newTotalPages > 0) {
+            setCurrentPage(newTotalPages);
+          }
+          return updatedData;
+        });
 
-        // ✅ total pages after delete
-        const newTotalPages = Math.ceil(updatedData.length / itemsPerPage);
-
-        // ✅ agar current page exist nahi karta
-        if (currentPage > newTotalPages && newTotalPages > 0) {
-          setCurrentPage(newTotalPages); // ya 1 bhi rakh sakte ho
-        }
-
-        return updatedData;
-      });
-
-      Swal.fire({
-        icon: "success",
-        title: "Deleted Successfully",
-        timer: 1500,
-        showConfirmButton: false
-      });
-    }
-  });
-};
+        Swal.fire({
+          icon: "success",
+          title: "Deleted Successfully",
+          timer: 1500,
+          showConfirmButton: false
+        });
+      }
+    });
+  };
 
   return (
     <div className="container-fluid">
       <h5 className="mb-3 fw-bold m-2">Pump Status</h5>
-     
       <div className="row g-3 pump-row">
         {pumpData.map((pump) => (
           <div
@@ -164,14 +153,13 @@ const Nozzle = () => {
         ))}
       </div>
 
-
       <div className="card mt-4 p-3 w-100">
         <div className="d-flex justify-content-between mb-2">
-           <div className="d-flex align-items-center gap-2">
-              <i className="bi bi-fuel-pump fs-4 text-primary m-1"></i>
-              <h4 className="fw-bold">Nozzles</h4>
-            </div>
-          <button className="btn btn-primary fw-bold fs-5" onClick={openAdd}> Add Nozzle</button>
+          <div className="d-flex align-items-center gap-2">
+            <i className="bi bi-fuel-pump fs-4 text-primary mb-1"></i>
+            <h4 className="fw-bold">Nozzles</h4>
+          </div>
+          <button className="btn btn-primary fw-bold fs-7 p-2" onClick={openAdd}> Add Nozzle</button>
         </div>
 
         <div className="search-box w-100 position-relative mb-2">
@@ -212,7 +200,7 @@ const Nozzle = () => {
                     <td>₹ {item.price}</td>
                     <td>{item.status}</td>
                     <td>
-                      <i className="bi bi-pencil-square text-primary me-3" style={{ cursor: "pointer" }} onClick={() => openEdit(item, (currentPage-1)*itemsPerPage + index)}></i>
+                      <i className="bi bi-pencil-square text-primary me-3" style={{ cursor: "pointer" }} onClick={() => openEdit(item, (currentPage - 1) * itemsPerPage + index)}></i>
                       <i className="bi bi-trash text-danger" style={{ cursor: "pointer" }} onClick={() => deleteNozzle(item.nozzleId)}></i>
                     </td>
                   </tr>
@@ -221,25 +209,20 @@ const Nozzle = () => {
             </tbody>
           </table>
         </div>
-        
+      </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="rt-pagination mt-2 mb-5">
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button key={i} className={currentPage === i + 1 ? "active" : ""} onClick={() => setCurrentPage(i + 1)}>{i + 1}</button>
+          ))}
+          <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>»</button>
+          <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
         </div>
-        
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="rt-pagination mt-2 mb-5">
-            <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
-            <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button key={i} className={currentPage === i + 1 ? "active" : ""} onClick={() => setCurrentPage(i + 1)}>{i + 1}</button>
-            ))}
-            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>»</button>
-            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
-          </div>
-        )}
-
-
-      {/* </div> */}
-
+      )}
       {/* Modal */}
       {showModal && (
         <div className="modal-backdrop-custom">
@@ -251,15 +234,15 @@ const Nozzle = () => {
             <div className="row g-3 mt-2">
               <div className="col-md-6">
                 <label className="form-label">Pump ID</label>
-                <input className="form-control" value={form.pumpId} onChange={(e) => setForm({...form, pumpId:e.target.value})} disabled={isEdit}/>
+                <input className="form-control" value={form.pumpId} onChange={(e) => setForm({ ...form, pumpId: e.target.value })} disabled={isEdit} />
               </div>
               <div className="col-md-6">
                 <label className="form-label">Nozzle ID</label>
-                <input className="form-control" value={form.nozzleId} onChange={(e) => setForm({...form, nozzleId:e.target.value})} disabled={isEdit}/>
+                <input className="form-control" value={form.nozzleId} onChange={(e) => setForm({ ...form, nozzleId: e.target.value })} disabled={isEdit} />
               </div>
               <div className="col-md-6">
                 <label className="form-label">Fuel Type</label>
-                <select className="form-control" value={form.fuelType} onChange={(e)=>setForm({...form,fuelType:e.target.value})}>
+                <select className="form-control" value={form.fuelType} onChange={(e) => setForm({ ...form, fuelType: e.target.value })}>
                   <option>Petrol</option>
                   <option>Diesel</option>
                   <option>CNG</option>
@@ -267,11 +250,11 @@ const Nozzle = () => {
               </div>
               <div className="col-md-6">
                 <label className="form-label">Unit Price</label>
-                <input className="form-control" value={form.price} onChange={(e)=>setForm({...form,price:e.target.value})}/>
+                <input className="form-control" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
               </div>
               <div className="col-md-6">
                 <label className="form-label">Status</label>
-                <select className="form-control" value={form.status} onChange={(e)=>setForm({...form,status:e.target.value})}>
+                <select className="form-control" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
                   <option>Active</option>
                   <option>Inactive</option>
                 </select>
@@ -281,9 +264,6 @@ const Nozzle = () => {
           </div>
         </div>
       )}
-
-
-
     </div>
   );
 };

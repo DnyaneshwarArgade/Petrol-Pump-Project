@@ -28,7 +28,7 @@ const Reports = () => {
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  /* SEARCH */
+
   const handleSearch = () => {
     const value = inputRef.current.value;
     setSearchText(value);
@@ -67,14 +67,14 @@ const Reports = () => {
     setShowSuggestions(false);
     inputRef.current.focus();
   };
-  /* FILTER */
+
   const filteredData = data.filter(item =>
     Object.values(item)
       .join(" ")
       .toLowerCase()
       .includes(searchText.toLowerCase())
   );
-  /* PAGINATION */
+
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -195,7 +195,7 @@ const Reports = () => {
             />
             <span
               className="position-absolute top-50 translate-middle-y"
-              style={{ left: "7px"}}
+              style={{ left: "7px" }}
             >
               <i className="bi bi-search search-icon"></i>
             </span>
@@ -206,8 +206,7 @@ const Reports = () => {
               <ul className="rt-suggestions">
                 {suggestions.map((item, index) => (
                   <li key={index} onClick={() => handleSuggestionClick(item)}>
-                    {/* <i className="bi bi-search search-icon"></i>  */}
-                     {item}
+                    {item}
                   </li>
                 ))}
               </ul>

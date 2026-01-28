@@ -2,25 +2,31 @@
   margin: 0px;
   padding: 0px;
 }
+
 body {
   background-color: #f4f6f9;
 }
+
 .reports {
   justify-content: space-between;
 }
+
 .banner img {
   width: 100%;
   object-fit: cover;
   margin-top: 5px;
 }
+
 .stats-card {
   border-radius: 12px;
   transition: transform 0.3s ease-in-out;
-  margin: 0px 3px 3px 3px;
+  margin: 0px 5px 5px 5px;
 }
+
 .stats-card:hover {
   transform: scale(1.05);
 }
+
 .icon-box {
   width: 50px;
   height: 50px;
@@ -29,28 +35,36 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
+  margin-top: 11px;
 }
+
 .icon-box h4 {
   justify-content: center;
   text-align: center;
 }
+
 .icon-green {
   background-color: #28a745;
 }
+
 .icon-orange {
   background-color: #fd7e14;
 }
+
 .icon-red {
   background-color: #dc3545;
 }
+
 .card-title {
-  font-size: 20px;
+  font-size: 22px;
   color: #000;
 }
+
 .card-value {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: bold;
 }
+
 .summary-card {
   border-radius: 12px;
   overflow: hidden;
@@ -58,9 +72,11 @@ body {
   background: #fff;
   transition: transform 0.3s ease-in-out;
 }
+
 .summary-card:hover {
   transform: scale(1.05);
 }
+
 .card-header-custom {
   display: flex;
   align-items: center;
@@ -70,71 +86,88 @@ body {
   color: #fff;
   font-size: 18px;
 }
+
 .petrol {
   background: #2dc57e;
   border-bottom-right-radius: 50%;
 }
+
 .petrol:hover {
   background-color: #00ff88;
 }
+
 .diesel {
   background: #ce9930;
   border-bottom-right-radius: 50%;
 }
+
 .diesel:hover {
   background-color: #ffae00;
 }
+
 .cng {
   background: #dc3545;
   border-bottom-right-radius: 50%;
   color: #fff;
 }
+
 .cng:hover {
   background-color: #ff0019;
 }
+
 .card-body-custom {
   padding: 16px;
 }
+
 .fuel-value {
   font-size: 28px;
   font-weight: bold;
 }
+
 .fuel-amount {
   font-size: 23px;
   font-weight: 600;
   color: #1ca060;
 }
+
 .earned {
   color: #6c757d;
   font-size: 17px;
 }
+
 @media (max-width: 768px) {
   .fuel-value {
     font-size: 24px;
   }
 }
+
 .card {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
+
 .rt-container {
   background: #f8f9fb;
   padding: 16px;
 }
+
 .heads tr th {
   font-size: 18px;
   background-color: #e1dcdc;
 }
+
 .rt-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
 }
+
 .rt-title {
   font-weight: 700;
   font-size: 25px;
 }
+
 .rt-search input {
   width: 100%;
   padding: 8px 35px 8px 38px;
@@ -142,6 +175,7 @@ body {
   border: 1px solid #bfcae9;
   background-color: #f3eeee;
 }
+
 .rt-search-icon {
   position: absolute;
   left: 19px;
@@ -151,6 +185,7 @@ body {
   background-color: white;
   pointer-events: none;
 }
+
 .rt-clear {
   position: absolute;
   right: 12px;
@@ -159,9 +194,11 @@ body {
   cursor: pointer;
   color: #888;
 }
+
 .rt-search {
   position: relative;
 }
+
 .rt-suggestions {
   position: absolute;
   top: 110%;
@@ -174,30 +211,33 @@ body {
   padding: 6px 0;
   z-index: 1000;
 }
+
 .rt-suggestions li {
   padding: 8px 12px;
   cursor: pointer;
   font-size: 14px;
 }
+
 .rt-suggestions li:hover {
   background: #f1f5ff;
 }
+
 .rt-search-info {
   margin: 0px 0px 6px 0px;
   font-size: 14px;
   color: #555;
 }
 
-
-
 .rt-table-wrapper {
   overflow-x: auto;
 }
+
 .rt-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
 }
+
 .rt-table th,
 .rt-table td {
   padding: 15px;
@@ -207,21 +247,25 @@ body {
 
 
 .no-data-row {
-  height: 100px;            
+  height: 100px;
 }
+
 .rt-no-data {
   text-align: center;
   font-size: 14px;
   color: #6c757d;
 }
+
 .rt-table tr:hover {
   background: #f5f5f5;
 }
+
 .rt-pagination {
   display: flex;
   justify-content: center;
   gap: 6px;
 }
+
 .rt-pagination button {
   border: none;
   padding: 6px 12px;
@@ -230,15 +274,18 @@ body {
   background: #fff;
   cursor: pointer;
 }
+
 .rt-pagination button.active {
   background: #0d6efd;
   color: #fff;
 }
+
 @media (max-width: 768px) {
   .rt-header {
     flex-direction: column;
     align-items: stretch;
   }
+
   .rt-search {
     width: 100%;
   }
