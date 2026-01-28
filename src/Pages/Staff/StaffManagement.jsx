@@ -1,8 +1,11 @@
+<<<<<<< Updated upstream
 
 // import React, { useState } from "react";
 import "./StaffManagement.css";
 
 
+=======
+>>>>>>> Stashed changes
 import React, { useState,useEffect } from "react";
 
 import "./StaffManagement.css";
@@ -97,16 +100,6 @@ const EmployeeManagement = () => {
   const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = filteredEmployees.slice(startIndex, startIndex + itemsPerPage);
-
-  // Fix: If current page becomes empty after delete, go to previous page
-    useEffect(() => {
-  if (currentPage > totalPages && totalPages > 0) {
-    setCurrentPage(totalPages);
-  }
-  if (totalPages === 0) {
-    setCurrentPage(1);
-  }
-    }, [filteredEmployees.length, totalPages, currentPage]);
 
 
   return (
@@ -252,6 +245,17 @@ const EmployeeManagement = () => {
         onAdd={handleAddEmployee}
         onUpdate={handleUpdateEmployee}
       />
+
+        {/* {showModal && (
+  <AddEmp
+    setShowModal={setShowModal}
+    isEdit={isEdit}
+    selectedEmployee={selectedEmployee}
+    onAdd={handleAddEmployee}
+    onUpdate={handleUpdateEmployee}
+  />
+)} */}
+
     </div>
   );
 };
