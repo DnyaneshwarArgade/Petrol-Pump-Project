@@ -8,13 +8,14 @@ body {
   background: #f2f4f7;
 }
 
-/* Container */
+/* ================= Container ================= */
 .fuel-container {
   padding: 16px;
   min-height: 100vh;
+  max-width: 100%;
 }
 
-/* Page Title */
+/* ================= Page Title ================= */
 .page-title {
   text-align: left;
   font-size: 24px;
@@ -22,7 +23,7 @@ body {
   font-weight: bold;
 }
 
-/* Top Bar */
+/* ================= Top Bar ================= */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -32,6 +33,7 @@ body {
   margin-bottom: 12px;
 }
 
+/* Add Stock Button */
 .add-stock-btn {
   display: flex;
   align-items: center;
@@ -43,22 +45,23 @@ body {
   border-radius: 6px;
   font-size: 15px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .add-stock-btn:hover {
   background: #2739ae;
 }
 
-/* Search Input */
+/* ================= Search ================= */
 .search-wrapper {
   position: relative;
   flex: 1;
-  min-width: 150px;
+  min-width: 200px;
 }
 
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: #999;
@@ -67,22 +70,37 @@ body {
 
 .search-input {
   width: 100%;
-  padding: 8px 10px 8px 30px; 
-  border-radius: 18px; 
+  padding: 9px 34px;
+  border-radius: 20px;
   border: 1px solid #ccc;
   font-size: 14px;
 }
 
-/* Table */
+.clear-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #888;
+  cursor: pointer;
+}
+
+.clear-icon:hover {
+  color: #000;
+}
+
+/* ================= Table ================= */
 .table-wrapper {
   overflow-x: auto;
   background: white;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .fuel-table {
   width: 100%;
+  min-width: 650px;
   border-collapse: collapse;
 }
 
@@ -92,10 +110,12 @@ body {
   padding: 10px;
   text-align: center;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .fuel-table th {
   background: #f5f5f5;
+  font-weight: 600;
 }
 
 .no-data {
@@ -103,23 +123,23 @@ body {
   color: gray;
 }
 
-/* Action Icons */
+/* ================= Action Icons ================= */
 .action-icons {
   display: flex;
   justify-content: center;
   gap: 10px;
-  font-size: 16px;
 }
 
 .edit-icon,
 .delete-icon {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  font-size: 15px;
 }
 
 .edit-icon {
@@ -140,106 +160,7 @@ body {
   background: #f9d3cf;
 }
 
-/* Modal */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  padding: 0px;
-  padding-bottom: 60px;
-
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  width: 320px;
-  padding: 20px;
-  border-radius: 8px;
-  animation: scaleIn 0.3s ease-in-out;
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.modal-content h3 {
-  text-align: center;
-  margin: 0;
-  font-size: 20px;
-  color: #333;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 8px;
-}
-
-.modal-content label {
-  font-size: 14px;
-  margin-top: 8px;
-  display: block;
-}
-
-.modal-content input,
-.modal-content select {
-  width: 100%;
-  padding: 7px;
-  margin-top: 4px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  height: 40px;
-  font-size: 14px;
-}
-
-/* Modal buttons */
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
-
-.save-btn {
-  flex: 1;
-  margin-right: 8px;
-  background: #2044f8;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-@media (max-width: 600px) {
-  .top-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .add-stock-btn {
-    order: 1;
-    width: 50%;
-    align-self: flex-end;
-    justify-content: center;
-    
-  }
-
-  .search-wrapper {
-    order: 2;
-    width: 100%;
-  }
-}
-
-/* Pagination */
+/* Pagination  */
 .rt-pagination {
   display: flex;
   justify-content: center;
@@ -257,10 +178,6 @@ body {
   font-size: 14px;
 }
 
-.rt-pagination button:hover {
-  background: #f0f0f0;
-}
-
 .rt-pagination button.active {
   background: #2961ef;
   color: white;
@@ -272,33 +189,54 @@ body {
   cursor: not-allowed;
 }
 
-.clear-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 14px;
-  color: #888;
-  cursor: pointer;
+/* Model  */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  margin: 0%;
+  z-index: 1000;
+  overflow-y: auto; 
 }
 
-.clear-icon:hover {
-  color: #000;
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 360px;
+  padding: 20px;
+  border-radius: 10px;
+  animation: scaleIn 0.3s ease-in-out;
+  margin: auto; 
+  position: relative;
+  max-height: 90vh; 
+  overflow-y: auto;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .modal-header {
   position: relative;
   text-align: center;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-bottom: 12px;
 }
 
 .modal-close {
   position: absolute;
-  top: 0;
   right: 0;
+  top: 0;
   cursor: pointer;
   font-size: 20px;
   color: #ea0f0f;
@@ -307,10 +245,79 @@ body {
 .modal-close:hover {
   color: #bd0505;
 }
+
+.modal-content h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.modal-content label {
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 9px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px; 
+  min-height: 44px;
+}
+
+/* Modal Actions  */
 .modal-actions.right {
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
-  width: 100%;
-  align-self: flex-end;
+  margin-top: 18px;
+}
+
+.save-btn {
+  background: #2044f8;
+  border: none;
+  color: white;
+  padding: 9px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Mobile Fixes  */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 20px;
+  }
+
+  .add-stock-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .fuel-table {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 18px;
+  }
+
+  .fuel-container {
+    padding: 12px;
+  }
+
+  .modal {
+    align-items: center; 
+    padding: 12px;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+    margin: auto; 
+    padding: 16px;
+  }
 }
