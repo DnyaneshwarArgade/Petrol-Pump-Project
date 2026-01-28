@@ -93,6 +93,17 @@ const EmployeeManagement = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = filteredEmployees.slice(startIndex, startIndex + itemsPerPage);
 
+  // Fix: If current page becomes empty after delete, go to previous page
+    useEffect(() => {
+  if (currentPage > totalPages && totalPages > 0) {
+    setCurrentPage(totalPages);
+  }
+  if (totalPages === 0) {
+    setCurrentPage(1);
+  }
+    }, [filteredEmployees.length, totalPages, currentPage]);
+
+
   return (
     <div className="container-fluid px-4 py-3 main-bg">
       <div className="d-flex justify-content-between align-items-center mb-2">
