@@ -16,7 +16,7 @@ body {
 
 /* Page Title */
 .page-title {
-  text-align: center;
+  text-align: left;
   font-size: 24px;
   margin-bottom: 16px;
   font-weight: bold;
@@ -149,7 +149,7 @@ body {
   justify-content: center;
   align-items: center;
   
-  padding: 6px;
+  padding: 0px;
   padding-bottom: 60px;
 
   z-index: 1000;
@@ -176,8 +176,8 @@ body {
 
 .modal-content h3 {
   text-align: center;
-  margin-bottom: 10px;
-  font-size: 18px;
+  margin: 0;
+  font-size: 20px;
   color: #333;
   border-bottom: 1px solid #eee;
   padding-bottom: 8px;
@@ -217,16 +217,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-}
-
-.cancel-btn {
-  flex: 1;
-  background: #999;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 @media (max-width: 600px) {
@@ -280,4 +270,47 @@ body {
 .rt-pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #888;
+  cursor: pointer;
+}
+
+.clear-icon:hover {
+  color: #000;
+}
+
+.modal-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  font-size: 20px;
+  color: #ea0f0f;
+}
+
+.modal-close:hover {
+  color: #bd0505;
+}
+.modal-actions.right {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  width: 100%;
+  align-self: flex-end;
 }
