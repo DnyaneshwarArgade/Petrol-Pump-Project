@@ -1,0 +1,171 @@
+ * {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.page {
+  min-height: 115vh;
+  background: #e9edf3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+   
+}
+
+.main-card {
+  width: 100%;
+  max-width: 420px;
+  background: #f4f6f9;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.page-title {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+
+.profit-box {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.profit-header {
+  background: linear-gradient(
+    135deg,
+    #4caf50,
+    #2e7d32
+  );
+  color: #fff;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.profit-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 12px;
+  background: #eef6e8;
+  border-top: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.profit-row.editable {
+  align-items: center;
+}
+
+.profit-row.editable input {
+  width: 120px;
+  padding: 5px;
+  text-align: right;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+
+.total-profit {
+  font-weight: bold;
+  color: #1e7c25;
+}
+
+
+.calc-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 12px;
+  background: #eef6e8;
+  border-top: 1px solid #ccc;
+}
+
+.calc-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(
+    #46b134,
+    #2d8e21
+  );
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.expense-list {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.expense-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9fb;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.expense-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expense-icon {
+  font-size: 18px;
+}
+
+.expense-row input {
+  width: 90px;
+  padding: 5px;
+  text-align: right;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+
+.update-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.update-btn {
+  padding: 10px 26px;
+  min-width: 180px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(
+    #46b134,
+    #2d8e21
+  );
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+@media (max-width: 480px) {
+  .profit-row,
+  .expense-row {
+    font-size: 13px;
+  }
+
+  .expense-row input {
+    width: 70px;
+  }
+} 
+
+
