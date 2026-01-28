@@ -1,11 +1,12 @@
+
+
+
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Nozzle.css";
-import {
-  BsSearch,
-} from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 
 const itemsPerPage = 10;
 
@@ -24,10 +25,11 @@ const Nozzle = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
 
   const [form, setForm] = useState({
     pumpId: "",
@@ -37,15 +39,14 @@ const Nozzle = () => {
     status: "Active",
   });
 
+  // Save to localStorage
   useEffect(() => {
     localStorage.setItem("nozzles", JSON.stringify(data));
   }, [data]);
 
+  // Filter data for search
   const filteredData = data.filter((item) =>
-    Object.values(item)
-      .join(" ")
-      .toLowerCase()
-      .includes(search.toLowerCase())
+    Object.values(item).join(" ").toLowerCase().includes(search.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -66,9 +67,10 @@ const Nozzle = () => {
     setShowModal(true);
   };
 
-  const openEdit = (item) => {
+  const openEdit = (item, index) => {
     setIsEdit(true);
     setForm(item);
+    setEditIndex(index);
     setShowModal(true);
   };
 
@@ -84,72 +86,56 @@ const Nozzle = () => {
     }
 
     if (isEdit) {
-      setData(prev =>
-        prev.map(d => d.nozzleId === form.nozzleId ? form : d)
-      );
-      // Swal.fire("Updated", "Nozzle updated successfully", "success");
-      Swal.fire({
-        icon: "success",
-        title: "Successfully Added",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-
-    }
-    else {
-      setData(prev => [form, ...prev]);
-      // Swal.fire("Added", "Nozzle added successfully", "success");
-      Swal.fire({
-        icon: "success",
-        title: "Successfully Added",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-
+      const updated = [...data];
+      updated[editIndex] = form;
+      setData(updated);
+      Swal.fire({ icon: "success", title: "Updated Successfully", timer: 1500, showConfirmButton: false });
+    } else {
+      setData([form, ...data]);
+      Swal.fire({ icon: "success", title: "Added Successfully", timer: 1500, showConfirmButton: false });
       setCurrentPage(1);
     }
 
     setShowModal(false);
   };
-  const deleteNozzle = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "This data will be deleted permanently!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      confirmButtonText: "Yes, delete",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setData((prev) => {
-          const updatedData = prev.filter((d) => d.nozzleId !== id);
+ const deleteNozzle = (nozzleId) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This data will be deleted permanently!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Yes, delete",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      setData(prev => {
+        const updatedData = prev.filter(d => d.nozzleId !== nozzleId);
 
-          const newTotalPages = Math.ceil(
-            updatedData.length / itemsPerPage
-          );
+        // ✅ total pages after delete
+        const newTotalPages = Math.ceil(updatedData.length / itemsPerPage);
 
-          if (currentPage > newTotalPages) {
-            setCurrentPage(newTotalPages || 1);
-          }
+        // ✅ agar current page exist nahi karta
+        if (currentPage > newTotalPages && newTotalPages > 0) {
+          setCurrentPage(newTotalPages); // ya 1 bhi rakh sakte ho
+        }
 
-          return updatedData;
-        });
+        return updatedData;
+      });
 
-        Swal.fire({
-          icon: "success",
-          title: "Deleted Successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
+      Swal.fire({
+        icon: "success",
+        title: "Deleted Successfully",
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
+  });
+};
 
   return (
-
     <div className="container-fluid">
       <h5 className="mb-3 fw-bold m-2">Pump Status</h5>
-
+     
       <div className="row g-3 pump-row">
         {pumpData.map((pump) => (
           <div
@@ -178,190 +164,136 @@ const Nozzle = () => {
         ))}
       </div>
 
-      <div className="card">
-        <div className="container-fluid mt-1">
-          <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2 nav">
-            <div className="d-flex align-items-center gap-2">
+
+      <div className="card mt-4 p-3 w-100">
+        <div className="d-flex justify-content-between mb-2">
+           <div className="d-flex align-items-center gap-2">
               <i className="bi bi-fuel-pump fs-4 text-primary m-1"></i>
               <h4 className="fw-bold">Nozzles</h4>
             </div>
-
-            <button className="btn btn-primary m-1" onClick={openAdd}>
-              <h5 className="fw-bold m-0">Add Nozzle</h5>
-            </button>
-          </div>
-
-          <div className="search-box w-100 position-relative">
-            <BsSearch className="search-icon" />
-            <input
-              type="text"
-              placeholder="Search Nozzle..."
-              className="search-input"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            {search && (
-              <span className="input-clear" onClick={() => setSearch("")}>
-                ✕
-              </span>
-            )}
-          </div>
-
-          <div className="table-responsive-wrapper">
-            <div className="table-responsive">
-              <table className="table table-hover text-center align-middle">
-                <thead className="table-light">
-                  <tr className="table-secondary">
-                    <th>Pump ID</th>
-                    <th>Nozzle ID</th>
-                    <th>Fuel</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {paginatedData.length === 0 ? (
-                    <tr>
-                      <td colSpan="6" className="py-4 text-center">
-                        No data found
-                      </td>
-                    </tr>
-                  ) : (
-                    paginatedData.map(item => (
-                      <tr key={item.nozzleId}>
-                        <td>{item.pumpId}</td>
-                        <td>{item.nozzleId}</td>
-                        <td>{item.fuelType}</td>
-                        <td>₹ {item.price}</td>
-                        <td>{item.status}</td>
-                        <td>
-                          <i
-                            className="bi bi-pencil-square text-primary me-3"
-                            onClick={() => openEdit(item)}
-                            style={{ cursor: "pointer" }}
-                          ></i>
-                          <i
-                            className="bi bi-trash text-danger"
-                            onClick={() => deleteNozzle(item.nozzleId)}
-                            style={{ cursor: "pointer" }}
-                          ></i>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-
-            {filteredData.length > itemsPerPage && (
-              <div className="rt-pagination mt-1">
-                <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
-                <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
-
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <button
-                    key={i}
-                    className={currentPage === i + 1 ? "active" : ""}
-                    onClick={() => setCurrentPage(i + 1)}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-                <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>»</button>
-                <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
-              </div>
-            )}
-          </div>
+          <button className="btn btn-primary fw-bold fs-5" onClick={openAdd}> Add Nozzle</button>
         </div>
 
-        {showModal && (
-          <div className="modal-backdrop-custom">
-            <div className="modal-card m-3">
-              <div className="modal-header-custom">
-                <h5>{isEdit ? "Edit Nozzle" : "Add New Nozzle"}</h5>
-                <span onClick={() => setShowModal(false)}>×</span>
-              </div>
+        <div className="search-box w-100 position-relative mb-2">
+          <BsSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search Nozzle..."
+            className="search-input"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {search && <span className="input-clear" onClick={() => setSearch("")}>✕</span>}
+        </div>
 
-              <div className="row g-3 mt-2">
-                <div className="col-md-6">
-                  <label className="form-label">Pump ID</label>
-                  <input
-                    className="form-control"
-                    value={form.pumpId}
-                    onChange={(e) =>
-                      setForm({ ...form, pumpId: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div className="col-md-6">
-                  <label className="form-label">Nozzle ID</label>
-                  <input
-                    className="form-control"
-                    value={form.nozzleId}
-                    disabled={isEdit}
-                    onChange={(e) =>
-                      setForm({ ...form, nozzleId: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div className="col-md-6">
-                  <label className="form-label">Fuel Type</label>
-                  <select
-                    className="form-control"
-                    value={form.fuelType}
-                    onChange={(e) =>
-                      setForm({ ...form, fuelType: e.target.value })
-                    }
-                  >
-                    <option>Petrol</option>
-                    <option>Diesel</option>
-                    <option>CNG</option>
-                  </select>
-                </div>
-
-                <div className="col-md-6">
-                  <label className="form-label">Unit Price</label>
-                  <input
-                    className="form-control"
-                    value={form.price}
-                    onChange={(e) =>
-                      setForm({ ...form, price: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div className="col-md-6">
-                  <label className="form-label">Status</label>
-                  <select
-                    className="form-control"
-                    value={form.status}
-                    onChange={(e) =>
-                      setForm({ ...form, status: e.target.value })
-                    }
-                  >
-                    <option>Active</option>
-                    <option>Inactive</option>
-                  </select>
-                </div>
-              </div>
-
-              <button
-                className="btn btn-primary w-100 mt-4"
-                onClick={submitForm}
-              >
-                {isEdit ? "Update Nozzle" : "Add Nozzle"}
-              </button>
-            </div>
+        <div className="table-responsive">
+          <table className="table table-hover text-center align-middle">
+            <thead className="table-light">
+              <tr>
+                <th>Pump ID</th>
+                <th>Nozzle ID</th>
+                <th>Fuel</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedData.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="py-4 text-center">No data found</td>
+                </tr>
+              ) : (
+                paginatedData.map((item, index) => (
+                  <tr key={item.nozzleId}>
+                    <td>{item.pumpId}</td>
+                    <td>{item.nozzleId}</td>
+                    <td>{item.fuelType}</td>
+                    <td>₹ {item.price}</td>
+                    <td>{item.status}</td>
+                    <td>
+                      <i className="bi bi-pencil-square text-primary me-3" style={{ cursor: "pointer" }} onClick={() => openEdit(item, (currentPage-1)*itemsPerPage + index)}></i>
+                      <i className="bi bi-trash text-danger" style={{ cursor: "pointer" }} onClick={() => deleteNozzle(item.nozzleId)}></i>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        
+        </div>
+        
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="rt-pagination mt-2 mb-5">
+            <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
+            <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button key={i} className={currentPage === i + 1 ? "active" : ""} onClick={() => setCurrentPage(i + 1)}>{i + 1}</button>
+            ))}
+            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>»</button>
+            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
           </div>
-
         )}
-      </div>
+
+
+      {/* </div> */}
+
+      {/* Modal */}
+      {showModal && (
+        <div className="modal-backdrop-custom">
+          <div className="modal-card m-3">
+            <div className="modal-header-custom">
+              <h5>{isEdit ? "Edit Nozzle" : "Add New Nozzle"}</h5>
+              <span onClick={() => setShowModal(false)}>×</span>
+            </div>
+            <div className="row g-3 mt-2">
+              <div className="col-md-6">
+                <label className="form-label">Pump ID</label>
+                <input className="form-control" value={form.pumpId} onChange={(e) => setForm({...form, pumpId:e.target.value})} disabled={isEdit}/>
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">Nozzle ID</label>
+                <input className="form-control" value={form.nozzleId} onChange={(e) => setForm({...form, nozzleId:e.target.value})} disabled={isEdit}/>
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">Fuel Type</label>
+                <select className="form-control" value={form.fuelType} onChange={(e)=>setForm({...form,fuelType:e.target.value})}>
+                  <option>Petrol</option>
+                  <option>Diesel</option>
+                  <option>CNG</option>
+                </select>
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">Unit Price</label>
+                <input className="form-control" value={form.price} onChange={(e)=>setForm({...form,price:e.target.value})}/>
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">Status</label>
+                <select className="form-control" value={form.status} onChange={(e)=>setForm({...form,status:e.target.value})}>
+                  <option>Active</option>
+                  <option>Inactive</option>
+                </select>
+              </div>
+            </div>
+            <button className="btn btn-primary w-100 mt-3" onClick={submitForm}>{isEdit ? "Update" : "Add"} Nozzle</button>
+          </div>
+        </div>
+      )}
+
+
+
     </div>
   );
 };
+
 export default Nozzle;
+
+
+
+
+
+
 
 
