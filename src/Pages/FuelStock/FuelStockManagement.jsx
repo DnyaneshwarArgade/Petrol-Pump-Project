@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { FaPlus, FaEdit, FaTrash, FaSearch } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash, FaSearch, FaTimes } from "react-icons/fa";
 import "./FuelStock.css";
 
 function FuelStockManagement() {
@@ -131,11 +131,23 @@ function FuelStockManagement() {
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
-              setCurrentPage(1); // reset page on search
+              setCurrentPage(1); 
             }}
             className="search-input"
           />
-        </div>
+
+            {searchTerm && (
+             <FaTimes
+              className="clear-icon"
+              title="Clear search"
+              onClick={() => {
+              setSearchTerm("");
+              setCurrentPage(1);
+      }}
+      />
+      )}
+     </div>
+        
 
         <button className="add-stock-btn" onClick={() => setShowForm(true)}>
           <FaPlus style={{ marginRight: "6px" }} /> Add Stock
@@ -242,7 +254,20 @@ function FuelStockManagement() {
       {showForm && (
         <div className="modal">
           <div className="modal-content">
+            <div className="modal-header">
             <h3>{editId ? "Edit Stock" : "Add New Stock"}</h3>
+            <FaTimes
+                className="modal-close"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditId(null);
+                  setQuantity("");
+                  setFuelType("Petrol");
+                  const today = new Date().toISOString().split("T")[0];
+                  setDate(today);
+                }}
+              />
+            </div>
 
             <label>Fuel Type</label>
             <select
@@ -268,23 +293,11 @@ function FuelStockManagement() {
               onChange={(e) => setDate(e.target.value)}
             />
 
-            <div className="modal-actions">
+            <div className="modal-actions right">
               <button className="save-btn" onClick={handleAddStock}>
                 Save
               </button>
-              <button
-                className="cancel-btn"
-                onClick={() => {
-                  setShowForm(false);
-                  setEditId(null);
-                  setQuantity("");
-                  setFuelType("Petrol");
-                  const today = new Date().toISOString().split("T")[0];
-                  setDate(today);
-                }}
-              >
-                Cancel
-              </button>
+              
             </div>
           </div>
         </div>
