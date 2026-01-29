@@ -1,15 +1,14 @@
 .navbar {
   height: 70px;
   background-color: lab(100% 0.01 -0.01);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
+  padding: 0 20px;
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  z-index: 1100;
+  z-index: 1001;
 }
 
 .logo-title-container {
@@ -18,9 +17,16 @@
   gap: 15px;
 }
 
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .logo img {
   height: 50px;
   width: auto;
+  /* margin-left: 10px; */
 }
 
 .navbar-title h1 {
@@ -29,8 +35,8 @@
   font-weight: 600;
   white-space: nowrap;
   color: #302e2e;
+  /* margin-left: 10px; */
 }
-
 
 .nav-center {
   position: absolute;
@@ -42,41 +48,43 @@
   gap: 10px;
 }
 
-.menu-btn {
-  font-size: 26px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: #080808;
-}
-
-
-.hi-admin {
+.nav-right {
   color: black;
   border: none;
-  padding: 6px 14px;
+  /* padding: 6px 14px;  */
   border-radius: 8px;  
   cursor: pointer;
   white-space: nowrap;
   font-size: 18px;
-  flex-direction: row;
-  overflow: visible;
+  flex-direction: row; 
+  overflow: visible; 
+  
 
 }
-.hi-admin:hover{
-  background-color: beige;
+
+
+/* Button */
+.menu-btn {
+  background: none; 
+  color: #080808;
+  border: none;
+  padding: 8px 12px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
   left: -250px;
   width: 250px;
   height: 100%;
-  background-color: #222;
+  background-color: #222; 
   color: #fff;
-  padding-top: 70px;
+  padding-top: 80px;
   transition: left 0.3s ease;
   z-index: 1000;
 }
@@ -94,13 +102,14 @@
 .sidebar ul li {
   padding: 15px 20px;
   cursor: pointer;
+ 
 }
 
 .sidebar ul li:hover {
   background-color: #444;
 }
 
-
+/* Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -111,21 +120,22 @@
   z-index: 999;
 }
 
+
+/* ------------------------- */
+/* Responsive for smaller screens */
 @media (max-width: 768px) {
 
-  .navbar {
+  .navbar{
     height: 75px;
     align-items: flex-start;
     padding-top: 6px;
   }
 
-  
-  .navbar-title h1 {
-    font-size: 15px;
+   .navbar-title h1{
+    font-size: 18px;
     margin-bottom: 15px;
-  }
+  } 
 
-  
   .nav-center {
     top: 40px;          
     right: 10px;
@@ -147,22 +157,28 @@
     padding: 4 10px;
     margin-top: 7px;
   }
+
   .menu-btn {
     font-size: 22px;
     position: absolute;
-    right: -42px;
-    top:50%;
+    right: -70px;
+    top:20%;
     transform: translateY(-50%);
     font-size: 22px;
+    
   }
-
 
   .sidebar {
     width: 100%;
+    /* Full width sidebar on mobile */
     left: -100%;
+    /* Hidden initially */
   }
 
   .sidebar.open {
     left: 0;
+    /* Slide in fully */
   }
+
+  
 }
