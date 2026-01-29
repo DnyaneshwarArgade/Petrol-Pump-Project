@@ -28,7 +28,7 @@ const Reports = () => {
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  /* SEARCH */
+
   const handleSearch = () => {
     const value = inputRef.current.value;
     setSearchText(value);
@@ -67,14 +67,14 @@ const Reports = () => {
     setShowSuggestions(false);
     inputRef.current.focus();
   };
-  /* FILTER */
+
   const filteredData = data.filter(item =>
     Object.values(item)
       .join(" ")
       .toLowerCase()
       .includes(searchText.toLowerCase())
   );
-  /* PAGINATION */
+
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -158,7 +158,7 @@ const Reports = () => {
             <div className="summary-card m-1">
               <div className="card-header-custom diesel">
                 {/* <h1>⛽Diesel</h1> */}
-                <h1><i className="bi bi-fuel-pump m-3"></i>Petrol</h1>
+                <h1><i className="bi bi-fuel-pump m-3"></i>Diesel</h1>
               </div>
               <div className="card-body-custom">
                 <div className="fuel-value">5,200 L</div>
@@ -184,10 +184,9 @@ const Reports = () => {
       </div>
       {/* Transactions */}
       <div className="rt-container">
-        {/* HEADER */}
         <div className="rt-header">
           <h5 className="rt-title">Recent Transactions</h5>
-          <div className="rt-search mb-4">
+          <div className="rt-search mb-3">
             <input
               ref={inputRef}
               type="text"
@@ -196,7 +195,7 @@ const Reports = () => {
             />
             <span
               className="position-absolute top-50 translate-middle-y"
-              style={{ left: "15px" }}
+              style={{ left: "7px" }}
             >
               <i className="bi bi-search search-icon"></i>
             </span>
@@ -207,7 +206,7 @@ const Reports = () => {
               <ul className="rt-suggestions">
                 {suggestions.map((item, index) => (
                   <li key={index} onClick={() => handleSuggestionClick(item)}>
-                    <i className="bi bi-search search-icon"></i>  {item}
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -223,7 +222,6 @@ const Reports = () => {
         )}
         {/* TABLE */}
         <div className="rt-table-wrapper">
-          {/* <table className="rt-table table-hover"> */}
           <table className="rt-table table table-hover">
             <thead className="heads">
               <tr>
@@ -235,29 +233,29 @@ const Reports = () => {
               </tr>
             </thead>
             <tbody>
-           {paginatedData.length > 0 ? (
-           paginatedData.map((row, index) => (
-      <tr key={index}>
-        <td>{row.date}</td>
-        <td>{row.pumpId}</td>
-        <td>{row.fuelType}</td>
-        <td>{row.volume}</td>
-        <td>{row.amount}</td>
-      </tr>
-    ))
-  ) : (
-    <tr className="no-data-row">
-      <td colSpan="7" className="text-center rt-no-data">
-        No data found!
-      </td>
-     </tr>
-      )}
-    </tbody>
+              {paginatedData.length > 0 ? (
+                paginatedData.map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.date}</td>
+                    <td>{row.pumpId}</td>
+                    <td>{row.fuelType}</td>
+                    <td>{row.volume}</td>
+                    <td>{row.amount}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr className="no-data-row">
+                  <td colSpan="7" className="text-center rt-no-data">
+                    No data found!
+                  </td>
+                </tr>
+              )}
+            </tbody>
           </table>
         </div>
         {/* PAGINATION */}
         {filteredData.length > itemsPerPage && (
-          <div className="rt-pagination mb-5">
+          <div className="rt-pagination mb-5 mt-1">
             <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
             <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
 

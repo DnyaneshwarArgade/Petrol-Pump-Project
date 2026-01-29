@@ -13,6 +13,8 @@
   display: flex;
   z-index: 1000;
   }
+  
+
    .nav-item {
   flex: 0 0 33.33%;              
   text-decoration: none !important;
