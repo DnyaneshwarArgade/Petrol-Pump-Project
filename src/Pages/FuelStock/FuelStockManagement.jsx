@@ -9,7 +9,11 @@ function FuelStockManagement() {
   const [quantity, setQuantity] = useState("");
   const [date, setDate] = useState("");
 
-  // Lazy initialization for records
+  // Detect localhost
+  const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+
   const [records, setRecords] = useState(() => {
     const saved = localStorage.getItem("fuelRecords");
     return saved ? JSON.parse(saved) : [];
@@ -22,23 +26,27 @@ function FuelStockManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Initialize date
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0];
     setDate(today);
   }, []);
 
-  // Save data to localStorage
   useEffect(() => {
     localStorage.setItem("fuelRecords", JSON.stringify(records));
   }, [records]);
 
   const getUnit = (type) => (type === "CNG" ? "Kg" : "Liters");
 
-  // Add or Update Stock
+  // ✅ Add / Update Stock (final logic)
   const handleAddStock = () => {
     if (!quantity) {
-      alert("Please enter quantity");
+      if (!isLocalhost) {
+        Swal.fire({
+          icon: "warning",
+          title: "Validation Error",
+          text: "Please enter quantity",
+        });
+      }
       return;
     }
 
@@ -59,6 +67,7 @@ function FuelStockManagement() {
         date,
       };
       setRecords([newRecord, ...records]);
+      setCurrentPage(1); // new record → go to first page
     }
 
     setQuantity("");
@@ -67,7 +76,7 @@ function FuelStockManagement() {
     setShowForm(false);
   };
 
-  // Delete record
+  // ✅ Delete record (pagination-safe)
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -78,19 +87,21 @@ function FuelStockManagement() {
       confirmButtonText: "Yes, delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        setRecords(records.filter((r) => r.id !== id));
-        Swal.fire({
-          icon: "success",
-          title: "Deleted!",
-          text: "Record deleted successfully",
-          timer: 1500,
-          showConfirmButton: false,
-        });
+        const updatedRecords = records.filter((r) => r.id !== id);
+        setRecords(updatedRecords);
+
+        // 🔥 FIX: handle empty page after delete
+        const newTotalPages = Math.ceil(
+          updatedRecords.length / itemsPerPage
+        );
+
+        if (currentPage > newTotalPages) {
+          setCurrentPage(newTotalPages || 1);
+        }
       }
     });
   };
 
-  // Edit record
   const handleEdit = (record) => {
     setFuelType(record.fuelType);
     setQuantity(record.quantity);
@@ -99,7 +110,6 @@ function FuelStockManagement() {
     setShowForm(true);
   };
 
-  // Filtered records
   const filteredRecords = records.filter((r) => {
     const term = searchTerm.toLowerCase();
     return (
@@ -109,7 +119,6 @@ function FuelStockManagement() {
     );
   });
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredRecords.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedRecords = filteredRecords.slice(
@@ -121,7 +130,6 @@ function FuelStockManagement() {
     <div className="fuel-container">
       <h2 className="page-title">Fuel Stock Management</h2>
 
-      {/* Top bar */}
       <div className="top-bar">
         <div className="search-wrapper">
           <FaSearch className="search-icon" />
@@ -131,30 +139,26 @@ function FuelStockManagement() {
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
-              setCurrentPage(1); 
+              setCurrentPage(1);
             }}
             className="search-input"
           />
-
-            {searchTerm && (
-             <FaTimes
+          {searchTerm && (
+            <FaTimes
               className="clear-icon"
-              title="Clear search"
               onClick={() => {
-              setSearchTerm("");
-              setCurrentPage(1);
-      }}
-      />
-      )}
-     </div>
-        
+                setSearchTerm("");
+                setCurrentPage(1);
+              }}
+            />
+          )}
+        </div>
 
         <button className="add-stock-btn" onClick={() => setShowForm(true)}>
-          <FaPlus style={{ marginRight: "6px" }} /> Add Stock
+          <FaPlus /> Add Stock
         </button>
       </div>
 
-      {/* Table */}
       <div className="table-wrapper">
         <table className="fuel-table">
           <thead>
@@ -166,7 +170,6 @@ function FuelStockManagement() {
               <th>Action</th>
             </tr>
           </thead>
-
           <tbody>
             {paginatedRecords.length === 0 ? (
               <tr>
@@ -185,15 +188,12 @@ function FuelStockManagement() {
                     <div className="action-icons">
                       <span
                         className="edit-icon"
-                        title="Edit"
                         onClick={() => handleEdit(rec)}
                       >
                         <FaEdit />
                       </span>
-
                       <span
                         className="delete-icon"
-                        title="Delete"
                         onClick={() => handleDelete(rec.id)}
                       >
                         <FaTrash />
@@ -210,62 +210,26 @@ function FuelStockManagement() {
       {/* Pagination */}
       {filteredRecords.length > itemsPerPage && (
         <div className="rt-pagination">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(1)}
-          >
-            ««
-          </button>
-
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
-          >
-            «
-          </button>
-
-          {[...Array(totalPages)].map((_, index) => (
+          {[...Array(totalPages)].map((_, i) => (
             <button
-              key={index}
-              className={currentPage === index + 1 ? "active" : ""}
-              onClick={() => setCurrentPage(index + 1)}
+              key={i}
+              className={currentPage === i + 1 ? "active" : ""}
+              onClick={() => setCurrentPage(i + 1)}
             >
-              {index + 1}
+              {i + 1}
             </button>
           ))}
-
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(currentPage + 1)}
-          >
-            »
-          </button>
-
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(totalPages)}
-          >
-            »»
-          </button>
         </div>
       )}
 
-      {/* Modal Form */}
       {showForm && (
         <div className="modal">
           <div className="modal-content">
             <div className="modal-header">
-            <h3>{editId ? "Edit Stock" : "Add New Stock"}</h3>
-            <FaTimes
+              <h3>{editId ? "Edit Stock" : "Add New Stock"}</h3>
+              <FaTimes
                 className="modal-close"
-                onClick={() => {
-                  setShowForm(false);
-                  setEditId(null);
-                  setQuantity("");
-                  setFuelType("Petrol");
-                  const today = new Date().toISOString().split("T")[0];
-                  setDate(today);
-                }}
+                onClick={() => setShowForm(false)}
               />
             </div>
 
@@ -297,7 +261,6 @@ function FuelStockManagement() {
               <button className="save-btn" onClick={handleAddStock}>
                 Save
               </button>
-              
             </div>
           </div>
         </div>
