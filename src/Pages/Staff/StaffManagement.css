@@ -152,14 +152,6 @@
   background-color: #ffe0e0;
   color: #ff4d4d;
 }
-
-/* ===== Table ===== */
-table td,
-table th {
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
 /* ===== Form ===== */
 .form-label {
   font-weight: 600;
