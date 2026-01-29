@@ -13,7 +13,7 @@
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  font-size: 14px;
+  font-size: 18px;
   height: 100%;
 }
 
@@ -87,6 +87,7 @@
   border-radius: 6px;
   outline: none;
   font-size: 14px;
+  background-color: #dfe7ea;
 }
 
 .search-icon {
@@ -124,30 +125,19 @@
   white-space: normal;
 }
 
-/* =========================
-   PAGINATION VISIBLE
-   ========================= */
-
 .rt-pagination {
   margin-top: 16px;
   display: flex;
   justify-content: center;
 }
 
-/* =========================
-   MOBILE ONLY – BOTTOM SCROLL
-   ========================= */
 @media (max-width: 768px) {
-
-  /* ❌ vertical / side scroll band */
   .table-responsive {
     overflow-y: visible !important;
     overflow-x: auto !important;
-    /* ✅ sirf horizontal */
     -webkit-overflow-scrolling: touch;
   }
 
-  /* table wide rakho taaki niche scroll aaye */
   .table {
     min-width: 750px;
     white-space: nowrap;
