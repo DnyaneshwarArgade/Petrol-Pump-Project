@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { FaPlus, FaEdit, FaTrash, FaSearch, FaTimes } from "react-icons/fa";
+import { FaPlus, FaTrash, FaSearch, FaTimes, FaPen } from "react-icons/fa";
 import "./FuelStock.css";
 
 function FuelStockManagement() {
@@ -8,11 +8,7 @@ function FuelStockManagement() {
   const [fuelType, setFuelType] = useState("Petrol");
   const [quantity, setQuantity] = useState("");
   const [date, setDate] = useState("");
-
-  // Detect localhost
-  const isLocalhost =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1";
+  const [quantityError, setQuantityError] = useState("");
 
   const [records, setRecords] = useState(() => {
     const saved = localStorage.getItem("fuelRecords");
@@ -21,14 +17,11 @@ function FuelStockManagement() {
 
   const [editId, setEditId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
-  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
-    setDate(today);
+    setDate(new Date().toISOString().split("T")[0]);
   }, []);
 
   useEffect(() => {
@@ -37,46 +30,79 @@ function FuelStockManagement() {
 
   const getUnit = (type) => (type === "CNG" ? "Kg" : "Liters");
 
-  // ✅ Add / Update Stock (final logic)
+  const resetForm = () => {
+    setFuelType("Petrol");
+    setQuantity("");
+    setDate(new Date().toISOString().split("T")[0]);
+    setEditId(null);
+    setQuantityError("");
+  };
+
   const handleAddStock = () => {
-    if (!quantity) {
-      if (!isLocalhost) {
-        Swal.fire({
-          icon: "warning",
-          title: "Validation Error",
-          text: "Please enter quantity",
-        });
-      }
+    if (!quantity || Number(quantity) <= 0) {
+      setQuantityError("Please enter valid quantity");
       return;
     }
 
+    setQuantityError("");
+
+    // EDIT MODE
     if (editId) {
-      setRecords(
-        records.map((r) =>
-          r.id === editId
-            ? { ...r, fuelType, quantity, unit: getUnit(fuelType), date }
-            : r
-        )
-      );
-    } else {
-      const newRecord = {
-        id: Date.now(),
-        fuelType,
-        quantity,
-        unit: getUnit(fuelType),
-        date,
-      };
-      setRecords([newRecord, ...records]);
-      setCurrentPage(1); // new record → go to first page
+      Swal.fire({
+        title: "Do you want to edit this stock?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#2961ef",
+        cancelButtonColor: "#6c757d",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setRecords((prev) =>
+            prev.map((r) =>
+              r.id === editId
+                ? { ...r, fuelType, quantity, unit: getUnit(fuelType), date }
+                : r
+            )
+          );
+
+          resetForm();
+          setShowForm(false);
+
+          Swal.fire({
+            icon: "success",
+            title: "Edited Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+      return;
     }
 
-    setQuantity("");
-    setFuelType("Petrol");
-    setEditId(null);
+    // ADD MODE
+    const newRecord = {
+      id: Date.now(),
+      fuelType,
+      quantity,
+      unit: getUnit(fuelType),
+      date,
+    };
+
+    setRecords([newRecord, ...records]);
+    setCurrentPage(1);
+
+    resetForm();
     setShowForm(false);
+
+    Swal.fire({
+      icon: "success",
+      title: "Stock Added Successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
-  // ✅ Delete record (pagination-safe)
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -84,20 +110,23 @@ function FuelStockManagement() {
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#6c757d",
       confirmButtonText: "Yes, delete",
+      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        const updatedRecords = records.filter((r) => r.id !== id);
-        setRecords(updatedRecords);
+        const updated = records.filter((r) => r.id !== id);
+        setRecords(updated);
 
-        // 🔥 FIX: handle empty page after delete
-        const newTotalPages = Math.ceil(
-          updatedRecords.length / itemsPerPage
-        );
+        const pages = Math.ceil(updated.length / itemsPerPage);
+        if (currentPage > pages) setCurrentPage(pages || 1);
 
-        if (currentPage > newTotalPages) {
-          setCurrentPage(newTotalPages || 1);
-        }
+        Swal.fire({
+          icon: "success",
+          title: "Deleted Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   };
@@ -107,6 +136,7 @@ function FuelStockManagement() {
     setQuantity(record.quantity);
     setDate(record.date);
     setEditId(record.id);
+    setQuantityError("");
     setShowForm(true);
   };
 
@@ -131,6 +161,16 @@ function FuelStockManagement() {
       <h2 className="page-title">Fuel Stock Management</h2>
 
       <div className="top-bar">
+        <button
+          className="add-stock-btn"
+          onClick={() => {
+            resetForm();
+            setShowForm(true);
+          }}
+        >
+          <FaPlus /> Add Stock
+        </button>
+
         <div className="search-wrapper">
           <FaSearch className="search-icon" />
           <input
@@ -153,10 +193,6 @@ function FuelStockManagement() {
             />
           )}
         </div>
-
-        <button className="add-stock-btn" onClick={() => setShowForm(true)}>
-          <FaPlus /> Add Stock
-        </button>
       </div>
 
       <div className="table-wrapper">
@@ -190,7 +226,7 @@ function FuelStockManagement() {
                         className="edit-icon"
                         onClick={() => handleEdit(rec)}
                       >
-                        <FaEdit />
+                        <FaPen size={16} color="#2f80ed" />
                       </span>
                       <span
                         className="delete-icon"
@@ -207,10 +243,12 @@ function FuelStockManagement() {
         </table>
       </div>
 
-      {/* Pagination */}
       {filteredRecords.length > itemsPerPage && (
-        <div className="rt-pagination">
-          {[...Array(totalPages)].map((_, i) => (
+        <div className="rt-pagination mb-5 mt-1">
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
+
+          {Array.from({ length: totalPages }, (_, i) => (
             <button
               key={i}
               className={currentPage === i + 1 ? "active" : ""}
@@ -219,6 +257,9 @@ function FuelStockManagement() {
               {i + 1}
             </button>
           ))}
+
+          <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>»</button>
+          <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
         </div>
       )}
 
@@ -226,10 +267,15 @@ function FuelStockManagement() {
         <div className="modal">
           <div className="modal-content">
             <div className="modal-header">
-              <h3>{editId ? "Edit Stock" : "Add New Stock"}</h3>
+              <h3 style={{ textAlign: "center" }}>
+                {editId ? "Edit Stock" : "Add New Stock"}
+              </h3>
               <FaTimes
                 className="modal-close"
-                onClick={() => setShowForm(false)}
+                onClick={() => {
+                  resetForm();
+                  setShowForm(false);
+                }}
               />
             </div>
 
@@ -247,8 +293,12 @@ function FuelStockManagement() {
             <input
               type="number"
               value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+              onChange={(e) => {
+                setQuantity(e.target.value);
+                setQuantityError("");
+              }}
             />
+            {quantityError && <p className="error-text">{quantityError}</p>}
 
             <label>Date</label>
             <input
