@@ -40,7 +40,7 @@ const ProfitCalculation = () => {
       setOther("");
       setTotalExpenses(0);
       setProfit(0);
-    }, 1000);
+    }, 50);
   };
 
   return (
