@@ -29,11 +29,22 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 15px; /* gap between search and button */
 }
 
-/* Add Stock Button */
+/* Desktop order */
+.search-wrapper {
+  order: 1;
+  flex: 1;
+  min-width: 200px;
+  position: relative; /* needed for absolute icons */
+}
+
+.add-stock-btn {
+  order: 2;
+}
+
+/* ================= Add Stock Button ================= */
 .add-stock-btn {
   display: flex;
   align-items: center;
@@ -53,10 +64,13 @@ body {
 }
 
 /* ================= Search ================= */
-.search-wrapper {
-  position: relative;
-  flex: 1;
-  min-width: 200px;
+.search-input {
+  width: 100%;
+  padding: 9px 40px 9px 36px; /* left space for search icon, right for clear icon */
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 .search-icon {
@@ -68,14 +82,6 @@ body {
   font-size: 14px;
 }
 
-.search-input {
-  width: 100%;
-  padding: 9px 34px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
 .clear-icon {
   position: absolute;
   right: 12px;
@@ -84,6 +90,7 @@ body {
   font-size: 14px;
   color: #888;
   cursor: pointer;
+  z-index: 10; /* ensure visible above input */
 }
 
 .clear-icon:hover {
@@ -96,6 +103,7 @@ body {
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  margin-top: 20px; /* space between top-bar and table */
 }
 
 .fuel-table {
@@ -107,7 +115,7 @@ body {
 .fuel-table th,
 .fuel-table td {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 12px;
   text-align: center;
   font-size: 14px;
   white-space: nowrap;
@@ -127,45 +135,41 @@ body {
 .action-icons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px; /* space between edit & delete */
 }
 
-.edit-icon,
-.delete-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+.edit-icon {
+  color: #2f80ed;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 15px;
-}
-
-.edit-icon {
-  background: #e8f1ff;
-  color: #2f80ed;
 }
 
 .edit-icon:hover {
   background: #d6e7ff;
+  border-radius: 6px;
 }
 
 .delete-icon {
-  background: #fdecea;
   color: #e74c3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .delete-icon:hover {
   background: #f9d3cf;
+  border-radius: 6px;
 }
 
-/* Pagination  */
+/* ================= Pagination ================= */
 .rt-pagination {
   display: flex;
   justify-content: center;
   gap: 6px;
-  margin: 16px 0;
+  margin: 20px 0;
   flex-wrap: wrap;
 }
 
@@ -189,7 +193,7 @@ body {
   cursor: not-allowed;
 }
 
-/* Model  */
+/* ================= Modal ================= */
 .modal {
   position: fixed;
   inset: 0;
@@ -198,9 +202,9 @@ body {
   justify-content: center;
   align-items: center;
   padding: 12px;
-  margin: 0%;
+  margin: 0;
   z-index: 1000;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .modal-content {
@@ -210,33 +214,37 @@ body {
   padding: 20px;
   border-radius: 10px;
   animation: scaleIn 0.3s ease-in-out;
-  margin: auto; 
+  margin: auto;
   position: relative;
-  max-height: 90vh; 
+  max-height: 90vh;
   overflow-y: auto;
 }
 
 @keyframes scaleIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .modal-header {
   position: relative;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 12px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 23px;
+  text-align: center;
+  flex: 1;
 }
 
 .modal-close {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
   font-size: 20px;
   color: #ea0f0f;
@@ -244,11 +252,6 @@ body {
 
 .modal-close:hover {
   color: #bd0505;
-}
-
-.modal-content h3 {
-  margin: 0;
-  font-size: 20px;
 }
 
 .modal-content label {
@@ -264,11 +267,11 @@ body {
   margin-top: 4px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  font-size: 16px; 
+  font-size: 16px;
   min-height: 44px;
 }
 
-/* Modal Actions  */
+/* Modal Actions */
 .modal-actions.right {
   display: flex;
   justify-content: flex-end;
@@ -285,39 +288,32 @@ body {
   font-weight: bold;
 }
 
-/* Mobile Fixes  */
+/* Error Text */
+.error-text {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* ================= Mobile Fixes ================= */
 @media (max-width: 768px) {
-  .page-title {
-    font-size: 20px;
+  .top-bar {
+    flex-direction: column;  /* stack vertically */
+    align-items: stretch;    /* full width children */
+    gap: 12px;
   }
 
-  .add-stock-btn {
-    width: 100%;
-    justify-content: center;
+  .add-stock-btn { 
+    order: 1; 
+    width: 100%; 
+    justify-content: center; 
+  }
+  .search-wrapper { 
+    order: 2; 
+    width: 100%; 
   }
 
   .fuel-table {
     min-width: 600px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 18px;
-  }
-
-  .fuel-container {
-    padding: 12px;
-  }
-
-  .modal {
-    align-items: center; 
-    padding: 12px;
-  }
-
-  .modal-content {
-    max-height: 90vh;
-    margin: auto; 
-    padding: 16px;
   }
 }
