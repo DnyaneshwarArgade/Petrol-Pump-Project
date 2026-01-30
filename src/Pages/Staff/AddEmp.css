@@ -1,34 +1,95 @@
-/* Background overlay */
+/* Overlay */
 .modal-bg {
-  background: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
 }
 
-/* Error space fix */
-.error-space {
-  min-height: 20px;
+.modal-dialog-centered {
+  pointer-events: auto;
 }
 
-/* IMPORTANT: prevent full modal scroll */
+/* Modal Box */
 .modal-dialog {
-  max-height: 80vh;
+  width: 100%;
+  max-width: 520px;
+  margin-top: 30px;
 }
 
-/* Scroll only form body */
+/* Modal Content */
+.emomodal-content {
+  background: #f9fafb;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  /* IMPORTANT */
+  max-height: 90vh;
+  /* IMPORTANT */
+  overflow: hidden;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Body (SCROLL AREA) */
 .modal-body {
-  max-height: 70vh;
+  padding: 20px;
   overflow-y: auto;
+  flex: 1;
 }
 
-/* Mobile specific tuning */
+.focus-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #0d6efd;
+  transition: 0.4s;
+}
+/* Footer (ALWAYS VISIBLE) */
+.modal-footer {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.btn-cancel {
+  background: #e5e7eb;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-save {
+  background: #0d6efd;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile */
 @media (max-width: 576px) {
-  .modal-dialog {
-    margin: 1rem;
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 
-  .modal-body {
-    max-height: 60vh;
+  .modal-dialog {
+    margin-top: 15px;
   }
-}
-.modal{
-    margin-top: 30px;
 }
