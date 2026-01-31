@@ -105,7 +105,7 @@ function AddEmp({
   return (
     <div className="modal fade show modal-bg" style={{ display: "block" }}>
       <div className="modal-dialog modal-dialog-centered modal-lg">
-        <div className="modal-content shadow-lg rounded-3">
+        <div className="emomodal-content shadow-lg rounded-3">
           {/* Header */}
           <div className="modal-header bg-primary text-white">
             <h5 className="modal-title fw-bold">
