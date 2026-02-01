@@ -182,24 +182,27 @@ const EmployeeManagement = () => {
                     <td>{emp.shift}</td>
                     <td>{emp.status}</td>
                     <td>
-                      <div className="action-icons">
-                        <div
-                          className="icon-box edit-box"
-                          onClick={() => {
-                            setSelectedEmployee(emp);
-                            setIsEdit(true);
-                            setShowModal(true);
-                          }}
-                        >
-                          <BsPencilSquare />
-                        </div>
-                        <div
-                          className="icon-box delete-box"
-                          onClick={() => handleDelete(emp.id)}
-                        >
-                          <BsTrashFill />
-                        </div>
-                      </div>
+
+                      <td className="action-td">
+                  <div className="action-icons">
+                   <div
+                 className="icon-box edit-box"
+              onClick={() => {
+           setSelectedEmployee(emp);
+           setIsEdit(true);
+           setShowModal(true);
+                }}>
+          <BsPencilSquare />
+          </div>
+
+            <div
+      className="icon-box delete-box"
+      onClick={() => handleDelete(emp.id)}>
+      <BsTrashFill />
+         </div>
+           </div>
+          </td>
+
                     </td>
                   </tr>
                 ))
