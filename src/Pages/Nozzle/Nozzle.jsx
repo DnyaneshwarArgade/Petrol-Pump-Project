@@ -27,6 +27,8 @@ const Nozzle = () => {
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [fuelFilter, setFuelFilter] = useState("ALL");
+
 
   const [form, setForm] = useState({
     pumpId: "",
@@ -40,9 +42,17 @@ const Nozzle = () => {
     localStorage.setItem("nozzles", JSON.stringify(data));
   }, [data]);
 
-  const filteredData = data.filter((item) =>
-    Object.values(item).join(" ").toLowerCase().includes(search.toLowerCase())
-  );
+const filteredData = data.filter((item) => {
+  const matchesSearch = Object.values(item)
+    .join(" ")
+    .toLowerCase()
+    .includes(search.toLowerCase());
+
+  const matchesFuel =
+    fuelFilter === "ALL" || item.fuelType === fuelFilter;
+
+  return matchesSearch && matchesFuel;
+});
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
@@ -122,6 +132,8 @@ const Nozzle = () => {
     });
   };
 
+  
+
   return (
     <div className="container-fluid">
       <h5 className="mb-3 fw-bold m-2">Pump Status</h5>
@@ -173,6 +185,56 @@ const Nozzle = () => {
           />
           {search && <span className="input-clear" onClick={() => setSearch("")}>✕</span>}
         </div>
+
+
+
+
+
+<div className="d-flex gap-2 mb-2 flex-wrap filters-buttons">
+  <button
+    className={`btn btn-md ${fuelFilter === "ALL" ? "btn-primary" : "btn-outline-primary"}`}
+    onClick={() => {
+      setFuelFilter("ALL");
+      setCurrentPage(1);
+    }}
+  >
+    All Data
+  </button>
+
+  <button
+    className={`btn btn-md ${fuelFilter === "Petrol" ? "btn-primary" : "btn-outline-primary"}`}
+    onClick={() => {
+      setFuelFilter("Petrol");
+      setCurrentPage(1);
+    }}
+  >
+    Petrol
+  </button>
+
+  <button
+    className={`btn btn-md ${fuelFilter === "CNG" ? "btn-primary" : "btn-outline-primary"}`}
+    onClick={() => {
+      setFuelFilter("CNG");
+      setCurrentPage(1);
+    }}
+  >
+   CNG
+  </button>
+
+  <button
+    className={`btn btn-md ${fuelFilter === "Diesel" ? "btn-primary" : "btn-outline-primary"}`}
+    onClick={() => {
+      setFuelFilter("Diesel");
+      setCurrentPage(1);
+    }}
+  >
+    Diesel
+  </button>
+</div>
+
+
+
+
 
         <div className="table-responsive">
           <table className="table table-hover text-center align-middle">

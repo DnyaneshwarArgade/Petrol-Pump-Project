@@ -115,6 +115,12 @@
   padding-bottom: 20px;
 }
 
+.filters-buttons{
+  justify-content: center;
+  height: 40px;
+  margin: 7px;
+}
+
 .table-responsive {
   overflow: visible !important;
 }
@@ -123,6 +129,7 @@
   width: 100%;
   table-layout: auto;
   white-space: normal;
+  margin-top: 7px;
 }
 
 .rt-pagination {
