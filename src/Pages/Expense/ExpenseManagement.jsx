@@ -1,155 +1,114 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { FaBolt, FaBriefcase, FaTools, FaCoins } from "react-icons/fa";
 import "./Expense.css";
 
 const ProfitCalculation = () => {
-  const [sales, setSales] = useState(125000);
+  const [sales, setSales] = useState(0);
+  const [electricity, setElectricity] = useState(0);
+  const [salary, setSalary] = useState(0);
+  const [maintenance, setMaintenance] = useState(0);
+  const [other, setOther] = useState(0);
 
-  const [electricity, setElectricity] = useState(20000);
-  const [salary, setSalary] = useState(35000);
-  const [maintenance, setMaintenance] = useState(10000);
-  const [other, setOther] = useState(5000);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [profit, setProfit] = useState(0);
 
-  const calculatedExpenses =
-    electricity + salary + maintenance + other;
+  useEffect(() => {
+    const total =
+      Number(electricity) +
+      Number(salary) +
+      Number(maintenance) +
+      Number(other);
 
-  const [totalExpenses, setTotalExpenses] =
-    useState(calculatedExpenses);
-
-  const [profit, setProfit] = useState(null);
+    setTotalExpenses(total);
+    setProfit(Number(sales) - total);
+  }, [sales, electricity, salary, maintenance, other]);
 
   const handleUpdateExpenses = () => {
-    setTotalExpenses(calculatedExpenses);
-  };
-
-  const handleCalculateProfit = () => {
-    setProfit(sales - totalExpenses);
+    setSales(0);
+    setElectricity(0);
+    setSalary(0);
+    setMaintenance(0);
+    setOther(0);
+    setTotalExpenses(0);
+    setProfit(0);
   };
 
   return (
-  
     <div className="page">
-     
       <div className="main-card">
-        <h3 className="page-title">Profit Calculation</h3>
+        <h3 className="page-title">Expense & Profit Management</h3>
 
-        
-        <div className="profit-box">
-          <div className="profit-header">
-            Profit Calculation
+        <div className="content-row">
+          
+          <div className="left-section">
+            <div className="expense-list">              
+              <ExpenseRow icon={<FaBolt />} label="Electricity Bill" value={electricity} setValue={setElectricity} />
+              <ExpenseRow icon={<FaBriefcase />} label="Salary Expense" value={salary} setValue={setSalary} />
+              <ExpenseRow icon={<FaTools />} label="Maintenance" value={maintenance} setValue={setMaintenance} />
+              <ExpenseRow icon={<FaCoins />} label="Other Expenses" value={other} setValue={setOther} /> 
+            </div>
+
+            <div className="update-right">
+              <button className="action-btn" onClick={handleUpdateExpenses}>
+                Update Expenses
+              </button>
+            </div>
           </div>
 
          
-          <div className="profit-row editable">
-            <span>Total Sales</span>
-            <input
-              type="number"
-              value={sales}
-              onChange={(e) =>
-                setSales(Number(e.target.value))
-              }
-            />
+          <div className="right-section">
+            <div className="profit-box">
+              <div className="profit-header">Profit Calculation</div>
+
+              <div className="profit-row editable">
+                <span>Total Sales</span>
+                <input
+                  type="number"
+                  min="0"
+                  value={sales}
+                  onFocus={(e) => sales === 0 && setSales("")}
+                  onChange={(e) =>
+                    setSales(e.target.value === "" ? 0 : Number(e.target.value))
+                  }
+                />
+              </div>
+
+              <div className="profit-row">
+                <span>Total Expenses</span>
+                <span>₹ {totalExpenses}</span>
+              </div>
+
+              <div className="profit-row total-profit">
+                <span>Total Profit</span>
+                <span className={profit < 0 ? "loss" : "profit"}>
+                  ₹ {profit}
+                </span>
+              </div>
+            </div>
           </div>
-
-          
-          <div className="profit-row editable">
-            <span>Total Expenses</span>
-            <input
-              type="number"
-              value={totalExpenses}
-              onChange={(e) =>
-                setTotalExpenses(Number(e.target.value))
-              }
-            />
-          </div>
-
-          
-          <div className="profit-row total-profit">
-            <span>Total Profit</span>
-            <span>
-              {profit === null
-                ? "—"
-                : `₹ ${profit.toLocaleString()}`}
-            </span>
-          </div>
-
-          <div className="calc-btn-wrapper">
-            <button
-              className="calc-btn"
-              onClick={handleCalculateProfit}
-            >
-              Calculate Profit
-            </button>
-          </div>
-        </div>
-
-       
-        <div className="expense-list">
-          <ExpenseRow
-            icon="⚡"
-            label="Electricity Bill"
-            value={electricity}
-            setValue={setElectricity}
-          />
-          <ExpenseRow
-            icon="💼"
-            label="Salary Expense"
-            value={salary}
-            setValue={setSalary}
-          />
-          <ExpenseRow
-            icon="🔧"
-            label="Maintenance"
-            value={maintenance}
-            setValue={setMaintenance}
-          />
-          <ExpenseRow
-            icon="🪙"
-            label="Other Expenses"
-            value={other}
-            setValue={setOther}
-          />
-        </div>
-
-        <div className="update-btn-wrapper">
-          <button
-            className="update-btn"
-            onClick={handleUpdateExpenses}
-          >
-            Update Expenses
-          </button>
         </div>
       </div>
     </div>
   );
 };
-
-const ExpenseRow = ({
-  icon,
-  label,
-  value,
-  setValue,
-}) => {
-  return (
-    <div className="expense-row">
-      <div className="expense-left">
-        <span className="expense-icon">
-          {icon}
-        </span>
-        <span>{label}</span>
-      </div>
-      <input
-        type="number"
-        value={value}
-        onChange={(e) =>
-          setValue(Number(e.target.value))
-        }
-      />
+const ExpenseRow = ({ icon, label, value, setValue }) => (
+  <div className="expense-row">
+    <div className="expense-left">
+      <span>{icon}</span>
+      <span>{label}</span>
     </div>
-  );
-};
-
+    <input
+      type="number"
+      min="0"
+      value={value}
+      onFocus={() => value === 0 && setValue("")}
+      onChange={(e) =>
+        setValue(e.target.value === "" ? 0 : Number(e.target.value))
+      }
+    />
+  </div>
+  
+);
 export default ProfitCalculation;
-
-
 
 

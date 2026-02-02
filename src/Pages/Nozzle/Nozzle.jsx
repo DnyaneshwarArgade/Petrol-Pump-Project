@@ -331,11 +331,3 @@ const filteredData = data.filter((item) => {
 };
 
 export default Nozzle;
-
-
-
-
-
-
-
-

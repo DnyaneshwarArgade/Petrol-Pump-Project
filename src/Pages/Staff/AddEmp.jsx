@@ -105,23 +105,24 @@ function AddEmp({
   return (
     <div className="modal fade show modal-bg" style={{ display: "block" }}>
       <div className="modal-dialog modal-dialog-centered modal-lg">
-        <div className="modal-content shadow-lg rounded-3">
+        <div className="emomodal-content shadow-lg rounded-3">
           {/* Header */}
-          <div className="modal-header bg-primary text-white">
-            <h5 className="modal-title fw-bold">
-              {isEdit ? "Edit Employee" : "Add Employee"}
-            </h5>
-            <button
+              <div className="modal-header bg-primary text-white mb-0">
+                       <h5 className="modal-title fw-bold">
+                       {isEdit ? "Edit Employee" : "Add Employee"}
+                    </h5>
+                   <button
               className="btn-close btn-close-white"
-              onClick={closeModal}
-            />
-          </div>
+                 onClick={closeModal}
+                  />
+                    </div>
+
 
           {/* Body */}
           <div className="modal-body">
             <form onSubmit={handleSubmit} noValidate>
               {/* Row 1 */}
-              <div className="row g-3 mb-3">
+              <div className="row g-3">
                 <div className="col-12 col-md-6">
                   <label className="form-label">Name</label>
                   <input
@@ -131,7 +132,7 @@ function AddEmp({
                     className={`form-control ${errors.name ? "is-invalid" : ""
                       }`}
                   />
-                  <div className="error-space">
+                  <div className="error-space mb-0">
                     {errors.name && (
                       <div className="invalid-feedback d-block">
                         {errors.name}
@@ -140,7 +141,7 @@ function AddEmp({
                   </div>
                 </div>
 
-                <div className="col-12 col-md-6">
+                <div className="col-12 col-md-6 ">
                   <label className="form-label">Job Title</label>
                   <input
                     name="jobTitle"
@@ -160,7 +161,7 @@ function AddEmp({
               </div>
 
               {/* Row 2 */}
-              <div className="row g-3 mb-3">
+              <div className="row g-3 mb-0">
                 <div className="col-12 col-md-6">
                   <label className="form-label">Email</label>
                   <input

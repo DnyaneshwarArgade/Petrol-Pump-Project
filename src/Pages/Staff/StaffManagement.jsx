@@ -1,10 +1,4 @@
-
-// import React, { useState } from "react";
-import "./StaffManagement.css";
-
-
 import React, { useState,useEffect } from "react";
-
 import "./StaffManagement.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -106,8 +100,7 @@ const EmployeeManagement = () => {
   if (totalPages === 0) {
     setCurrentPage(1);
   }
-    }, [filteredEmployees.length, totalPages, currentPage]);
-
+     }, [filteredEmployees.length, totalPages, currentPage]);
 
   return (
     <div className="container-fluid px-4 py-3 main-bg">
@@ -189,24 +182,27 @@ const EmployeeManagement = () => {
                     <td>{emp.shift}</td>
                     <td>{emp.status}</td>
                     <td>
-                      <div className="action-icons">
-                        <div
-                          className="icon-box edit-box"
-                          onClick={() => {
-                            setSelectedEmployee(emp);
-                            setIsEdit(true);
-                            setShowModal(true);
-                          }}
-                        >
-                          <BsPencilSquare />
-                        </div>
-                        <div
-                          className="icon-box delete-box"
-                          onClick={() => handleDelete(emp.id)}
-                        >
-                          <BsTrashFill />
-                        </div>
-                      </div>
+
+                      <td className="action-td">
+                  <div className="action-icons">
+                   <div
+                 className="icon-box edit-box"
+              onClick={() => {
+           setSelectedEmployee(emp);
+           setIsEdit(true);
+           setShowModal(true);
+                }}>
+          <BsPencilSquare />
+          </div>
+
+            <div
+      className="icon-box delete-box"
+      onClick={() => handleDelete(emp.id)}>
+      <BsTrashFill />
+         </div>
+           </div>
+          </td>
+
                     </td>
                   </tr>
                 ))

@@ -16,8 +16,8 @@ function Sidebar({ isOpen, toggleSidebar }) {
         <div className="sidebar-content">
           <Link to="/expensemanagement" onClick={toggleSidebar}>Expense Management</Link>
           <Link to="/fuelstockmanagement" onClick={toggleSidebar}>Fuel Stock Management</Link>
-          <Link to="/nozzle" onClick={toggleSidebar}>Nozzle</Link>
-          <Link to="/" onClick={toggleSidebar}>Logout</Link>
+          <Link to="/nozzle " onClick={toggleSidebar}>Nozzle</Link>
+          <Link to="/login" onClick={toggleSidebar}>Logout</Link>
         </div>
       </div>
 

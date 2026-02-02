@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { FaPlus, FaEdit, FaTrash, FaSearch, FaTimes } from "react-icons/fa";
+import { FaPlus, FaTrash, FaSearch, FaTimes, FaPen } from "react-icons/fa";
 import "./FuelStock.css";
 
 function FuelStockManagement() {
@@ -8,8 +8,8 @@ function FuelStockManagement() {
   const [fuelType, setFuelType] = useState("Petrol");
   const [quantity, setQuantity] = useState("");
   const [date, setDate] = useState("");
+  const [quantityError, setQuantityError] = useState("");
 
-  // Lazy initialization for records
   const [records, setRecords] = useState(() => {
     const saved = localStorage.getItem("fuelRecords");
     return saved ? JSON.parse(saved) : [];
@@ -17,57 +17,92 @@ function FuelStockManagement() {
 
   const [editId, setEditId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
-  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Initialize date
   useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
-    setDate(today);
+    setDate(new Date().toISOString().split("T")[0]);
   }, []);
 
-  // Save data to localStorage
   useEffect(() => {
     localStorage.setItem("fuelRecords", JSON.stringify(records));
   }, [records]);
 
   const getUnit = (type) => (type === "CNG" ? "Kg" : "Liters");
 
-  // Add or Update Stock
+  const resetForm = () => {
+    setFuelType("Petrol");
+    setQuantity("");
+    setDate(new Date().toISOString().split("T")[0]);
+    setEditId(null);
+    setQuantityError("");
+  };
+
   const handleAddStock = () => {
-    if (!quantity) {
-      alert("Please enter quantity");
+    if (!quantity || Number(quantity) <= 0) {
+      setQuantityError("Please enter valid quantity");
       return;
     }
 
+    setQuantityError("");
+
+    // EDIT MODE
     if (editId) {
-      setRecords(
-        records.map((r) =>
-          r.id === editId
-            ? { ...r, fuelType, quantity, unit: getUnit(fuelType), date }
-            : r
-        )
-      );
-    } else {
-      const newRecord = {
-        id: Date.now(),
-        fuelType,
-        quantity,
-        unit: getUnit(fuelType),
-        date,
-      };
-      setRecords([newRecord, ...records]);
+      Swal.fire({
+        title: "Do you want to edit this stock?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#2961ef",
+        cancelButtonColor: "#6c757d",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setRecords((prev) =>
+            prev.map((r) =>
+              r.id === editId
+                ? { ...r, fuelType, quantity, unit: getUnit(fuelType), date }
+                : r
+            )
+          );
+
+          resetForm();
+          setShowForm(false);
+
+          Swal.fire({
+            icon: "success",
+            title: "Edited Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+      return;
     }
 
-    setQuantity("");
-    setFuelType("Petrol");
-    setEditId(null);
+    // ADD MODE
+    const newRecord = {
+      id: Date.now(),
+      fuelType,
+      quantity,
+      unit: getUnit(fuelType),
+      date,
+    };
+
+    setRecords([newRecord, ...records]);
+    setCurrentPage(1);
+
+    resetForm();
     setShowForm(false);
+
+    Swal.fire({
+      icon: "success",
+      title: "Stock Added Successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
-  // Delete record
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -75,31 +110,36 @@ function FuelStockManagement() {
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#6c757d",
       confirmButtonText: "Yes, delete",
+      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        setRecords(records.filter((r) => r.id !== id));
+        const updated = records.filter((r) => r.id !== id);
+        setRecords(updated);
+
+        const pages = Math.ceil(updated.length / itemsPerPage);
+        if (currentPage > pages) setCurrentPage(pages || 1);
+
         Swal.fire({
           icon: "success",
-          title: "Deleted!",
-          text: "Record deleted successfully",
-          timer: 1500,
+          title: "Deleted Successfully",
           showConfirmButton: false,
+          timer: 1500,
         });
       }
     });
   };
 
-  // Edit record
   const handleEdit = (record) => {
     setFuelType(record.fuelType);
     setQuantity(record.quantity);
     setDate(record.date);
     setEditId(record.id);
+    setQuantityError("");
     setShowForm(true);
   };
 
-  // Filtered records
   const filteredRecords = records.filter((r) => {
     const term = searchTerm.toLowerCase();
     return (
@@ -109,7 +149,6 @@ function FuelStockManagement() {
     );
   });
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredRecords.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedRecords = filteredRecords.slice(
@@ -121,8 +160,17 @@ function FuelStockManagement() {
     <div className="fuel-container">
       <h2 className="page-title">Fuel Stock Management</h2>
 
-      {/* Top bar */}
       <div className="top-bar">
+        <button
+          className="add-stock-btn"
+          onClick={() => {
+            resetForm();
+            setShowForm(true);
+          }}
+        >
+          <FaPlus /> Add Stock
+        </button>
+
         <div className="search-wrapper">
           <FaSearch className="search-icon" />
           <input
@@ -131,30 +179,22 @@ function FuelStockManagement() {
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
-              setCurrentPage(1); 
+              setCurrentPage(1);
             }}
             className="search-input"
           />
-
-            {searchTerm && (
-             <FaTimes
+          {searchTerm && (
+            <FaTimes
               className="clear-icon"
-              title="Clear search"
               onClick={() => {
-              setSearchTerm("");
-              setCurrentPage(1);
-      }}
-      />
-      )}
-     </div>
-        
-
-        <button className="add-stock-btn" onClick={() => setShowForm(true)}>
-          <FaPlus style={{ marginRight: "6px" }} /> Add Stock
-        </button>
+                setSearchTerm("");
+                setCurrentPage(1);
+              }}
+            />
+          )}
+        </div>
       </div>
 
-      {/* Table */}
       <div className="table-wrapper">
         <table className="fuel-table">
           <thead>
@@ -166,7 +206,6 @@ function FuelStockManagement() {
               <th>Action</th>
             </tr>
           </thead>
-
           <tbody>
             {paginatedRecords.length === 0 ? (
               <tr>
@@ -185,15 +224,12 @@ function FuelStockManagement() {
                     <div className="action-icons">
                       <span
                         className="edit-icon"
-                        title="Edit"
                         onClick={() => handleEdit(rec)}
                       >
-                        <FaEdit />
+                        <FaPen size={16} color="#2f80ed" />
                       </span>
-
                       <span
                         className="delete-icon"
-                        title="Delete"
                         onClick={() => handleDelete(rec.id)}
                       >
                         <FaTrash />
@@ -207,64 +243,38 @@ function FuelStockManagement() {
         </table>
       </div>
 
-      {/* Pagination */}
       {filteredRecords.length > itemsPerPage && (
-        <div className="rt-pagination">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(1)}
-          >
-            ««
-          </button>
+        <div className="rt-pagination mb-5 mt-1">
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>«</button>
 
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
-          >
-            «
-          </button>
-
-          {[...Array(totalPages)].map((_, index) => (
+          {Array.from({ length: totalPages }, (_, i) => (
             <button
-              key={index}
-              className={currentPage === index + 1 ? "active" : ""}
-              onClick={() => setCurrentPage(index + 1)}
+              key={i}
+              className={currentPage === i + 1 ? "active" : ""}
+              onClick={() => setCurrentPage(i + 1)}
             >
-              {index + 1}
+              {i + 1}
             </button>
           ))}
 
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(currentPage + 1)}
-          >
-            »
-          </button>
-
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(totalPages)}
-          >
-            »»
-          </button>
+          <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>»</button>
+          <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
         </div>
       )}
 
-      {/* Modal Form */}
       {showForm && (
         <div className="modal">
           <div className="modal-content">
             <div className="modal-header">
-            <h3>{editId ? "Edit Stock" : "Add New Stock"}</h3>
-            <FaTimes
+              <h3 style={{ textAlign: "center" }}>
+                {editId ? "Edit Stock" : "Add New Stock"}
+              </h3>
+              <FaTimes
                 className="modal-close"
                 onClick={() => {
+                  resetForm();
                   setShowForm(false);
-                  setEditId(null);
-                  setQuantity("");
-                  setFuelType("Petrol");
-                  const today = new Date().toISOString().split("T")[0];
-                  setDate(today);
                 }}
               />
             </div>
@@ -283,8 +293,12 @@ function FuelStockManagement() {
             <input
               type="number"
               value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+              onChange={(e) => {
+                setQuantity(e.target.value);
+                setQuantityError("");
+              }}
             />
+            {quantityError && <p className="error-text">{quantityError}</p>}
 
             <label>Date</label>
             <input
@@ -297,7 +311,6 @@ function FuelStockManagement() {
               <button className="save-btn" onClick={handleAddStock}>
                 Save
               </button>
-              
             </div>
           </div>
         </div>

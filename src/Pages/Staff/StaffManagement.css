@@ -117,34 +117,34 @@
   cursor: pointer;
 }
  
+
 /* ===== Icons ===== */
 .user-icon {
   font-size: 40px;
   color: #0F8A4B;
 }
-
 .action-icons {
   display: flex;
-  gap: 14px;
+  justify-content: center;   
+  align-items: center;       
+  gap: 12px;
+  height: 100%;            
 }
-
 .icon-box {
-  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s;
 }
-
 .icon-box:hover {
   transform: scale(1.1);
 }
 
 .edit-box {
-  background-color: #e0f0ff;
+  background-color: #e9eff3;
   color: #007bff;
 }
 
@@ -153,18 +153,12 @@
   color: #ff4d4d;
 }
 
-/* ===== Table ===== */
-table td,
-table th {
-  vertical-align: middle;
-  white-space: nowrap;
-}
 
 /* ===== Form ===== */
 .form-label {
   font-weight: 600;
   font-size: 0.9rem;
-  margin-bottom: 4px;
+  margin-bottom: 4px !important; 
 }
 
 .custom-input {
