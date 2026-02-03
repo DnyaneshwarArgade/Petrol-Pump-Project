@@ -15,8 +15,8 @@ const pumpData = [
   { id: 6, name: "Offline", status: "On me", fuel: "Petrol", color: "danger" },
 ];
 
-   const Nozzle = () => {
-   const [data, setData] = useState(() => {
+const Nozzle = () => {
+  const [data, setData] = useState(() => {
     const saved = localStorage.getItem("nozzles");
     return saved ? JSON.parse(saved) : [];
   });
@@ -27,6 +27,7 @@ const pumpData = [
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [fuelFilter, setFuelFilter] = useState("ALL");
+  const [selectedType, setSelectedType] = useState("All");
 
   const [form, setForm] = useState({
     pumpId: "",
@@ -46,9 +47,9 @@ const pumpData = [
       .toLowerCase()
       .includes(search.toLowerCase());
 
-      const matchesFuel =
+    const matchesFuel =
       fuelFilter === "ALL" || item.fuelType === fuelFilter;
-       return matchesSearch && matchesFuel;
+    return matchesSearch && matchesFuel;
   });
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -158,13 +159,47 @@ const pumpData = [
       </div>
 
       <div className="card mt-4 p-3 w-100">
-        <div className="d-flex justify-content-between mb-2">
-          <div className="d-flex align-items-center gap-2">
-            <i className="bi bi-fuel-pump fs-4 text-primary mb-1"></i>
-            <h4 className="fw-bold">Nozzles</h4>
+        <div className="nozzle-header mb-2">
+          <div className="nozzle-title">
+            <i className="bi bi-fuel-pump fs-4 text-primary"></i>
+            <h4 className="fw-bold mb-0">Nozzles</h4>
           </div>
-          <button className="btn btn-primary fw-bold fs-7 p-2" onClick={openAdd}> Add Nozzle</button>
+
+          <div className="fuel-filter-wrapper">
+            <button
+              className={`fuel-pill ${fuelFilter === "ALL" ? "active" : ""}`}
+              onClick={() => { setFuelFilter("ALL"); setCurrentPage(1); }}
+            >
+              All Type
+            </button>
+            <button
+              className={`fuel-pill ${fuelFilter === "Petrol" ? "active" : ""}`}
+              onClick={() => { setFuelFilter("Petrol"); setCurrentPage(1); }}
+            >
+              Petrol
+            </button>
+            <button
+              className={`fuel-pill ${fuelFilter === "Diesel" ? "active" : ""}`}
+              onClick={() => { setFuelFilter("Diesel"); setCurrentPage(1); }}
+            >
+              Diesel
+            </button>
+            <button
+              className={`fuel-pill ${fuelFilter === "CNG" ? "active" : ""}`}
+              onClick={() => { setFuelFilter("CNG"); setCurrentPage(1); }}
+            >
+              CNG
+            </button>
+          </div>
+
+          <button
+            className="btn btn-primary add-nozzle-btn mt-2"
+            onClick={openAdd}
+          >
+            + Add Nozzle
+          </button>
         </div>
+
         <div className="search-box w-100 position-relative mb-2">
           <BsSearch className="search-icon" />
           <input
@@ -177,7 +212,8 @@ const pumpData = [
           {search && <span className="input-clear" onClick={() => setSearch("")}>✕</span>}
         </div>
 
-        <div className="d-flex gap-2 mb-2 flex-wrap filters-buttons">
+
+        {/* <div className="d-flex gap-2 mb-2 flex-wrap filters-buttons">
           <button
             className={`btn btn-md ${fuelFilter === "ALL" ? "btn-primary" : "btn-outline-primary"}`}
             onClick={() => {
@@ -215,7 +251,7 @@ const pumpData = [
           >
             Diesel
           </button>
-        </div>
+        </div> */}
 
         <div className="table-responsive">
           <table className="table table-hover text-center align-middle">
