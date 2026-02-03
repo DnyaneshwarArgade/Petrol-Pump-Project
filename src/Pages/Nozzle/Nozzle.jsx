@@ -6,7 +6,6 @@ import "./Nozzle.css";
 import { BsSearch } from "react-icons/bs";
 
 const itemsPerPage = 10;
-
 const pumpData = [
   { id: 1, name: "Pump 1", status: "OD me", fuel: "Petrol", color: "success" },
   { id: 2, name: "Pump 2", status: "Open", fuel: "Diesel", color: "warning" },
@@ -16,8 +15,8 @@ const pumpData = [
   { id: 6, name: "Offline", status: "On me", fuel: "Petrol", color: "danger" },
 ];
 
-const Nozzle = () => {
-  const [data, setData] = useState(() => {
+   const Nozzle = () => {
+   const [data, setData] = useState(() => {
     const saved = localStorage.getItem("nozzles");
     return saved ? JSON.parse(saved) : [];
   });
@@ -28,7 +27,6 @@ const Nozzle = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [fuelFilter, setFuelFilter] = useState("ALL");
-
 
   const [form, setForm] = useState({
     pumpId: "",
@@ -42,17 +40,16 @@ const Nozzle = () => {
     localStorage.setItem("nozzles", JSON.stringify(data));
   }, [data]);
 
-const filteredData = data.filter((item) => {
-  const matchesSearch = Object.values(item)
-    .join(" ")
-    .toLowerCase()
-    .includes(search.toLowerCase());
+  const filteredData = data.filter((item) => {
+    const matchesSearch = Object.values(item)
+      .join(" ")
+      .toLowerCase()
+      .includes(search.toLowerCase());
 
-  const matchesFuel =
-    fuelFilter === "ALL" || item.fuelType === fuelFilter;
-
-  return matchesSearch && matchesFuel;
-});
+      const matchesFuel =
+      fuelFilter === "ALL" || item.fuelType === fuelFilter;
+       return matchesSearch && matchesFuel;
+  });
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
@@ -89,7 +86,6 @@ const filteredData = data.filter((item) => {
       Swal.fire("Error", "Nozzle ID already exists", "error");
       return;
     }
-
     if (isEdit) {
       const updated = [...data];
       updated[editIndex] = form;
@@ -100,9 +96,9 @@ const filteredData = data.filter((item) => {
       Swal.fire({ icon: "success", title: "Added Successfully", timer: 1500, showConfirmButton: false });
       setCurrentPage(1);
     }
-
     setShowModal(false);
   };
+
   const deleteNozzle = (nozzleId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -132,8 +128,6 @@ const filteredData = data.filter((item) => {
     });
   };
 
-  
-
   return (
     <div className="container-fluid">
       <h5 className="mb-3 fw-bold m-2">Pump Status</h5>
@@ -148,13 +142,11 @@ const filteredData = data.filter((item) => {
                 <i className="bi bi-fuel-pump"></i>
                 <span>{pump.name}</span>
               </div>
-
               <div className="pump-body">
                 <div className="status">
                   <i className="bi bi-check-circle-fill"></i>
                   <span>{pump.status}</span>
                 </div>
-
                 <div className="fuel">
                   <i className="bi bi-droplet-fill"></i>
                   <span>{pump.fuel}</span>
@@ -173,7 +165,6 @@ const filteredData = data.filter((item) => {
           </div>
           <button className="btn btn-primary fw-bold fs-7 p-2" onClick={openAdd}> Add Nozzle</button>
         </div>
-
         <div className="search-box w-100 position-relative mb-2">
           <BsSearch className="search-icon" />
           <input
@@ -186,55 +177,45 @@ const filteredData = data.filter((item) => {
           {search && <span className="input-clear" onClick={() => setSearch("")}>✕</span>}
         </div>
 
+        <div className="d-flex gap-2 mb-2 flex-wrap filters-buttons">
+          <button
+            className={`btn btn-md ${fuelFilter === "ALL" ? "btn-primary" : "btn-outline-primary"}`}
+            onClick={() => {
+              setFuelFilter("ALL");
+              setCurrentPage(1);
+            }}
+          >
+            All Data
+          </button>
+          <button
+            className={`btn btn-md ${fuelFilter === "Petrol" ? "btn-primary" : "btn-outline-primary"}`}
+            onClick={() => {
+              setFuelFilter("Petrol");
+              setCurrentPage(1);
+            }}
+          >
+            Petrol
+          </button>
+          <button
+            className={`btn btn-md ${fuelFilter === "CNG" ? "btn-primary" : "btn-outline-primary"}`}
+            onClick={() => {
+              setFuelFilter("CNG");
+              setCurrentPage(1);
+            }}
+          >
+            CNG
+          </button>
 
-
-
-
-<div className="d-flex gap-2 mb-2 flex-wrap filters-buttons">
-  <button
-    className={`btn btn-md ${fuelFilter === "ALL" ? "btn-primary" : "btn-outline-primary"}`}
-    onClick={() => {
-      setFuelFilter("ALL");
-      setCurrentPage(1);
-    }}
-  >
-    All Data
-  </button>
-
-  <button
-    className={`btn btn-md ${fuelFilter === "Petrol" ? "btn-primary" : "btn-outline-primary"}`}
-    onClick={() => {
-      setFuelFilter("Petrol");
-      setCurrentPage(1);
-    }}
-  >
-    Petrol
-  </button>
-
-  <button
-    className={`btn btn-md ${fuelFilter === "CNG" ? "btn-primary" : "btn-outline-primary"}`}
-    onClick={() => {
-      setFuelFilter("CNG");
-      setCurrentPage(1);
-    }}
-  >
-   CNG
-  </button>
-
-  <button
-    className={`btn btn-md ${fuelFilter === "Diesel" ? "btn-primary" : "btn-outline-primary"}`}
-    onClick={() => {
-      setFuelFilter("Diesel");
-      setCurrentPage(1);
-    }}
-  >
-    Diesel
-  </button>
-</div>
-
-
-
-
+          <button
+            className={`btn btn-md ${fuelFilter === "Diesel" ? "btn-primary" : "btn-outline-primary"}`}
+            onClick={() => {
+              setFuelFilter("Diesel");
+              setCurrentPage(1);
+            }}
+          >
+            Diesel
+          </button>
+        </div>
 
         <div className="table-responsive">
           <table className="table table-hover text-center align-middle">
@@ -262,8 +243,8 @@ const filteredData = data.filter((item) => {
                     <td>₹ {item.price}</td>
                     <td>{item.status}</td>
                     <td>
-                      <i className="bi bi-pencil-square text-primary me-3" style={{ cursor: "pointer" }} onClick={() => openEdit(item, (currentPage - 1) * itemsPerPage + index)}></i>
-                      <i className="bi bi-trash text-danger" style={{ cursor: "pointer" }} onClick={() => deleteNozzle(item.nozzleId)}></i>
+                      <i className="bi bi-pencil-fill text-primary me-3" style={{ cursor: "pointer" }} onClick={() => openEdit(item, (currentPage - 1) * itemsPerPage + index)}></i>
+                      <i className="bi bi-trash-fill text-danger" style={{ cursor: "pointer" }} onClick={() => deleteNozzle(item.nozzleId)}></i>
                     </td>
                   </tr>
                 ))
@@ -273,7 +254,6 @@ const filteredData = data.filter((item) => {
         </div>
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="rt-pagination mt-2 mb-5">
           <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
@@ -285,7 +265,7 @@ const filteredData = data.filter((item) => {
           <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(totalPages)}>»»</button>
         </div>
       )}
-      {/* Modal */}
+
       {showModal && (
         <div className="modal-backdrop-custom">
           <div className="modal-card m-3">
@@ -293,7 +273,7 @@ const filteredData = data.filter((item) => {
               <h5>{isEdit ? "Edit Nozzle" : "Add New Nozzle"}</h5>
               <span onClick={() => setShowModal(false)}>×</span>
             </div>
-            <div className="row g-3 mt-2">
+            <div className="row g-3 m-2">
               <div className="col-md-6">
                 <label className="form-label">Pump ID</label>
                 <input className="form-control" value={form.pumpId} onChange={(e) => setForm({ ...form, pumpId: e.target.value })} disabled={isEdit} />
@@ -322,12 +302,18 @@ const filteredData = data.filter((item) => {
                 </select>
               </div>
             </div>
-            <button className="btn btn-primary w-100 mt-3" onClick={submitForm}>{isEdit ? "Update" : "Add"} Nozzle</button>
+            <div className="d-flex justify-content-end px-3 pb-3">
+              <button
+                className="btn btn-primary NozzButton"
+                onClick={submitForm}
+              >
+                {isEdit ? "Update" : "Add"}
+              </button>
+            </div>
           </div>
         </div>
       )}
     </div>
   );
 };
-
 export default Nozzle;

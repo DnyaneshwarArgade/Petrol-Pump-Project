@@ -211,7 +211,6 @@ const Reports = () => {
                 ))}
               </ul>
             )}
-            {/* 🔍  */}
           </div>
         </div>
         {/* SEARCH TEXT SHOW */}
@@ -220,7 +219,7 @@ const Reports = () => {
             Showing results for <b>"{searchText}"</b>
           </div>
         )}
-        {/* TABLE */}
+
         <div className="rt-table-wrapper">
           <table className="rt-table table table-hover">
             <thead className="heads">
@@ -253,7 +252,7 @@ const Reports = () => {
             </tbody>
           </table>
         </div>
-        {/* PAGINATION */}
+
         {filteredData.length > itemsPerPage && (
           <div className="rt-pagination mb-5 mt-1">
             <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>««</button>
