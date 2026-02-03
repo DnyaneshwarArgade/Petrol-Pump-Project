@@ -28,9 +28,10 @@
   display: flex;
   flex-direction: column;
   /* IMPORTANT */
-  max-height: 90vh;
+  /* max-height: 90vh; */
   /* IMPORTANT */
   overflow: hidden;
+  height: 400px;
 }
 
 .close-btn {
@@ -86,10 +87,12 @@
 /* Mobile */
 @media (max-width: 576px) {
   .form-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 2fr;
   }
 
   .modal-dialog {
-    margin-top: 15px;
+    /* margin-top: 15px; */
+    max-width: 95%;
+    margin: 3px auto;
   }
 }

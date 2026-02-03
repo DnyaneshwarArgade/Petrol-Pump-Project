@@ -168,6 +168,10 @@ body {
   font-size: 25px;
 }
 
+.rt-search {
+  width: 500px;
+}
+
 .rt-search input {
   width: 100%;
   padding: 8px 35px 8px 38px;
@@ -244,7 +248,6 @@ body {
   border-bottom: 1px solid #e2e2e2;
   text-align: center;
 }
-
 
 .no-data-row {
   height: 100px;

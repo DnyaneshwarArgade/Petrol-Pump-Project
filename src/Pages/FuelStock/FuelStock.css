@@ -29,7 +29,7 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 15px; /* gap between search and button */
+  gap: 15px; 
 }
 
 /* Desktop order */
@@ -37,7 +37,7 @@ body {
   order: 1;
   flex: 1;
   min-width: 200px;
-  position: relative; /* needed for absolute icons */
+  position: relative; 
 }
 
 .add-stock-btn {
@@ -66,7 +66,7 @@ body {
 /* ================= Search ================= */
 .search-input {
   width: 100%;
-  padding: 9px 40px 9px 36px; /* left space for search icon, right for clear icon */
+  padding: 9px 40px 9px 36px; 
   border-radius: 20px;
   border: 1px solid #ccc;
   font-size: 14px;
@@ -90,7 +90,7 @@ body {
   font-size: 14px;
   color: #888;
   cursor: pointer;
-  z-index: 10; /* ensure visible above input */
+  z-index: 10; 
 }
 
 .clear-icon:hover {
@@ -103,7 +103,7 @@ body {
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  margin-top: 20px; /* space between top-bar and table */
+  margin-top: 20px; 
 }
 
 .fuel-table {
@@ -135,7 +135,7 @@ body {
 .action-icons {
   display: flex;
   justify-content: center;
-  gap: 15px; /* space between edit & delete */
+  gap: 15px; 
 }
 
 .edit-icon {
@@ -194,7 +194,7 @@ body {
 }
 
 /* ================= Modal ================= */
-.modal {
+.fuel-modal {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
@@ -206,8 +206,7 @@ body {
   z-index: 1000;
   overflow-y: auto;
 }
-
-.modal-content {
+.fuel-modal-content {
   background: white;
   width: 100%;
   max-width: 360px;
@@ -225,43 +224,46 @@ body {
   to { transform: scale(1); opacity: 1; }
 }
 
-.modal-header {
+.fuel-modal-header {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
+  justify-content: space-between;
+  margin: -20px -20px 16px -20px;
+  padding: 14px;
+  background: #2f80ed;
+  border-radius: 10px 10px 0 0;
 }
 
-.modal-header h3 {
+.fuel-modal-header h3 {
   margin: 0;
-  font-size: 23px;
-  text-align: center;
-  flex: 1;
-}
-
-.modal-close {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
   font-size: 20px;
-  color: #ea0f0f;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
 }
 
-.modal-close:hover {
-  color: #bd0505;
+.fuel-modal-close {
+  font-size: 22px;
+  font-weight: 200;      
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.9;
+  color: hsl(0, 19%, 95%);
 }
 
-.modal-content label {
+.fuel-modal-close:hover {
+  opacity: 1;
+  color: #fff;
+}
+.fuel-modal-content label {
   font-size: 14px;
   margin-top: 10px;
   display: block;
 }
 
-.modal-content input,
-.modal-content select {
+.fuel-modal-content input,
+.fuel-modal-content select {
   width: 100%;
   padding: 9px;
   margin-top: 4px;
@@ -272,14 +274,14 @@ body {
 }
 
 /* Modal Actions */
-.modal-actions.right {
+.fuel-modal-actions.right {
   display: flex;
   justify-content: flex-end;
   margin-top: 18px;
 }
 
-.save-btn {
-  background: #2044f8;
+.fuel-save-btn {
+  background: #5571fd;
   border: none;
   color: white;
   padding: 9px 20px;
@@ -294,14 +296,67 @@ body {
   font-size: 13px;
   margin-top: 4px;
 }
+/* ================= Filter Buttons ================= */
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap; 
+  justify-content: flex-start; 
+}
+
+.filter-buttons button {
+  flex: 1 1 auto; 
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  min-width: 100px; 
+  text-align: center;
+}
+
+.filter-buttons button:hover {
+  background: #eef3ff;
+  border-color: #2961ef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.filter-buttons button.active {
+  background: #2961ef;
+  color: white;
+  border-color: #2961ef;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
 /* ================= Mobile Fixes ================= */
 @media (max-width: 768px) {
+  .filter-buttons {
+    justify-content: center; /* center buttons in mobile */
+  }
+
+  .filter-buttons button {
+    flex: 1 1 48%; 
+    margin-bottom: 8px; 
+  }
+}
+/* ================= Mobile Fixes ================= */
+@media (max-width: 768px) {
   .top-bar {
-    flex-direction: column;  /* stack vertically */
-    align-items: stretch;    /* full width children */
+    flex-direction: column;  
+    align-items: stretch;    
     gap: 12px;
   }
+  .filter-buttons button {
+    flex: 1 1 48%; 
+    text-align: center;
+  }
+
 
   .add-stock-btn { 
     order: 1; 
@@ -317,3 +372,4 @@ body {
     min-width: 600px;
   }
 }
+

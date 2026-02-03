@@ -9,29 +9,48 @@ function Navbar() {
   return (
     <>
       <nav className="navbar">
+        {/* Left: Logo + Title */}
         <div className="logo-title-container">
           <div className="logo">
             <Link to="/" className="logo-link">
-              <img src="/Pumpicon.png" alt="MyApp Logo" className="logo-img" />
+              <img
+                src="/Pumpicon.png"
+                alt="MyApp Logo"
+                className="logo-img"
+              />
             </Link>
           </div>
-          <div className="navbar-title">  
+
+          <div className="navbar-title">
             <h1>Petrol Pump Management</h1>
-          </div>
-          </div>
-       
 
+            {/* Mobile view text */}
+            <span className="nav-right mobile-only">
+              Welcome Admin
+            </span>
+          </div>
+        </div>
 
-      <div className="nav-center">
-           <span className="nav-right">Hi  Admin</span>
-          <button className="menu-btn" onClick={() => setIsRightOpen(!isRightOpen)}>
-          ☰
-        </button>
-       </div>
+        {/* Right: Menu + Desktop text */}
+        <div className="menu-container">
+          {/* Desktop view text */}
+          <span className="nav-right desktop-only">
+             Welcome Admin
+          </span>
+
+          <button
+            className="menu-btn"
+            onClick={() => setIsRightOpen(!isRightOpen)}
+          >
+            ☰
+          </button>
+        </div>
       </nav>
 
-
-      <Sidebar isOpen={isRightOpen} toggleSidebar={() => setIsRightOpen(false)} />
+      <Sidebar
+        isOpen={isRightOpen}
+        toggleSidebar={() => setIsRightOpen(false)}
+      />
     </>
   );
 }

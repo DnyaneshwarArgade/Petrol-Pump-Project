@@ -9,6 +9,7 @@ function FuelStockManagement() {
   const [quantity, setQuantity] = useState("");
   const [date, setDate] = useState("");
   const [quantityError, setQuantityError] = useState("");
+  const [selectedType, setSelectedType] = useState("All");
 
   const [records, setRecords] = useState(() => {
     const saved = localStorage.getItem("fuelRecords");
@@ -141,13 +142,18 @@ function FuelStockManagement() {
   };
 
   const filteredRecords = records.filter((r) => {
-    const term = searchTerm.toLowerCase();
-    return (
-      r.fuelType.toLowerCase().includes(term) ||
-      r.quantity.toString().includes(term) ||
-      r.date.includes(term)
-    );
-  });
+  const term = searchTerm.toLowerCase();
+
+  const matchesSearch =
+    r.fuelType.toLowerCase().includes(term) ||
+    r.quantity.toString().includes(term) ||
+    r.date.includes(term);
+
+  const matchesType =
+    selectedType === "All" || r.fuelType === selectedType;
+
+  return matchesSearch && matchesType;
+});
 
   const totalPages = Math.ceil(filteredRecords.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -170,6 +176,32 @@ function FuelStockManagement() {
         >
           <FaPlus /> Add Stock
         </button>
+        <div className="filter-buttons">
+  <button
+    className={selectedType === "All" ? "active" : ""}
+    onClick={() => setSelectedType("All")}
+  >
+    All Type
+  </button>
+  <button
+    className={selectedType === "Petrol" ? "active" : ""}
+    onClick={() => setSelectedType("Petrol")}
+  >
+    Petrol
+  </button>
+  <button
+    className={selectedType === "Diesel" ? "active" : ""}
+    onClick={() => setSelectedType("Diesel")}
+  >
+    Diesel
+  </button>
+  <button
+    className={selectedType === "CNG" ? "active" : ""}
+    onClick={() => setSelectedType("CNG")}
+  >
+    CNG
+  </button>
+</div>
 
         <div className="search-wrapper">
           <FaSearch className="search-icon" />
@@ -236,6 +268,8 @@ function FuelStockManagement() {
                       </span>
                     </div>
                   </td>
+
+                  
                 </tr>
               ))
             )}
@@ -264,14 +298,14 @@ function FuelStockManagement() {
       )}
 
       {showForm && (
-        <div className="modal">
-          <div className="modal-content">
-            <div className="modal-header">
+        <div className="fuel-modal">
+          <div className="fuel-modal-content">
+            <div className="fuel-modal-header">
               <h3 style={{ textAlign: "center" }}>
                 {editId ? "Edit Stock" : "Add New Stock"}
               </h3>
               <FaTimes
-                className="modal-close"
+                className="fuel-modal-close"
                 onClick={() => {
                   resetForm();
                   setShowForm(false);
@@ -304,11 +338,12 @@ function FuelStockManagement() {
             <input
               type="date"
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              min={date}
+              max={date}
             />
 
-            <div className="modal-actions right">
-              <button className="save-btn" onClick={handleAddStock}>
+            <div className="fuel-modal-actions right">
+              <button className="fuel-save-btn" onClick={handleAddStock}>
                 Save
               </button>
             </div>
