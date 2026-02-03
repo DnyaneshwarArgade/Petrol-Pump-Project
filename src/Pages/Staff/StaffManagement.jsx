@@ -4,24 +4,30 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import AddEmp from "./AddEmp";
 import Swal from "sweetalert2";
+import { FaUserCircle, FaPen, FaTrash } from "react-icons/fa";
+
 
 import {
   BsPeopleFill,
-  BsPersonLinesFill,
+  // BsPersonLinesFill,
   BsPersonBadgeFill,
   BsPersonCheckFill,
   BsPersonFillCheck,
   BsSearch,
-  BsPencilSquare,
-  BsTrashFill
+  // BsPencilSquare,
+  // BsTrashFill
 } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
+
+
+// import { FaUserCircle } from "react-icons/fa";
 
 const EmployeeManagement = () => {
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [search, setSearch] = useState("");
+    const [activeFilter, setActiveFilter] = useState("all");
+
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -79,14 +85,27 @@ const EmployeeManagement = () => {
       }
     });
   };
+      
+  const handleEdit = (emp) => {
+  setSelectedEmployee(emp);
+  setIsEdit(true);
+  setShowModal(true);
+     };
 
-  // 🔍 Filter employees (Name, Job, Email)
-  const filteredEmployees = employees.filter(emp =>
+    //Search & Button Filter
+    const filteredEmployees = employees
+  .filter(emp =>
     emp.name?.toLowerCase().includes(search.toLowerCase()) ||
     emp.jobTitle?.toLowerCase().includes(search.toLowerCase()) ||
     emp.email?.toLowerCase().includes(search.toLowerCase())
-  );
-
+  )
+  .filter(emp => {
+    if (activeFilter === "all") return true;
+    if (activeFilter === "cashier") return emp.jobTitle === "Cashier";
+    if (activeFilter === "manager") return emp.jobTitle === "Manager";
+    if (activeFilter === "active") return emp.status === "Active";
+    return true;
+  });
   // Pagination
   const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -101,6 +120,9 @@ const EmployeeManagement = () => {
     setCurrentPage(1);
   }
      }, [filteredEmployees.length, totalPages, currentPage]);
+
+
+
 
   return (
     <div className="container-fluid px-4 py-3 main-bg">
@@ -149,9 +171,33 @@ const EmployeeManagement = () => {
           )}
         </div>
       </div>
+      {/* 🔘 Filter Buttons */}
+             <div className="filter-btn-group mb-4">
+          <button
+    className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
+    onClick={() => setActiveFilter("all")} >
+    All Employees
+       </button>
 
+      <button
+    className={`filter-btn ${activeFilter === "cashier" ? "active" : ""}`}
+    onClick={() => setActiveFilter("cashier")}>
+    Cashiers
+     </button>
 
-        {/* Employee Table */}
+      <button
+    className={`filter-btn ${activeFilter === "manager" ? "active" : ""}`}
+    onClick={() => setActiveFilter("manager")}>
+    Managers
+      </button>
+
+     <button
+    className={`filter-btn ${activeFilter === "active" ? "active" : ""}`}
+    onClick={() => setActiveFilter("active")}>
+    Active Staff
+       </button>
+      </div>
+    {/* Employee Table */}
         <div className="table-responsive">
           <table className="table align-middle">
             <thead>
@@ -181,30 +227,28 @@ const EmployeeManagement = () => {
                     <td>{emp.phone}</td>
                     <td>{emp.shift}</td>
                     <td>{emp.status}</td>
-                    <td>
+                  <td>
+              <td className="action-td">
+           <div className="action-icons">
+         {/* EDIT */}
+      <span
+      className="edit-icon"
+      onClick={() => handleEdit(emp)}
+      title="Edit">
+      <FaPen size={16} />
+    </span>
 
-                      <td className="action-td">
-                  <div className="action-icons">
-                   <div
-                 className="icon-box edit-box"
-              onClick={() => {
-           setSelectedEmployee(emp);
-           setIsEdit(true);
-           setShowModal(true);
-                }}>
-          <BsPencilSquare />
-          </div>
-
-            <div
-      className="icon-box delete-box"
-      onClick={() => handleDelete(emp.id)}>
-      <BsTrashFill />
-         </div>
-           </div>
-          </td>
-
-                    </td>
-                  </tr>
+    {/* DELETE */}
+    <span
+      className="delete-icon"
+      onClick={() => handleDelete(emp.id)}
+      title="Delete">
+      <FaTrash size={16} />
+    </span>
+      </div>
+    </td>
+    </td>
+      </tr>
                 ))
               ) : (
                 <tr>
@@ -265,4 +309,7 @@ const Card = ({ icon, title, count, color }) => (
   </div>
 );
 
-export default EmployeeManagement;
+
+
+
+export default EmployeeManagement; 
