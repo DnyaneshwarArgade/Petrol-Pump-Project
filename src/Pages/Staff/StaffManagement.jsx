@@ -143,60 +143,66 @@ const EmployeeManagement = () => {
       {/* Manage Section */}
       <div className="manage-box mb-4">
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <h4 className="fw-bold mb-1">Manage Employees</h4>
-          <button
-            className="btn-add"
-            onClick={() => {
-              setIsEdit(false);
-              setSelectedEmployee(null);
-              setShowModal(true);
-            }}
-          >
-            +
-          </button>
-        </div>
-        
-         {/* 🔍 Full Width Search Bar */}
-      <div className="nav-search-container mb-4">
-        <div className="nav-search-box">
-          <BsSearch className="nav-search-icon" />
-          <input
-            type="text"
-            placeholder="Search employees..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          {search && (
-            <span className="nav-clear" onClick={() => setSearch("")}>✕</span>
-          )}
-        </div>
-      </div>
-      {/* 🔘 Filter Buttons */}
-             <div className="filter-btn-group mb-4">
-          <button
-    className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
-    onClick={() => setActiveFilter("all")} >
-    All Employees
+         <h4 className="fw-bold mb-3">Manage Employees</h4>
+         </div>
+{/* 🔘 Filters + Search + Add */}
+<div className="emp-topbar">
+  {/* Filters */}
+  <div className="emp-filters">
+    <button
+      className={activeFilter === "all" ? "active" : ""}
+      onClick={() => setActiveFilter("all")}
+    >
+      All
+    </button>
+    <button
+      className={activeFilter === "cashier" ? "active" : ""}
+      onClick={() => setActiveFilter("cashier")}
+    >
+      Cashier
+    </button>
+    <button
+      className={activeFilter === "manager" ? "active" : ""}
+      onClick={() => setActiveFilter("manager")}
+    >
+      Manager
+    </button>
+    <button
+      className={activeFilter === "active" ? "active" : ""}
+      onClick={() => setActiveFilter("active")}
+    >
+      Active
+    </button>
+  </div>
+
+  {/* Search */}
+  <div className="emp-search">
+    <BsSearch className="emp-search-icon" />
+    <input
+      type="text"
+      placeholder="Search employees..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+    {search && (
+      <span className="emp-clear" onClick={() => setSearch("")}>
+        ✕
+      </span>
+    )}
+  </div>
+
+  {/* Add Button */}
+  <button
+    className="emp-add-btn"
+    onClick={() => {
+      setIsEdit(false);
+      setSelectedEmployee(null);
+      setShowModal(true);
+    }} >
+    + Add Employee
        </button>
+          </div>
 
-      <button
-    className={`filter-btn ${activeFilter === "cashier" ? "active" : ""}`}
-    onClick={() => setActiveFilter("cashier")}>
-    Cashiers
-     </button>
-
-      <button
-    className={`filter-btn ${activeFilter === "manager" ? "active" : ""}`}
-    onClick={() => setActiveFilter("manager")}>
-    Managers
-      </button>
-
-     <button
-    className={`filter-btn ${activeFilter === "active" ? "active" : ""}`}
-    onClick={() => setActiveFilter("active")}>
-    Active Staff
-       </button>
-      </div>
     {/* Employee Table */}
         <div className="table-responsive">
           <table className="table align-middle">
@@ -229,12 +235,14 @@ const EmployeeManagement = () => {
                     <td>{emp.status}</td>
                   <td>
               <td className="action-td">
-           <div className="action-icons">
-         {/* EDIT */}
-      <span
+  <div className="action-icons">
+
+    {/* EDIT */}
+    <span
       className="edit-icon"
       onClick={() => handleEdit(emp)}
-      title="Edit">
+      title="Edit"
+    >
       <FaPen size={16} />
     </span>
 
@@ -244,11 +252,11 @@ const EmployeeManagement = () => {
       onClick={() => handleDelete(emp.id)}
       title="Delete">
       <FaTrash size={16} />
-    </span>
-      </div>
-    </td>
-    </td>
-      </tr>
+     </span>
+
+          </div>
+             </td>
+            </td> </tr>
                 ))
               ) : (
                 <tr>
@@ -312,4 +320,4 @@ const Card = ({ icon, title, count, color }) => (
 
 
 
-export default EmployeeManagement; 
+export default EmployeeManagement;
