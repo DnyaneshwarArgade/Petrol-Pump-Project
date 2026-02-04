@@ -1,13 +1,12 @@
 .main-bg {
   background: #f6f8fb;
   min-height: 100vh;
-   padding-bottom: 20px !important;
-
+  padding-bottom: 20px !important;
 }
 
 .emp-card {
   background: #fff;
-   padding: 18px;
+  padding: 18px;
   border-radius: 15px;
   display: flex;
   gap: 15px;
@@ -39,7 +38,8 @@
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
- /* Employee Top Bar */
+
+/* Employee Top Bar */
 .emp-topbar {
   display: flex;
   justify-content: space-between;
@@ -51,10 +51,9 @@
 
 /* Filters */
 .emp-filters {
-   display: flex;
+  display: flex;
   gap: 8px;
-  flex-wrap: wrap; 
-    
+  flex-wrap: wrap;
 }
 
 .emp-filters button {
@@ -65,19 +64,20 @@
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-weight: 600; 
+  font-weight: 600;
 }
-   .emp-filters button:hover {
-  background-color: #2961ef;
-  color: #fff;
-  border-color: #2961ef;
-}
-.emp-filters button.active {
+
+.emp-filters button:hover {
   background-color: #2961ef;
   color: #fff;
   border-color: #2961ef;
 }
 
+.emp-filters button.active {
+  background-color: #2961ef;
+  color: #fff;
+  border-color: #2961ef;
+}
 
 /* Search */
 .emp-search {
@@ -130,27 +130,27 @@
   font-size: 15px;
   cursor: pointer;
   white-space: nowrap;
-  font-weight: 600; 
-   
+  font-weight: 600;
 }
 
 .emp-add-btn:hover {
   background: #2739ae;
 }
-   /* Mobile Filter Buttons */
+
+/* Mobile Filter Buttons */
 @media (max-width: 768px) {
   .emp-filters {
-    justify-content: center; 
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
 
   .emp-filters button {
-    flex: 1 1 48%;             
+    flex: 1 1 48%;
     margin-bottom: 8px;
     text-align: center;
-    height: 40px;             
+    height: 40px;
   }
 }
 
@@ -161,11 +161,12 @@
     align-items: stretch;
     gap: 12px;
   }
+
   .emp-add-btn {
     order: 1;
     width: 100%;
     justify-content: center;
-    height: 40px;            
+    height: 40px;
   }
 
   .emp-search {
@@ -173,13 +174,12 @@
     width: 100%;
   }
 }
-
-
- /* ===== Icons ===== */
+/* ===== Icons ===== */
 .user-icon {
   font-size: 40px;
   color: #0F8A4B;
 }
+
 /* Action Icons*/
 .action-icons {
   display: flex;
@@ -198,28 +198,31 @@
   cursor: pointer;
   border-radius: 6px;
   transition: background-color 0.15s ease, transform 0.15s ease;
-   }
-   .edit-icon {
-  color: #2f80ed;
-   }
+}
 
-  .edit-icon:hover {
+.edit-icon {
+  color: #2f80ed;
+}
+
+.edit-icon:hover {
   background-color: #d6e7ff;
   transform: scale(1.1);
-   }
-  .delete-icon {
-  color: #e74c3c;
-  }
+}
 
-  .delete-icon:hover {
+.delete-icon {
+  color: #e74c3c;
+}
+
+.delete-icon:hover {
   background-color: #f9d3cf;
   transform: scale(1.1);
-   }
+}
+
 /* ===== Form ===== */
 .form-label {
   font-weight: 600;
   font-size: 0.9rem;
-  margin-bottom: 4px !important; 
+  margin-bottom: 4px !important;
 }
 
 .custom-input {
@@ -268,9 +271,6 @@
 }
 
 /* ===== Responsive ===== */
-
-
-
 @media (max-width: 768px) {
   .nav-search-box {
     max-width: 100%;
@@ -282,6 +282,7 @@
 }
 
 @media (max-width: 576px) {
+
   .btn-cancel,
   .btn-save {
     width: 100%;

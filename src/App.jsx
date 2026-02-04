@@ -1,16 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-
 import Layout from './Layout/Layout';
-
-// import Dashboard from './Pages/Dashboard';
-// import Login from './Pages/Login';
-// import Register from './Pages/Register';
-// import Nozzle from './Pages/Nozzle';
-// import Reports from './Pages/Reports';
-// import StaffManagement from './Pages/StaffManagement';
-// import Sidebar from './Components/SideBar/Sidebar';
 
 import Dashboard from './Pages/Dashboard/Dashboard'
 import Login from './Pages/Auth/Login'

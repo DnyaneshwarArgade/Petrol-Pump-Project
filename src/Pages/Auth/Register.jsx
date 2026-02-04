@@ -125,7 +125,6 @@ function Register() {
             onChange={handleChange}
           />
 
-          
           <div className="password-wrapper">
             <input
               type={showPassword ? "text" : "password"}
@@ -140,7 +139,7 @@ function Register() {
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-            
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -157,7 +156,7 @@ function Register() {
                   <path d="M9.9 4.24A9.77 9.77 0 0 1 12 4c7 0 11 8 11 8a21.8 21.8 0 0 1-4.87 6.88" />
                 </svg>
               ) : (
-                
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"

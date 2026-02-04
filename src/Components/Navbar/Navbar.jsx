@@ -35,7 +35,7 @@ function Navbar() {
         <div className="menu-container">
           {/* Desktop view text */}
           <span className="nav-right desktop-only">
-             Welcome Admin
+            Welcome Admin
           </span>
 
           <button
