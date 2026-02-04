@@ -50,7 +50,7 @@ const ProfitCalculation = () => {
 
             <div className="update-right">
               <button className="action-btn" onClick={handleUpdateExpenses}>
-                Update Expenses
+                Clear
               </button>
             </div>
           </div>
