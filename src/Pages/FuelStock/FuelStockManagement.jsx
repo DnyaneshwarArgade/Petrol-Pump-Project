@@ -57,6 +57,7 @@ function FuelStockManagement() {
         cancelButtonText: "Cancel",
         confirmButtonColor: "#2961ef",
         cancelButtonColor: "#6c757d",
+        reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           setRecords((prev) =>
