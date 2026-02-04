@@ -57,6 +57,7 @@ function FuelStockManagement() {
         cancelButtonText: "Cancel",
         confirmButtonColor: "#2961ef",
         cancelButtonColor: "#6c757d",
+        reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           setRecords((prev) =>
@@ -142,18 +143,18 @@ function FuelStockManagement() {
   };
 
   const filteredRecords = records.filter((r) => {
-  const term = searchTerm.toLowerCase();
+    const term = searchTerm.toLowerCase();
 
-  const matchesSearch =
-    r.fuelType.toLowerCase().includes(term) ||
-    r.quantity.toString().includes(term) ||
-    r.date.includes(term);
+    const matchesSearch =
+      r.fuelType.toLowerCase().includes(term) ||
+      r.quantity.toString().includes(term) ||
+      r.date.includes(term);
 
-  const matchesType =
-    selectedType === "All" || r.fuelType === selectedType;
+    const matchesType =
+      selectedType === "All" || r.fuelType === selectedType;
 
-  return matchesSearch && matchesType;
-});
+    return matchesSearch && matchesType;
+  });
 
   const totalPages = Math.ceil(filteredRecords.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -177,31 +178,31 @@ function FuelStockManagement() {
           <FaPlus /> Add Stock
         </button>
         <div className="filter-buttons">
-  <button
-    className={selectedType === "All" ? "active" : ""}
-    onClick={() => setSelectedType("All")}
-  >
-    All Type
-  </button>
-  <button
-    className={selectedType === "Petrol" ? "active" : ""}
-    onClick={() => setSelectedType("Petrol")}
-  >
-    Petrol
-  </button>
-  <button
-    className={selectedType === "Diesel" ? "active" : ""}
-    onClick={() => setSelectedType("Diesel")}
-  >
-    Diesel
-  </button>
-  <button
-    className={selectedType === "CNG" ? "active" : ""}
-    onClick={() => setSelectedType("CNG")}
-  >
-    CNG
-  </button>
-</div>
+          <button
+            className={selectedType === "All" ? "active" : ""}
+            onClick={() => setSelectedType("All")}
+          >
+            All Type
+          </button>
+          <button
+            className={selectedType === "Petrol" ? "active" : ""}
+            onClick={() => setSelectedType("Petrol")}
+          >
+            Petrol
+          </button>
+          <button
+            className={selectedType === "Diesel" ? "active" : ""}
+            onClick={() => setSelectedType("Diesel")}
+          >
+            Diesel
+          </button>
+          <button
+            className={selectedType === "CNG" ? "active" : ""}
+            onClick={() => setSelectedType("CNG")}
+          >
+            CNG
+          </button>
+        </div>
 
         <div className="search-wrapper">
           <FaSearch className="search-icon" />
@@ -269,7 +270,7 @@ function FuelStockManagement() {
                     </div>
                   </td>
 
-                  
+
                 </tr>
               ))
             )}

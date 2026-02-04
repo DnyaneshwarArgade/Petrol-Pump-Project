@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./StaffManagement.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -17,8 +17,6 @@ import {
   // BsPencilSquare,
   // BsTrashFill
 } from "react-icons/bs";
-
-
 // import { FaUserCircle } from "react-icons/fa";
 
 const EmployeeManagement = () => {
@@ -26,8 +24,7 @@ const EmployeeManagement = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [search, setSearch] = useState("");
-    const [activeFilter, setActiveFilter] = useState("all");
-
+  const [activeFilter, setActiveFilter] = useState("all");
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,51 +82,47 @@ const EmployeeManagement = () => {
       }
     });
   };
-      
-  const handleEdit = (emp) => {
-  setSelectedEmployee(emp);
-  setIsEdit(true);
-  setShowModal(true);
-     };
 
-    //Search & Button Filter
-    const filteredEmployees = employees
-  .filter(emp =>
-    emp.name?.toLowerCase().includes(search.toLowerCase()) ||
-    emp.jobTitle?.toLowerCase().includes(search.toLowerCase()) ||
-    emp.email?.toLowerCase().includes(search.toLowerCase())
-  )
-  .filter(emp => {
-    if (activeFilter === "all") return true;
-    if (activeFilter === "cashier") return emp.jobTitle === "Cashier";
-    if (activeFilter === "manager") return emp.jobTitle === "Manager";
-    if (activeFilter === "active") return emp.status === "Active";
-    return true;
-  });
+  const handleEdit = (emp) => {
+    setSelectedEmployee(emp);
+    setIsEdit(true);
+    setShowModal(true);
+  };
+
+  //Search & Button Filter
+  const filteredEmployees = employees
+    .filter(emp =>
+      emp.name?.toLowerCase().includes(search.toLowerCase()) ||
+      emp.jobTitle?.toLowerCase().includes(search.toLowerCase()) ||
+      emp.email?.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter(emp => {
+      if (activeFilter === "all") return true;
+      if (activeFilter === "cashier") return emp.jobTitle === "Cashier";
+      if (activeFilter === "manager") return emp.jobTitle === "Manager";
+      if (activeFilter === "active") return emp.status === "Active";
+      return true;
+    });
   // Pagination
   const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = filteredEmployees.slice(startIndex, startIndex + itemsPerPage);
 
   // Fix: If current page becomes empty after delete, go to previous page
-    useEffect(() => {
-  if (currentPage > totalPages && totalPages > 0) {
-    setCurrentPage(totalPages);
-  }
-  if (totalPages === 0) {
-    setCurrentPage(1);
-  }
-     }, [filteredEmployees.length, totalPages, currentPage]);
-
-
-
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    }
+    if (totalPages === 0) {
+      setCurrentPage(1);
+    }
+  }, [filteredEmployees.length, totalPages, currentPage]);
 
   return (
     <div className="container-fluid px-4 py-3 main-bg">
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h3 className="fw-bold mb-2">Employee Management</h3>
       </div>
-     
 
       {/* Cards */}
       <div className="row g-4 mb-4">
@@ -143,61 +136,67 @@ const EmployeeManagement = () => {
       {/* Manage Section */}
       <div className="manage-box mb-4">
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <h4 className="fw-bold mb-1">Manage Employees</h4>
+          <h4 className="fw-bold mb-3">Manage Employees</h4>
+        </div>
+        {/* 🔘 Filters + Search + Add */}
+        <div className="emp-topbar">
+          {/* Filters */}
+          <div className="emp-filters">
+            <button
+              className={activeFilter === "all" ? "active" : ""}
+              onClick={() => setActiveFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={activeFilter === "cashier" ? "active" : ""}
+              onClick={() => setActiveFilter("cashier")}
+            >
+              Cashier
+            </button>
+            <button
+              className={activeFilter === "manager" ? "active" : ""}
+              onClick={() => setActiveFilter("manager")}
+            >
+              Manager
+            </button>
+            <button
+              className={activeFilter === "active" ? "active" : ""}
+              onClick={() => setActiveFilter("active")}
+            >
+              Active
+            </button>
+          </div>
+
+          {/* Search */}
+          <div className="emp-search">
+            <BsSearch className="emp-search-icon" />
+            <input
+              type="text"
+              placeholder="Search employees..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            {search && (
+              <span className="emp-clear" onClick={() => setSearch("")}>
+                ✕
+              </span>
+            )}
+          </div>
+
+          {/* Add Button */}
           <button
-            className="btn-add"
+            className="emp-add-btn"
             onClick={() => {
               setIsEdit(false);
               setSelectedEmployee(null);
               setShowModal(true);
-            }}
-          >
-            +
+            }} >
+            + Add Employee
           </button>
         </div>
-        
-         {/* 🔍 Full Width Search Bar */}
-      <div className="nav-search-container mb-4">
-        <div className="nav-search-box">
-          <BsSearch className="nav-search-icon" />
-          <input
-            type="text"
-            placeholder="Search employees..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          {search && (
-            <span className="nav-clear" onClick={() => setSearch("")}>✕</span>
-          )}
-        </div>
-      </div>
-      {/* 🔘 Filter Buttons */}
-             <div className="filter-btn-group mb-4">
-          <button
-    className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
-    onClick={() => setActiveFilter("all")} >
-    All Employees
-       </button>
 
-      <button
-    className={`filter-btn ${activeFilter === "cashier" ? "active" : ""}`}
-    onClick={() => setActiveFilter("cashier")}>
-    Cashiers
-     </button>
-
-      <button
-    className={`filter-btn ${activeFilter === "manager" ? "active" : ""}`}
-    onClick={() => setActiveFilter("manager")}>
-    Managers
-      </button>
-
-     <button
-    className={`filter-btn ${activeFilter === "active" ? "active" : ""}`}
-    onClick={() => setActiveFilter("active")}>
-    Active Staff
-       </button>
-      </div>
-    {/* Employee Table */}
+        {/* Employee Table */}
         <div className="table-responsive">
           <table className="table align-middle">
             <thead>
@@ -227,28 +226,30 @@ const EmployeeManagement = () => {
                     <td>{emp.phone}</td>
                     <td>{emp.shift}</td>
                     <td>{emp.status}</td>
-                  <td>
-              <td className="action-td">
-           <div className="action-icons">
-         {/* EDIT */}
-      <span
-      className="edit-icon"
-      onClick={() => handleEdit(emp)}
-      title="Edit">
-      <FaPen size={16} />
-    </span>
+                    <td>
+                      <td className="action-td">
+                        <div className="action-icons">
 
-    {/* DELETE */}
-    <span
-      className="delete-icon"
-      onClick={() => handleDelete(emp.id)}
-      title="Delete">
-      <FaTrash size={16} />
-    </span>
-      </div>
-    </td>
-    </td>
-      </tr>
+                          {/* EDIT */}
+                          <span
+                            className="edit-icon"
+                            onClick={() => handleEdit(emp)}
+                            title="Edit"
+                          >
+                            <FaPen size={16} />
+                          </span>
+
+                          {/* DELETE */}
+                          <span
+                            className="delete-icon"
+                            onClick={() => handleDelete(emp.id)}
+                            title="Delete">
+                            <FaTrash size={16} />
+                          </span>
+
+                        </div>
+                      </td>
+                    </td> </tr>
                 ))
               ) : (
                 <tr>
@@ -309,7 +310,4 @@ const Card = ({ icon, title, count, color }) => (
   </div>
 );
 
-
-
-
-export default EmployeeManagement; 
+export default EmployeeManagement;

@@ -114,29 +114,65 @@
   padding-bottom: 20px;
 }
 
-.filters-buttons {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin: 5px;
+.nozzle-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
 }
 
-@media (max-width: 576px) {
-  .filters-buttons {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: center;
+.nozzle-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fuel-filter-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.fuel-pill {
+  padding: 8px 18px;
+  border-radius: 25px;
+  border: none;
+  background: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fuel-pill.active {
+  background: #2f5cff;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .nozzle-header {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    row-gap: 10px;
   }
 
-  .filters-buttons button {
-    white-space: nowrap;
-    flex-shrink: 0;
-    font-size: 13px;
-    padding: 4px 10px;
+  .fuel-filter-wrapper {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
-  .filters-buttons::-webkit-scrollbar {
-    display: none;
+  .fuel-pill {
+    width: 100%;
+    text-align: center;
+  }
+
+  .add-nozzle-btn {
+    padding: 6px 10px;
+    font-size: 20px;
+    margin-left: 10px;
   }
 }
 
@@ -296,18 +332,6 @@
 
 .action.delete {
   color: #dc3545;
-}
-
-.NozzButton {
-  width: 120px;
-}
-
-@media (max-width: 576px) {
-  .NozzButton {
-    width: 100px;
-    padding: 8px 12px;
-    font-size: 14px;
-  }
 }
 
 @media (max-width: 768px) {

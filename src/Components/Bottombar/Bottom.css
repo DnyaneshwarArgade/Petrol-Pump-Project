@@ -1,9 +1,10 @@
-*{
-    margin: opx;
-    padding: 0px;
-   }
-   /* Bottomnav Bar */
-  .bottom-nav {
+* {
+  margin: opx;
+  padding: 0px;
+}
+
+/* Bottomnav Bar */
+.bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -12,11 +13,10 @@
   border-top: 1px solid #e0e0e0;
   display: flex;
   z-index: 1000;
-  }
-  
+}
 
-   .nav-item {
-  flex: 0 0 33.33%;              
+.nav-item {
+  flex: 0 0 33.33%;
   text-decoration: none !important;
   color: #777777;
   display: flex;
@@ -25,36 +25,44 @@
   justify-content: center;
   padding: 12px 0;
   transition: color 0.3s ease;
-  }
-  .icon {
+}
+
+.icon {
   font-size: 22px;
   margin-bottom: 4px;
   transition: color 0.3s ease;
-  }
-   .nav-item span {
+}
+
+.nav-item span {
   font-size: 13px;
-  }
-  .nav-item.active {
-  color: #4340df;                 
-  font-weight: 600;
- }
-  .nav-item.active .icon {
+}
+
+.nav-item.active {
   color: #4340df;
-   }
-  .nav-item:hover {
+  font-weight: 600;
+}
+
+.nav-item.active .icon {
   color: #4340df;
 }
-  /* Tablet */
-  @media (max-width: 991px) {
+
+.nav-item:hover {
+  color: #4340df;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
   .icon {
     font-size: 20px;
   }
+
   .nav-item span {
     font-size: 12px;
   }
-  }
-  /* Mobile */
-   @media (max-width: 767px) {
+}
+
+/* Mobile */
+@media (max-width: 767px) {
   .icon {
     font-size: 18px;
   }
@@ -62,4 +70,4 @@
   .nav-item span {
     font-size: 11px;
   }
-    }
+}

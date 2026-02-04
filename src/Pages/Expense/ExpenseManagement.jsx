@@ -39,13 +39,13 @@ const ProfitCalculation = () => {
         <h3 className="page-title">Expense & Profit Management</h3>
 
         <div className="content-row">
-          
+
           <div className="left-section">
-            <div className="expense-list">              
+            <div className="expense-list">
               <ExpenseRow icon={<FaBolt />} label="Electricity Bill" value={electricity} setValue={setElectricity} />
               <ExpenseRow icon={<FaBriefcase />} label="Salary Expense" value={salary} setValue={setSalary} />
               <ExpenseRow icon={<FaTools />} label="Maintenance" value={maintenance} setValue={setMaintenance} />
-              <ExpenseRow icon={<FaCoins />} label="Other Expenses" value={other} setValue={setOther} /> 
+              <ExpenseRow icon={<FaCoins />} label="Other Expenses" value={other} setValue={setOther} />
             </div>
 
             <div className="update-right">
@@ -55,7 +55,6 @@ const ProfitCalculation = () => {
             </div>
           </div>
 
-         
           <div className="right-section">
             <div className="profit-box">
               <div className="profit-header">Profit Calculation</div>
@@ -91,6 +90,7 @@ const ProfitCalculation = () => {
     </div>
   );
 };
+
 const ExpenseRow = ({ icon, label, value, setValue }) => (
   <div className="expense-row">
     <div className="expense-left">
@@ -107,8 +107,8 @@ const ExpenseRow = ({ icon, label, value, setValue }) => (
       }
     />
   </div>
-  
 );
+
 export default ProfitCalculation;
 
 

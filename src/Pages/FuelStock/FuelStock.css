@@ -29,7 +29,7 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 15px; 
+  gap: 15px;
 }
 
 /* Desktop order */
@@ -37,7 +37,7 @@ body {
   order: 1;
   flex: 1;
   min-width: 200px;
-  position: relative; 
+  position: relative;
 }
 
 .add-stock-btn {
@@ -66,7 +66,7 @@ body {
 /* ================= Search ================= */
 .search-input {
   width: 100%;
-  padding: 9px 40px 9px 36px; 
+  padding: 9px 40px 9px 36px;
   border-radius: 20px;
   border: 1px solid #ccc;
   font-size: 14px;
@@ -90,7 +90,7 @@ body {
   font-size: 14px;
   color: #888;
   cursor: pointer;
-  z-index: 10; 
+  z-index: 10;
 }
 
 .clear-icon:hover {
@@ -103,7 +103,7 @@ body {
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .fuel-table {
@@ -135,7 +135,7 @@ body {
 .action-icons {
   display: flex;
   justify-content: center;
-  gap: 15px; 
+  gap: 15px;
 }
 
 .edit-icon {
@@ -206,6 +206,7 @@ body {
   z-index: 1000;
   overflow-y: auto;
 }
+
 .fuel-modal-content {
   background: white;
   width: 100%;
@@ -220,8 +221,15 @@ body {
 }
 
 @keyframes scaleIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .fuel-modal-header {
@@ -245,7 +253,7 @@ body {
 
 .fuel-modal-close {
   font-size: 22px;
-  font-weight: 200;      
+  font-weight: 200;
   cursor: pointer;
   line-height: 1;
   opacity: 0.9;
@@ -256,6 +264,7 @@ body {
   opacity: 1;
   color: #fff;
 }
+
 .fuel-modal-content label {
   font-size: 14px;
   margin-top: 10px;
@@ -296,17 +305,18 @@ body {
   font-size: 13px;
   margin-top: 4px;
 }
+
 /* ================= Filter Buttons ================= */
 .filter-buttons {
   display: flex;
   gap: 10px;
   margin: 15px 0;
-  flex-wrap: wrap; 
-  justify-content: flex-start; 
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .filter-buttons button {
-  flex: 1 1 auto; 
+  flex: 1 1 auto;
   padding: 10px 16px;
   border-radius: 20px;
   border: 1px solid #ccc;
@@ -314,9 +324,9 @@ body {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s ease-in-out; 
+  transition: all 0.2s ease-in-out;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  min-width: 100px; 
+  min-width: 100px;
   text-align: center;
 }
 
@@ -337,39 +347,41 @@ body {
 /* ================= Mobile Fixes ================= */
 @media (max-width: 768px) {
   .filter-buttons {
-    justify-content: center; /* center buttons in mobile */
+    justify-content: center;
+    /* center buttons in mobile */
   }
 
   .filter-buttons button {
-    flex: 1 1 48%; 
-    margin-bottom: 8px; 
+    flex: 1 1 48%;
+    margin-bottom: 8px;
   }
 }
+
 /* ================= Mobile Fixes ================= */
 @media (max-width: 768px) {
   .top-bar {
-    flex-direction: column;  
-    align-items: stretch;    
+    flex-direction: column;
+    align-items: stretch;
     gap: 12px;
   }
+
   .filter-buttons button {
-    flex: 1 1 48%; 
+    flex: 1 1 48%;
     text-align: center;
   }
 
-
-  .add-stock-btn { 
-    order: 1; 
-    width: 100%; 
-    justify-content: center; 
+  .add-stock-btn {
+    order: 1;
+    width: 100%;
+    justify-content: center;
   }
-  .search-wrapper { 
-    order: 2; 
-    width: 100%; 
+
+  .search-wrapper {
+    order: 2;
+    width: 100%;
   }
 
   .fuel-table {
     min-width: 600px;
   }
 }
-

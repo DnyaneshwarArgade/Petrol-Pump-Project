@@ -48,7 +48,6 @@ function AddEmp({
       if (!/^\d*$/.test(value)) return;
       if (value.length > 10) return;
     }
-
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -107,17 +106,16 @@ function AddEmp({
       <div className="modal-dialog modal-dialog-centered modal-lg">
         <div className="emomodal-content shadow-lg rounded-3">
           {/* Header */}
-              <div className="modal-header bg-primary text-white mb-0">
-                       <h5 className="modal-title fw-bold">
-                       {isEdit ? "Edit Employee" : "Add Employee"}
-                    </h5>
-                   <button
+          <div className="modal-header bg-primary text-white mb-0">
+            <h5 className="modal-title fw-bold">
+              {isEdit ? "Edit Employee" : "Add Employee"}
+            </h5>
+            <button
               className="btn-close btn-close-white"
-                 onClick={closeModal}
-                  />
-                    </div>
-
-
+              onClick={closeModal}
+            />
+          </div>
+          
           {/* Body */}
           <div className="modal-body">
             <form onSubmit={handleSubmit} noValidate>

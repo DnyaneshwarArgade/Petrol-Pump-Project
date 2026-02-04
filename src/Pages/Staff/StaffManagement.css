@@ -1,16 +1,12 @@
 .main-bg {
   background: #f6f8fb;
   min-height: 100vh;
-   padding-bottom: 20px !important;
-
-    }
-/* .manage-box {
-  margin-bottom: 60px;  
-} */
+  padding-bottom: 20px !important;
+}
 
 .emp-card {
   background: #fff;
-   padding: 18px;
+  padding: 18px;
   border-radius: 15px;
   display: flex;
   gap: 15px;
@@ -43,125 +39,147 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-
-/* ===== Search Box ===== */
-.nav-search-container {
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.nav-search-box {
+/* Employee Top Bar */
+.emp-topbar {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  border: 1px solid #bfcae9;
-  border-radius: 40px;
-  padding: 10px 15px;
-  background: #fff;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 16px;
 }
 
-.nav-search-box input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 16px;
-  padding-left: 10px;
-  background: transparent;
-}
-
-.nav-search-icon {
-  font-size: 18px;
-  color: #555;
-}
-
-.nav-clear {
-  cursor: pointer;
-  font-size: 16px;
-  color: #777;
-}
-.nav-search-box:hover {
-  border: 2px solid #000;
-  transition: border 0.3s ease;
-}
-/* .nav-search-box:focus-within {
-  border: 2px solid #000;
-} */
-
- /* Filter Buttons Container */
-.filter-btn-group {
+/* Filters */
+.emp-filters {
   display: flex;
-  justify-content: center;   
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;          
-  margin-bottom: 20px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-/* Button Style */
-.filter-btn {
-  padding: 8px 18px;
-  border: 2px solid #0d6efd;
-  background: #fff;
-  color: #0d6efd;
-   border-radius: 8px;
-  font-weight: 600;
+.emp-filters button {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: #f5f6fa;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-weight: 600;
 }
 
-.filter-btn:hover {
-  background: #0d6efd;
+.emp-filters button:hover {
+  background-color: #2961ef;
   color: #fff;
+  border-color: #2961ef;
 }
 
-.filter-btn.active {
-  background: #0d6efd;
+.emp-filters button.active {
+  background-color: #2961ef;
   color: #fff;
+  border-color: #2961ef;
 }
 
-/* 📱 Mobile Responsive */
-@media (max-width: 576px) {
-  .filter-btn {
-    width: 100%;           
+/* Search */
+.emp-search {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+}
+
+.emp-search input {
+  width: 100%;
+  padding: 9px 40px 9px 36px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.emp-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 14px;
+}
+
+.emp-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #888;
+  cursor: pointer;
+}
+
+/* .emp-clear:hover {
+  color: #000;
+} */
+
+/*Add Button */
+.emp-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: #2961ef;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.emp-add-btn:hover {
+  background: #2739ae;
+}
+
+/* Mobile Filter Buttons */
+@media (max-width: 768px) {
+  .emp-filters {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .emp-filters button {
+    flex: 1 1 48%;
+    margin-bottom: 8px;
     text-align: center;
+    height: 40px;
   }
 }
 
+/* Mobile Top Bar  */
+@media (max-width: 768px) {
+  .emp-topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
 
+  .emp-add-btn {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+    height: 40px;
+  }
 
-/* ===== Buttons ===== */
-.btn-add {
-  background: #0d6efd;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 20px;
+  .emp-search {
+    order: 2;
+    width: 100%;
+  }
 }
-
-.btn-cancel {
-  background: #6c757d;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-save {
-  background: #0F8A4B;
-  color: white;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-}
- /* ===== Icons ===== */
+/* ===== Icons ===== */
 .user-icon {
   font-size: 40px;
   color: #0F8A4B;
 }
+
 /* Action Icons*/
 .action-icons {
   display: flex;
@@ -180,28 +198,31 @@
   cursor: pointer;
   border-radius: 6px;
   transition: background-color 0.15s ease, transform 0.15s ease;
-   }
-   .edit-icon {
-  color: #2f80ed;
-   }
+}
 
-  .edit-icon:hover {
+.edit-icon {
+  color: #2f80ed;
+}
+
+.edit-icon:hover {
   background-color: #d6e7ff;
   transform: scale(1.1);
-   }
-  .delete-icon {
-  color: #e74c3c;
-  }
+}
 
-  .delete-icon:hover {
+.delete-icon {
+  color: #e74c3c;
+}
+
+.delete-icon:hover {
   background-color: #f9d3cf;
   transform: scale(1.1);
-   }
+}
+
 /* ===== Form ===== */
 .form-label {
   font-weight: 600;
   font-size: 0.9rem;
-  margin-bottom: 4px !important; 
+  margin-bottom: 4px !important;
 }
 
 .custom-input {
@@ -250,9 +271,6 @@
 }
 
 /* ===== Responsive ===== */
-
-
-
 @media (max-width: 768px) {
   .nav-search-box {
     max-width: 100%;
@@ -264,6 +282,7 @@
 }
 
 @media (max-width: 576px) {
+
   .btn-cancel,
   .btn-save {
     width: 100%;

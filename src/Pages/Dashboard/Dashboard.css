@@ -6,10 +6,8 @@
   padding: 80px 20px 100px;
   overflow: hidden;
 
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.55),
-      rgba(0, 0, 0, 0.55)
-    ),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.55)),
     url('../../assets/petrolpump.jpg');
   background-size: cover;
   background-position: top;
@@ -57,14 +55,38 @@
   flex-shrink: 0;
 }
 
-.card-icon.green   { background: #16a34a; }
-.card-icon.blue    { background: #0284c7; }
-.card-icon.yellow  { background: #facc15; color: #000; }
-.card-icon.orange  { background: #f97316; }
-.card-icon.purple  { background: #9333ea; }
-.card-icon.teal    { background: #14b8a6; }
-.card-icon.indigo  { background: #4f46e5; }
-.card-icon.pink    { background: #ec4899; }
+.card-icon.green {
+  background: #16a34a;
+}
+
+.card-icon.blue {
+  background: #0284c7;
+}
+
+.card-icon.yellow {
+  background: #facc15;
+  color: #000;
+}
+
+.card-icon.orange {
+  background: #f97316;
+}
+
+.card-icon.purple {
+  background: #9333ea;
+}
+
+.card-icon.teal {
+  background: #14b8a6;
+}
+
+.card-icon.indigo {
+  background: #4f46e5;
+}
+
+.card-icon.pink {
+  background: #ec4899;
+}
 
 .card-content {
   display: flex;
